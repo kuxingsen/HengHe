@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>新闻发布中心 - 登录</title>
+    <link rel="stylesheet" href="/static_admin/layui/css/layui.css">
+    <link rel="stylesheet" href="/static_admin/css/style.css">
+
+</head>
+<body style="background-color:#f0f0f0">
+
+<div class="login-main">
+    <header class="layui-elip">信息管理中心登录</header>
+    <form class="layui-form">
+        <div class="layui-input-inline">
+            <input type="text" name="username" required lay-verify="required" placeholder="用户名" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline login-btn">
+            <button lay-submit lay-filter="login" class="layui-btn">登录</button>
+        </div>
+        <hr/>
+    </form>
+</div>
+
+
+<script src="/static_admin/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['form', 'layer', 'jquery'], function () {
+
+        // 操作对象
+        var form = layui.form;
+        var $ = layui.jquery;
+        form.on('submit(login)', function (data) {
+            $.ajax({
+                url: 'adminLogin',
+                data: data.field,
+                dataType: 'json',
+                type: 'post',
+                success: function (data) {
+                    if (data.code == "200") {
+                        location.href = "add";
+                    } else {
+                        layer.msg(data.msg);
+                        $(".layui-form")[0].reset();
+                    }
+                }
+            });
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

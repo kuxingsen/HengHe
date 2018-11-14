@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>公司介绍</title>
+
+    <meta name="keywords" content="恒河">
+    <meta name="description" content="恒河">
+    <meta name="renderer" content="webkit">
+
+    <link rel="stylesheet" href="/static_user/css/public.css">
+    <link rel="stylesheet" href="/static_user/css/style.css">
+
+    <script type="text/javascript" src="/static_user/js/jquery.min.js"></script>
+
+    <style media="screen">
+        @media only screen and (max-width: 1230px) {
+
+            body,
+            #shouye-nav {
+                width: 1230px !important;
+            }
+
+            .layout .zllist li {
+                margin-right: 88px;
+            }
+
+            #demark .index-issue .content .prev,
+            #demark .index-issue .content .next {
+                display: none;
+            }
+
+            .tempWrap {
+                width: 1215px !important;
+            }
+
+            #domain .floor1 .btnr,
+            #domain .floor1.btnl {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="headerpage"></div>
+
+    <!--公司介绍-->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tbody>
+            <tr>
+                <td width="192" valign="top">
+                    <div class="pleft">
+                        <h4 class="pleftzt">※公司介绍</h4>
+                        <ul>
+                            <li><a href="#">业务详情</a></li>
+                        </ul>
+                    </div>
+                    <br>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="192">
+                        <tbody>
+                            <tr>
+                                <td align="center" width="60" height="50" valign="middle"><img src="/static_user/images/lianxi.jpg"
+                                        width="44" border="0"></td>
+                                <td valign="top" style="padding-left:8px;">联系人：<br>孔小姐<br></td>
+                            </tr>
+
+                            <tr>
+                                <td align="center" width="60" height="50" valign="middle"><img src="/static_user/images/dianhua.jpg"
+                                        width="44" border="0"></td>
+                                <td valign="top" style="padding-left:8px;">联系电话：<br>0758-12345678<br></td>
+                            </tr>
+
+                            <tr style="display:none;">
+                                <td align="center" width="60" height="50" valign="middle"> <img src="/static_user/images/chuanzhen.jpg"
+                                        width="44" border="0"></td>
+                                <td valign="top" style="padding-left:8px;">传真：<br>0758-12345678</td>
+                            </tr>
+
+                            <tr>
+                                <td align="center" width="60" height="50" valign="middle"><img src="/static_user/images/fankui.jpg"
+                                        width="44" border="0"></td>
+                                <td valign="top" style="padding-left:8px;">在线反馈：<br> <a style="color:red;" href="message.asp">留言本&gt;&gt;</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+
+                <td valign="top" style="padding-left:25px;padding-right:22px;">
+                    <!-- <dl class="info">
+                <dt>关于恒河</dt>
+                    <dd style="line-height:220%;padding-left:280px;background:url(images/b.jpg) no-repeat;">
+                    <div style="text-align: justify"><br>&nbsp;</div>
+                    <div style="text-align: justify">我们为专业赛事，世界品牌，体育组织，体育部门以及体育场馆提供专业的体育营销服务。我们通过体育营销咨询，整合赞助服务赛事管理运营、媒体综合服务和体育公关活动，帮助最大化的提升客户的影响力品牌价值、销售数量和赛事规模。</div>
+                    </dd>
+                </dl> -->
+                    <div id="content-wrapper">
+                        <div class="content-head">
+                            <h1></h1>
+                            <div></div>
+                        </div>
+                        <div class="content"></div>
+                        <div class="content-foot">
+                            <a href="/downFile?id=1"></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footerpage"></div>
+
+    <script>
+        $(function () {
+            $(".headerpage").load("title.html");
+            $(".footerpage").load("foot.html");
+            var articleId = window.location.search.substr(4);
+            $.ajax({
+                url: '/selectMessageByMessageId',
+                type: 'get',
+                data: { messageId: articleId},
+                success: function (res) {
+                    if (res.code == 200) {
+                        // 渲染文章
+                        var title = $('.content-head').children('h1');
+                        var date = $('.content-head').children('div');
+                        title.text(res.datas[0].title);
+                        date.text(res.datas[0].date);
+                        $('.content').html(res.datas[0].content);
+                        if (res.datas[0].filePath) {
+                            $('.content-foot').children('a').text('附件: ' + res.datas[0].filePath);
+                            $('.content-foot').children('a').attr('href', '/downFile?messageId=' + res.datas[0].id);
+                        } else {
+                            $('.content-foot').children('a').remove();
+                        }
+                    }
+                }
+            })
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,238 @@
+/*公共样式，可以抽出来复用*/
+.row,.content-center {
+  font-size: 17px;
+}
+html {
+  font-family: 'Microsoft Yahei';
+  color: #666;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+a:hover, a>span:hover {
+  color: #CD0000;
+}
+ul {
+  padding-left: 0;
+}
+
+.nav_logo {
+  width: 380px;
+  height: 80px;
+}
+
+/*子页面样式*/
+.container-wrap {
+  /* background: #f1eeee; */
+}
+.container {
+  margin: 40px auto;
+  width:950px;
+  /* background: #7f8281; */
+}
+.content-left {
+  width: 180px;
+  float: left;
+}
+.content-left h3 {
+  padding-left: 8px;
+}
+.content-left li {
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+  padding-left: 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+.content-center {
+  width: 800px;
+  display: block;
+  margin: 0 auto;
+  /* margin-left: 50px; */
+}
+.content-center h3 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: .4rem;
+}
+.center-ul {
+    height: 420px;
+    overflow: hidden;
+}
+.center-ul li {
+  margin-top: 1.2rem;
+}
+.center-footer {
+  text-align: center;
+}
+.content-left li:hover {
+  transition: all .4s;
+  border-left: 6px solid #bf9d5a;
+}
+.right-date {
+  float: right;
+}
+
+/* 分页组件样式*/
+.pagination {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin-top: 25px;
+}
+.pagination li {
+  display: inline;
+  text-align: center;
+}
+.pagination a {
+  float: left;
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 5px 12px;
+  color: #fff;
+  margin-left: -1px;
+  border: 1px solid transparent;
+  line-height: 1.5;
+}
+.pagination a.active {
+  cursor: default;
+}
+.pagination a:active {
+  outline: none;
+}
+.modal-2 li:first-child a {
+  -moz-border-radius: 50px 0 0 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px 0 0 50px;
+}
+.modal-2 li:last-child a {
+  -moz-border-radius: 0 50px 50px 0;
+  -webkit-border-radius: 0;
+  border-radius: 0 50px 50px 0;
+}
+.modal-2 a {
+  border-color: #ddd;
+  color: #999;
+  background: #fff;
+}
+.modal-2 a:hover {
+  color: #E34E48;
+  background-color: #eee;
+}
+.modal-2 a.active, .modal-2 a:active {
+  border-color: #E34E48;
+  background: #E34E48;
+  color: #fff;
+}
+
+/*主页栏目样式*/
+.row li {
+  margin: 1rem auto;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.row li>a {
+  margin-left: .3rem;
+}
+.row {
+  width: 1200px;
+  margin: 20px auto;
+  display: block;
+}
+.column2-1 {
+  display: inline-block;
+  width: 530px;
+  height: 220px;
+  overflow: hidden;
+  padding-left: 50px;
+
+}
+.column2-1 li:before {
+  content: "";
+  display: inline-block;
+  background: url("/static_user/images/icon-list.jpg") no-repeat center center;
+  width: 20px;
+  height: 15px;
+}
+.swiper-container {
+    width: 100%;
+    height: 480px;
+}
+
+#content-wrapper {
+  margin-top: 40px;
+  font-size: 18px;
+  line-height: 32px;
+  margin-bottom: 40px;
+}
+
+.content-head>* {
+	text-align: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.content-foot {
+  margin-top: 50px;
+}
+.content-foot>a {
+  color: #E34E48;
+}
+h1 {
+  font-size: 24px;
+}
+
+/* 底部 */
+.footer .service-lis ul li {
+  float: clear;
+}
+.service-lis ul {
+  width: 680px;
+  margin: 0 auto;
+}
+.footer .service-lis ul .first {
+  padding-left: 80px;
+}
+
+/* 带图片的列表页面 */
+.center-ul-img {
+  height: 705px;
+  overflow: hidden;
+}
+.item-wrapper {
+  position: relative;
+  /* width:  */
+  border-bottom: 1px solid #ddd;
+  height: 140px;
+  width: 100%;
+  overflow: hidden;
+}
+.item-wrapper:hover {
+  background: #fafafa;
+}
+.item-img {
+  width: 170px;
+  height: 120px;
+  top: 10px;
+  left: 10px;
+  position: absolute;
+}
+.item-text {
+  position: absolute;
+  width: 610px;
+  left: 190px;
+  top: 10px;
+  font-size: 20px;
+  line-height: 140%;
+}
+.item-text a:hover {
+  text-decoration: none;
+}
+.date {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}

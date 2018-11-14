@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>恒河体育</title>
+
+	<meta name="keywords" content="恒河">
+	<meta name="description" content="恒河">
+	<meta name="renderer" content="webkit">
+
+	<link rel="stylesheet" href="/static_user/css/public.css">
+	<link rel="stylesheet" href="/static_user/css/main.css">
+	<link rel="stylesheet" href="/static_user/css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+
+	<script type="text/javascript" src="/static_user/js/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+
+	<style media="screen">
+		@media only screen and (max-width: 1230px){
+            body,#shouye-nav{
+                width: 1230px !important;
+            }
+            .layout .zllist li {
+               margin-right: 88px;
+            }
+            #demark .index-issue .content .prev,#demark .index-issue .content .next {
+                display:none;
+            }
+            .tempWrap{
+                width: 1215px !important;
+            }
+            #domain .floor1 .btnr,#domain .floor1.btnl {
+                display:none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+	<div class="headerpage"></div>
+
+	<!--banner（轮播图）-->
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			<!-- <div class="swiper-slide">
+				<a href="#">
+					<img src="http://img.zcool.cn/community/010a1b554c01d1000001bf72a68b37.jpg@1280w_1l_2o_100sh.png" width=100% height=100%>
+				</a>
+			</div>
+			<div class="swiper-slide">
+				<a href="#">
+					<img src="http://pic33.photophoto.cn/20141022/0019032438899352_b.jpg" width=100% height=100%>
+				</a>
+			</div> -->
+		</div>
+		<!-- 如果需要分页器 -->
+		<div class="swiper-pagination"></div>
+		<!-- 如果需要导航按钮 -->
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+		<!-- 如果需要滚动条 -->
+		<!-- <div class="swiper-scrollbar"></div> -->
+	</div>
+
+	<!-- 中央新闻  -->
+	<div class="row">
+		<div class="column2-1">
+			<h3 class="column-head"> <a href="news.html?id=1">比赛信息</a></h3>
+			<ul>
+				<!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来</a></li>
+				<li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种</a></li>
+				<li><a href="#">港珠澳大桥通车 从珠海口岸到香港国际机场约45分钟可直达</a></li>
+				<li><a href="#">深圳城市建设应发挥“设计之都”优势</a></li>
+				<li><a href="#">广州首条直飞仰光低成本航线开通 单程票价约700多元</a></li> -->
+			</ul>
+		</div>
+		<div class="column2-1">
+			<h3 class="column-head"> <a href="news.html?id=2">新闻中心</a></h3>
+			<ul>
+				<!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来？</a></li>
+				<li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种</a></li>
+				<li><a href="#">港珠澳大桥通车 从珠海口岸到香港国际机场约45分钟可直达</a></li>
+				<li><a href="#">深圳城市建设应发挥“设计之都”优势</a></li>
+				<li><a href="#">广州首条直飞仰光低成本航线开通 单程票价约700多元</a></li> -->
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column2-1">
+			<h3 class="column-head"><a href="news.html?id=3">服务项目</a></h3>
+			<ul>
+				<!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来</a></li>
+				<li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种</a></li>
+				<li><a href="#">港珠澳大桥通车 从珠海口岸到香港国际机场约45分钟可直达</a></li>
+				<li><a href="#">深圳城市建设应发挥“设计之都”优势</a></li>
+				<li><a href="#">广州首条直飞仰光低成本航线开通 单程票价约700多元</a></li> -->
+			</ul>
+		</div>
+		<div class="column2-1">
+			<h3 class="column-head"> <a href="news.html?id=4"> 顾问团队 </a></h3>
+			<ul>
+				<!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来？</a></li>
+				<li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种</a></li>
+				<li><a href="#">港珠澳大桥通车 从珠海口岸到香港国际机场约45分钟可直达</a></li>
+				<li><a href="#">深圳城市建设应发挥“设计之都”优势</a></li>
+				<li><a href="#">广州首条直飞仰光低成本航线开通 单程票价约700多元</a></li> -->
+			</ul>
+		</div>
+	</div>
+
+	<div class="footerpage"></div>
+
+	<script>
+		$(function () {
+			sessionStorage.setItem("index", -1);
+			$(".headerpage").load("./title.html");
+			$(".footerpage").load("./foot.html");
+		});
+	</script>
+
+
+	<script type="text/javascript">
+
+		// 轮播图
+		$.ajax({
+			url: '/selectBanner',
+			method: 'get',
+			dataType: 'json',
+			success: function (res) {
+				if (res.code === 200) {
+					var list = res.datas;
+					for (var i = 0; i < list.length; i++) {
+						var id = list[i].id;
+						var title = list[i].title;
+						var titleImg = list[i].titleImg;
+						var html = '<div class="swiper-slide"><a href="article.html?id=' + id + '"><img src="' + titleImg + '" width=100% height=100%></a></div>';
+						//arr[]存储的是后台返回的data里的src
+						$('.swiper-wrapper').append(html);
+					}
+
+					var mySwiper = new Swiper('.swiper-container', {
+						direction: 'horizontal', //水平切换
+						loop: true,//循环模式选项
+
+						// // 如果需要分页器
+						pagination: {
+							el: '.swiper-pagination',
+						},
+
+						//如果需要前进后退按钮
+						navigation: {
+							nextEl: '.swiper-button-next',
+							prevEl: '.swiper-button-prev',
+						}
+					})
+				}
+			}
+		})
+
+		// 新闻列表
+		for (var i = 1; i <= 4; i++) {
+			getColumnList(i);
+		}
+		function getColumnList(cid) {
+			$.ajax({
+				url: '/selectMessageByColumnId',
+				type: 'get',
+				data: { columnId: cid, page: 1,count:10 },
+				success: function (res) {
+					if (res.code === 200) {
+						var list = res.datas;
+						var column = $('.column2-1').eq(cid - 1).children('ul');
+						for (var i = 0; i < list.length; i++) {
+							column.append('<li><a href="article.html?id=' + list[i].id + '">' + list[i].title + '</a></li>');
+						}
+					}
+				}
+			})
+		}
+	</script>
+</body>
+
+</html>

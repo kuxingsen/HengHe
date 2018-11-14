@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <mvc:annotation-driven>
+        <!--使@ResponseBody返回的json中的null值不显示-->
+        <mvc:message-converters>
+            <bean id="fastJsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="serializationInclusion">
+                            <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <mvc:default-servlet-handler/>
+    <context:component-scan base-package="com.henghe"/>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/views/" />
+        <!--<property name="prefix" value="/"/>-->
+        <property name="suffix" value=".html"/>
+    </bean>
+
+    <!--注册拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--<mvc:mapping path="com.yiban.controller" />-->
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.henghe.controller.AdminInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+          p:messageConverters-ref="messageConverters"/>
+    <!--信息处理 -->
+    <util:list id="messageConverters">
+        <bean
+                class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+        <bean
+                class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+        <bean
+                class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
+        <!-- 解析json -->
+        <bean
+                class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+    </util:list>
+
+    <!--文件上传处理 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 文件最大为100MB -->
+        <property name="maxUploadSize" value="104857600" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="resolveLazily" value="false" />
+        <property name="uploadTempDir" value="file:uploadTempDir" />
+    </bean>
+
+
+</beans>

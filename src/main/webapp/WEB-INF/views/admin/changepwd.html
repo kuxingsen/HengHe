@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新闻发布中心 - 修改密码</title>
+    <link rel="stylesheet" href="/static_admin/layui/css/layui.css">
+    <script src="/static_admin/js/jquery-1.4.4.min.js" charset="utf-8"></script>
+    <script src="/static_admin/js/jquery-form.js" charset="utf-8"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">
+            <span style="font-size: 22px;">新闻发布中心</span>
+        </div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+
+                <a id="adminName" href="javascript:void(0);">
+                    管理员:
+                </a>
+            </li>
+            <li class="layui-nav-item"><a href="javascript:void(0);" onclick="adminLogout()">退出登录</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">所有操作</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="add">新闻添加</a></dd>
+                        <dd><a href="control">新闻管理</a></dd>
+                        <dd><a class="layui-this" href="changepwd">修改密码</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body layui-tab-content site-demo site-demo-body">
+        <div class="layui-tab-item layui-show">
+            <div class="layui-main">
+                <div id="LAY_preview">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                        <legend>修改密码</legend>
+                    </fieldset>
+                    <form id="tf" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">管理员账号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="username" lay-verify="required" placeholder="请输入原密码"
+                                       autocomplete="off" class="layui-input" disabled="true">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">原密码<sup style="color:red;font-size:15px;">*</sup></label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="password" lay-verify="required" placeholder="请输入原密码"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">新密码<sup style="color:red;font-size:15px;">*</sup></label>
+                            <div class="layui-input-inline">
+                                <input type="password" id="newPassword" lay-verify="required" name="newPassword"
+                                       placeholder="请输入新密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">确认新密码<sup style="color:red;font-size:15px;">*</sup></label>
+                            <div class="layui-input-inline">
+                                <input type="password" id="newPassword_re" lay-verify="required" placeholder="请重复新密码"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary" onclick="ue.setContent('');">
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer" style="text-align:center;">
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
+    </div>
+</div>
+<script src="/static_admin/layui/layui.js"></script>
+<script>
+
+    layui.use(['form'], function () {
+        var form = layui.form
+            , layer = layui.layer;
+
+
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            //表单校验
+            //校验是否成功获取了管理员名称
+            if ($("#username").val() == "") {
+                layer.msg("管理员账号获取失败,请刷新此页面以重新获取!");
+                return false;
+            }
+
+            //检验是否重复了新密码
+            if ($("#newPassword").val() != $("#newPassword_re").val()) {
+                layer.msg("两次输入的新密码不同, 请重新输入!");
+                return false;
+            }
+
+            //提交表单
+            alert("提交的表单数据为:" + JSON.stringify(data.field));
+            var option = {
+                url: 'updateAdmin',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(data.field),
+                async: false,//设为同步请求
+                headers: {"ClientCallMode": "ajax"}, //添加请求头部
+                success: function (data) {
+                    if (data.code == "200") {
+                        layer.msg("密码修改成功");
+                    } else {
+                        layer.msg("密码修改失败!");
+                    }
+                }
+            };
+            $("#tf").ajaxSubmit(option);
+            return false;
+        });
+
+    });
+
+
+    //加载完成时请求的方法
+    window.onload = function () {
+        //请求加载管理员姓名
+        $.ajax({
+            url: 'getUsername',
+            method: 'post',
+            dataType: 'json',
+            async: true,//异步加载
+            success: function (data) {
+                //加载成功
+                if (data.code == "200") {
+                    //设置管理员名称
+                    $("#adminName").html("管理员:" + data.datas[0]);
+                    $("#username").val(data.datas[0]);
+                } else {
+                    layer.msg("管理员名称加载失败!");
+                }
+            }
+        });
+    };
+
+    function adminLogout(){
+        $.ajax({
+            url: 'adminLogout',
+            method: 'post',
+            dataType: 'json',
+            success: function (data) {
+                //加载成功
+                if (data.code == "200") {
+                    layer.msg("退出登录成功!");
+                    setTimeout("location.href='login'", 500)
+                } else {
+                    layer.msg("管理员名称加载失败!");
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
