@@ -9,40 +9,8 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-  <div class="layui-header">
-    <div class="layui-logo">
-   		<span style="font-size: 22px;">新闻发布中心</span>
-    </div>
-    <!-- 头部区域（可配合layui已有的水平导航） -->
-    <ul class="layui-nav layui-layout-left">
-    </ul>
-    <ul class="layui-nav layui-layout-right">
-      <li class="layui-nav-item">
-      	
-        <a id="adminName" href="javascript:void(0);">
-          	管理员: 
-        </a>
-      </li>
-      <li class="layui-nav-item"><a href="javascript:void(0);" onclick="adminLogout()">退出登录</a></li>
-    </ul>
-  </div>
-  
-  <div class="layui-side layui-bg-black">
-    <div class="layui-side-scroll">
-      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-        <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">所有操作</a>
-          <dl class="layui-nav-child">
-            <dd><a href="add">新闻添加</a></dd>
-            <dd><a class="layui-this" href="control">新闻管理</a></dd>
-            <dd><a href="changepwd">修改密码</a></dd>
-          </dl>
-        </li>
-      </ul>
-    </div>
-  </div>
-  
+  <div id="outside"></div>
+
   <div class="layui-body layui-tab-content site-demo site-demo-body">
     <!-- 内容主体区域 -->
     <div class="layui-tab-item layui-show">
@@ -89,10 +57,7 @@
     </div>
   </div>
   
-  <div class="layui-footer">
-    <!-- 底部固定区域 -->
-    © layui.com - 底部固定区域
-  </div>
+  <div id="footer"></div>
 </div>
 <script src="/static_admin/layui/layui.js"></script>
 <script>
@@ -222,23 +187,6 @@
 	}
 	//加载完成时请求的方法
     window.onload = function() {
-    	//请求加载管理员姓名
-    	$.ajax({
-    		url : '/admin/getUsername',
-    		method : 'post',
-    		dataType : 'json',
-    		async : true,//异步加载
-    		success : function(data) {
-    			//加载成功
-    			if(data.code == "200") {
-    				//设置管理员名称
-    				$("#adminName").html("管理员:" + data.datas[0]);
-    			} else {
-    				layer.msg("管理员名称加载失败!");
-    			}
-    		}
-    	});
-    	
     	//请求加载栏目信息
     	$.ajax({
     		url : '/admin/selectColumn',
@@ -260,7 +208,12 @@
     			}
     		}
     	});
-    	
+        //加载外部
+        $("#outside").load("outside.html", function ()  {
+            $("#doControl").addClass("layui-this");
+        });
+        //加载底部
+        $("#footer").load("footer.html");
     };
 </script>
 </body>

@@ -10,39 +10,7 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo">
-            <span style="font-size: 22px;">新闻发布中心</span>
-        </div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-
-                <a id="adminName" href="javascript:void(0);">
-                    管理员:
-                </a>
-            </li>
-            <li class="layui-nav-item"><a href="javascript:void(0);" onclick="adminLogout()">退出登录</a></li>
-        </ul>
-    </div>
-
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">所有操作</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="add">新闻添加</a></dd>
-                        <dd><a href="control">新闻管理</a></dd>
-                        <dd><a class="layui-this" href="changepwd">修改密码</a></dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <div id="outside"></div>
 
     <div class="layui-body layui-tab-content site-demo site-demo-body">
         <div class="layui-tab-item layui-show">
@@ -94,10 +62,7 @@
         </div>
     </div>
 
-    <div class="layui-footer" style="text-align:center;">
-        <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
-    </div>
+    <div id="footer"></div>
 </div>
 <script src="/static_admin/layui/layui.js"></script>
 <script>
@@ -105,7 +70,6 @@
     layui.use(['form'], function () {
         var form = layui.form
             , layer = layui.layer;
-
 
         //监听提交
         form.on('submit(demo1)', function (data) {
@@ -148,41 +112,14 @@
 
     //加载完成时请求的方法
     window.onload = function () {
-        //请求加载管理员姓名
-        $.ajax({
-            url: 'getUsername',
-            method: 'post',
-            dataType: 'json',
-            async: true,//异步加载
-            success: function (data) {
-                //加载成功
-                if (data.code == "200") {
-                    //设置管理员名称
-                    $("#adminName").html("管理员:" + data.datas[0]);
-                    $("#username").val(data.datas[0]);
-                } else {
-                    layer.msg("管理员名称加载失败!");
-                }
-            }
+        //加载外部
+        $("#outside").load("outside.html", function ()  {
+            $("#doChangePwd").addClass("layui-this");
         });
+        //加载底部
+        $("#footer").load("footer.html");
     };
 
-    function adminLogout(){
-        $.ajax({
-            url: 'adminLogout',
-            method: 'post',
-            dataType: 'json',
-            success: function (data) {
-                //加载成功
-                if (data.code == "200") {
-                    layer.msg("退出登录成功!");
-                    setTimeout("location.href='login'", 500)
-                } else {
-                    layer.msg("管理员名称加载失败!");
-                }
-            }
-        });
-    }
 </script>
 </body>
 </html>
