@@ -25,6 +25,9 @@ import java.util.List;
 
 import static com.henghe.bean.Content.REAL_FILE_PATH;
 
+/**
+ * User 为未注册用户
+ */
 @Controller
 public class UserController {
 
@@ -78,7 +81,7 @@ public class UserController {
         List<Message> messageList = userService.selectMessageByColumnId(columnId,index,count);
 
         int totalNum = commonService.getCount(columnId);
-        int totalPage = totalNum/count + 1;
+        int totalPage = (int)Math.ceil(1.0*totalNum/count);
         if(messageList != null) return new Result<>(200,page,totalNum,totalPage,messageList);
         return new Result<>(500, "没有相应的记录");
     }

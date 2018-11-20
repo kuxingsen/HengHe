@@ -17,7 +17,7 @@ import static com.henghe.bean.Content.TITLE_IMG_PATH;
 public class UserService{
 
     public List<Message> selectMessageByColumnId(String columnId,int index,int count) {
-        String sql = "select mess.id,title,title_img,date,content,file from message mess,menu where mess.menu_id=? and mess.menu_id=menu.id limit "+index+","+count;
+        String sql = "select mess.id,title,title_img,date,content,file from message mess,menu where mess.menu_id=? and mess.menu_id=menu.id order by mess.id desc limit "+index+","+count;
         return getMessageResult(columnId, sql);
     }
 

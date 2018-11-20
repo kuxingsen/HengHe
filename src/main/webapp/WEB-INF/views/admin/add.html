@@ -79,113 +79,113 @@
                                 <div class="layui-input-inline">
                                     <script id="editor" name="content" type="text/plain"
                                             style="width:1024px;height:500px;"></script>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
-                                    <button type="reset" class="layui-btn layui-btn-primary"
-                                            onclick="ue.setContent('');">重置
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- jQuery-form上传文件代码 -->
-                        <!-- <form id="tf" action="upload" enctype="multipart/form-data"">
-                          <div class="layui-form-item">
-                            <label class="layui-form-label">手动文件上传</label>
-                            <div class="layui-input-inline">
-                              <input type="filePath" name="filePath" lay-verify="required" >
-                              <input type="button" value="上传" onclick="doUpload()">
-                            </div>
-                          </div>
-                        </form> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="footer"></div>
-    </div>
+                                    </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                        <button class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+                                        <button type="reset" class="layui-btn layui-btn-primary"
+                                    onclick="ue.setContent('');">重置
+                                        </button>
+                                        </div>
+                                        </div>
+                                        </form>
+                                        <!-- jQuery-form上传文件代码 -->
+                                        <!-- <form id="tf" action="upload" enctype="multipart/form-data"">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">手动文件上传</label>
+                                        <div class="layui-input-inline">
+                                        <input type="filePath" name="filePath" lay-verify="required" >
+                                        <input type="button" value="上传" onclick="doUpload()">
+                                        </div>
+                                        </div>
+                                        </form> -->
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <div id="footer"></div>
+                                        </div>
 
-</div>
-<script type="text/javascript">
-    function createForm(){
-        layui.use(['form'], function () {
-            var form = layui.form,layer = layui.layer;
+                                        </div>
+                                        <script type="text/javascript">
+                                        function createForm(){
+                                            layui.use(['form'], function () {
+                                                var form = layui.form,layer = layui.layer;
 
-            //监听提交
-            form.on('submit(demo1)', function (data) {
-                //表单校验
-                //校验推送时是否上传文件
-                var $titleImg = $("#titleImg");
-                if ($("#isPushed").val() == "1" && $titleImg.val() == "") {
-                    layer.msg("是否推送选择'是'时必须上传一张标题图!");
-                    return false;
-                }
-                //校验标题图文件格式是否为.jpg
-                if ($titleImg.val() != "" && $titleImg.val().substring($titleImg.val().length - 4) != ".jpg") {
-                    layer.msg("标题图的格式必须为'.jpg'格式");
-                    return false;
-                }
+                                                //监听提交
+                                                form.on('submit(demo1)', function (data) {
+                                                    //表单校验
+                                                    //校验推送时是否上传文件
+                                                    var $titleImg = $("#titleImg");
+                                                    if ($("#isPushed").val() == "1" && $titleImg.val() == "") {
+                                                        layer.msg("是否推送选择'是'时必须上传一张标题图!");
+                                                        return false;
+                                                    }
+                                                    //校验标题图文件格式是否为.jpg
+                                                    if ($titleImg.val() != "" && $titleImg.val().substring($titleImg.val().length - 4) != ".jpg") {
+                                                        layer.msg("标题图的格式必须为'.jpg'格式");
+                                                        return false;
+                                                    }
 
-                //提交表单
-                // alert("提交的表单数据为:" + JSON.stringify(data.field));
-                var option = {
-                    url: '/admin/insertMessage',
-                    type: 'POST',
-                    dataType: 'json',
-                    async: false,//设为同步请求
-                    headers: {"ClientCallMode": "ajax"}, //添加请求头部
-                    success: function (data) {
-                        if (data.code == "200") {
-                            layer.msg("新闻添加成功");
-                            setTimeout("location.href='control.html'", 500);
-                        } else {
-                            layer.msg("新闻添加失败!");
-                        }
-                    }
-                };
-                $("#tf").ajaxSubmit(option);
+                                                    //提交表单
+                                                    // alert("提交的表单数据为:" + JSON.stringify(data.field));
+                                                    var option = {
+                                                        url: '/admin/insertMessage',
+                                                        type: 'POST',
+                                                        dataType: 'json',
+                                                        async: false,//设为同步请求
+                                                        headers: {"ClientCallMode": "ajax"}, //添加请求头部
+                                                        success: function (data) {
+                                                            if (data.code == "200") {
+                                                                layer.msg("新闻添加成功");
+                                                                setTimeout("location.href='control.html'", 500);
+                                                            } else {
+                                                                layer.msg("新闻添加失败!");
+                                                            }
+                                                        }
+                                                    };
+                                                    $("#tf").ajaxSubmit(option);
 
-                return false;
-            });
-        });
-    }
-    //实例化编辑器
-    var ue = UE.getEditor('editor');
+                                                    return false;
+                                                });
+                                            });
+                                        }
+                                    //实例化编辑器
+                                    var ue = UE.getEditor('editor');
 
-    //加载完成时请求的方法
-    window.onload = function () {
-        //请求加载栏目信息
-        $.ajax({
-            url: '/admin/selectColumn',
-            method: 'post',
-            dataType: 'json',
-            async: true,//异步加载
-            success: function (data) {
-                //加载成功
-                if (data.code == "200") {
-                    //设置栏目
-                    var options = "<option value=''>直接选择或搜索选择</option><br/>";
-                    for (var i = 0; i < data.datas.length; i++) {
-                        options += "<option value='" + data.datas[i].id + "'>" + data.datas[i].name + "</option><br/>";
-                    }
-                    $("#columnId").html(options);
-                    createForm();
-                } else {
-                    layer.msg("栏目信息加载失败!");
-                }
-            }
-        });
+                                    //加载完成时请求的方法
+                                    window.onload = function () {
+                                        //请求加载栏目信息
+                                        $.ajax({
+                                            url: '/admin/selectColumn',
+                                            method: 'post',
+                                            dataType: 'json',
+                                            async: true,//异步加载
+                                            success: function (data) {
+                                                //加载成功
+                                                if (data.code == "200") {
+                                                    //设置栏目
+                                                    var options = "<option value=''>直接选择或搜索选择</option><br/>";
+                                                    for (var i = 0; i < data.datas.length; i++) {
+                                                        options += "<option value='" + data.datas[i].id + "'>" + data.datas[i].name + "</option><br/>";
+                                                    }
+                                                    $("#columnId").html(options);
+                                                    createForm();
+                                                } else {
+                                                    layer.msg("栏目信息加载失败!");
+                                                }
+                                            }
+                                        });
 
-        //加载外部
-        $("#outside").load("outside.html", function () {
-            $("#doAdd").addClass("layui-this");
-        });
-        //加载底部
-        $("#footer").load("footer.html");
-    };
+                                        //加载外部
+                                        $("#outside").load("outside.html", function () {
+                                            $("#doAdd").addClass("layui-this");
+                                        });
+                                        //加载底部
+                                        $("#footer").load("footer.html");
+                                    };
 
-</script>
+                                    </script>
 </body>
 </html>

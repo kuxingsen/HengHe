@@ -15,7 +15,7 @@ public class AdminInterceptor implements HandlerInterceptor{
         System.out.println("interceptor");
         HttpSession session = httpServletRequest.getSession();
         Integer adminId = (Integer)session.getAttribute("adminId");
-        String md5 = (String)session.getAttribute("key");
+        String md5 = (String)session.getAttribute("admin_key");
         String requestURI = httpServletRequest.getRequestURI();
         if (requestURI.contains("error")||requestURI.contains("login")||requestURI.contains("adminLogin"))
             return true;

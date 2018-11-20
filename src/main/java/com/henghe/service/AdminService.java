@@ -1,5 +1,6 @@
 package com.henghe.service;
 
+import com.henghe.bean.Member;
 import com.henghe.bean.Message;
 import com.henghe.dto.Result;
 import com.henghe.utils.DateUtils;
@@ -276,5 +277,73 @@ public class AdminService{
         } catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Member> selectMember(String name, String index, String limit) {
+        String sql = "select * from member where name like '%"+name+ "%' limit ?,?";
+        ResultSet result;
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
+//            ps.setString(1,name);
+            ps.setInt(1, Integer.parseInt(index));
+            ps.setInt(2, Integer.parseInt(limit));
+            result = ps.executeQuery();
+            if(result != null) {
+                List<Member> memberList = new ArrayList<>();
+                while(result.next()){
+                    Member member = new Member();
+                    member.setId(result.getString("id"));
+                    member.setAccount(result.getString("account"));
+                    member.setName(result.getString("name"));
+                    member.setSex(result.getString("sex"));
+                    member.setBirthday(result.getString("birthday"));
+                    member.setPhone(result.getString("phone"));
+                    member.setEmail(result.getString("email"));
+                    member.setAddress(result.getString("address"));
+                    memberList.add(member);
+                }
+                return memberList.size()>0?memberList:null;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int deleteUser(List<String> userId) {
+        int result=0;
+        int size = userId.size();
+        StringBuilder sql = new StringBuilder("delete from member where id in( ?");
+        for(int i = 1;i < size;i++){
+            sql.append(",?");
+        }
+        sql.append(")");
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql.toString());
+            for(int i = 1;i <= size;i++){
+                ps.setInt(i, Integer.valueOf(userId.get(i-1)));
+            }
+            result = ps.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public int getCount(String name) {
+        String sql="select count(id) count from member where name like '%"+name+"%'";
+        ResultSet result;
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
+            result = ps.executeQuery();
+            if(result != null) {
+                if(result.next()){
+                    return result.getInt("count");
+                }
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

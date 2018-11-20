@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -23,7 +23,7 @@
                         <form class="layui-form layui-inline">
                             <label class="layui-form-label">筛选用户:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="userName" placeholder="请输入筛选的用户名"
+                                <input type="text" id="userName" name="userName" placeholder="请输入筛选的用户名"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </form>
@@ -63,15 +63,18 @@
             //方法级渲染
             table.render({
                 elem: '#table'
-                ,url: '/admin/selectMessageByColumnId'
+                ,url: '/admin/selectUser'
                 ,toolbar: '#toolbarDemo'
                 ,cols: [[
                     {checkbox: true}
                     ,{field:'id', title: 'ID', width:80}
-                    ,{field:'title', title: '标题', width:300}
-                    ,{field:'date', title: '日期', width:120}
-                    ,{field:'columnName', title: '所属栏目', width:120}
-                    ,{field:'isPushed', title: '是否推送', width:120}
+                    ,{field:'account', title: '账号', width:120}
+                    ,{field:'name', title: '姓名', width:120}
+                    ,{field:'sex', title: '性别', width:80}
+                    ,{field:'birthday', title: '出生年月', width:100}
+                    ,{field:'phone', title: '电话', width:100}
+                    ,{field:'email', title: '邮箱', width:100}
+                    ,{field:'address', title: '住址', width:300}
                     ,{field:'right', title: '操作', width:170,toolbar:"#barDemo"}
                 ]]
                 ,id: 'testReload'
@@ -82,11 +85,11 @@
 
             var $ = layui.$, active = {
                 reload: function(){
-                    var columnId = $('#columnId');
+                    var userName = $('#userName');
 
                     table.reload('testReload', {
                         where: {
-                            columnId: columnId.val()
+                            userName: userName.val()
                         }
                     });
                 }
@@ -131,9 +134,9 @@
             idArray[0] = id;
             //ajax请求删除数据
             $.ajax({
-                url:'/admin/deleteMessage'
+                url:'/admin/deleteUser'
                 ,dataType:'json'
-                ,data:{messageId: idArray}
+                ,data:{userId: idArray}
                 ,async:false//关闭异步
                 ,success:function(data) {
                     if(data.code == 200) {
@@ -142,7 +145,7 @@
                         layer.msg("删除失败:" + data.msg);
                     }
                     //成功与否都刷新页面
-                    setTimeout("location.href='control'", 500);
+                    setTimeout("location.href='userControl'", 500);
                 }
             });
         }
@@ -160,10 +163,10 @@
                     }
                     //执行删除
                     $.ajax({
-                        url:'/admin/deleteMessage'
+                        url:'/admin/deleteUser'
                         ,method:'post'
                         ,dataType:'json'
-                        ,data:{messageId:idArray}
+                        ,data:{userId:idArray}
                         ,async:false//关闭异步
                         ,success:function(data1) {
                             if(data1.code == '200') {
@@ -171,7 +174,7 @@
                             } else {
                                 layer.msg("删除失败:" + data1.msg);
                             }
-                            setTimeout("location.href='control'", 500);
+                            setTimeout("location.href='userControl'", 500);
                         }
                     });
                 });

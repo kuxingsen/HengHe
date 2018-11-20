@@ -121,7 +121,7 @@
                                 <div class="layui-input-inline">
                                     <script id="editor" name="content" type="text/plain"
                                             style="width:1024px;height:500px;"> </script>
-                                </div>
+                                    </div>
                                     </div>
                                     <div class= "layui-form-item" >
                                         <div class= "layui-input-block" >
@@ -135,171 +135,171 @@
                                         </div>
                                         </div>
 
-                                    </div>
+                                        </div>
 
-                                    </div>
-    <script type='text/javascript'>
-    function createAll() {
-        layui.use(['form'], function () {
-            var form = layui.form
-                , layer = layui.layer;
+                                        </div>
+                                        <script type='text/javascript'>
+                                        function createAll() {
+                                            layui.use(['form'], function () {
+                                                var form = layui.form
+                                                    , layer = layui.layer;
 
-            //监听提交
-            form.on('submit(demo1)', function (data) {
+                                                //监听提交
+                                                form.on('submit(demo1)', function (data) {
 
-                //表单校验
-                //附件校验
-                if (messageData.datas[0].filePath != null && $("#file").val() != "") {
-                    var result = confirm("新附件将会覆盖原附件,确定继续吗?");
-                    if (!result) {
-                        return false;
-                    }
-                }
-                //校验推送时是否上传文件
-                var $titleImgPath = $("#titleImg");
-                if ($("#isPushed").val() == "1" && $titleImgPath.val() == "" && messageData.datas[0].titleImgPath == null) {
-                    layer.msg("是否推送选择'是'时必须上传一张标题图!");
-                    return false;
-                }
-                //校验标题图文件格式是否为.jpg
-                if ($titleImgPath.val() != "" && $titleImgPath.val().substring($titleImgPath.val().length - 4) != ".jpg") {
-                    layer.msg("标题图的格式必须为'.jpg'格式");
-                    return false;
-                }
+                                                    //表单校验
+                                                    //附件校验
+                                                    if (messageData.datas[0].filePath != null && $("#file").val() != "") {
+                                                        var result = confirm("新附件将会覆盖原附件,确定继续吗?");
+                                                        if (!result) {
+                                                            return false;
+                                                        }
+                                                    }
+                                                    //校验推送时是否上传文件
+                                                    var $titleImgPath = $("#titleImg");
+                                                    if ($("#isPushed").val() == "1" && $titleImgPath.val() == "" && messageData.datas[0].titleImgPath == null) {
+                                                        layer.msg("是否推送选择'是'时必须上传一张标题图!");
+                                                        return false;
+                                                    }
+                                                    //校验标题图文件格式是否为.jpg
+                                                    if ($titleImgPath.val() != "" && $titleImgPath.val().substring($titleImgPath.val().length - 4) != ".jpg") {
+                                                        layer.msg("标题图的格式必须为'.jpg'格式");
+                                                        return false;
+                                                    }
 
-                //提交表单
-                var option = {
-                    url: '/admin/updateMessage',
-                    type: 'POST',
-                    dataType: 'json',
-                    async: false,//设为同步请求
-                    headers: {"ClientCallMode": "ajax"}, //添加请求头部
-                    success: function (data) {
-                        if (data.code == "200") {
-                            layer.msg("新闻更新成功");
-                            setTimeout("location.href='control'", 500);
-                        } else {
-                            layer.msg("新闻更新失败!");
-                        }
-                    }
-                };
-                $("#tf").ajaxSubmit(option);
-                return false;
-            });
+                                                    //提交表单
+                                                    var option = {
+                                                        url: '/admin/updateMessage',
+                                                        type: 'POST',
+                                                        dataType: 'json',
+                                                        async: false,//设为同步请求
+                                                        headers: {"ClientCallMode": "ajax"}, //添加请求头部
+                                                        success: function (data) {
+                                                            if (data.code == "200") {
+                                                                layer.msg("新闻更新成功");
+                                                                setTimeout("location.href='control'", 500);
+                                                            } else {
+                                                                layer.msg("新闻更新失败!");
+                                                            }
+                                                        }
+                                                    };
+                                                    $("#tf").ajaxSubmit(option);
+                                                    return false;
+                                                });
 
-        });
-    }
-    //实例化编辑器
-    var ue = UE.getEditor('editor');
-    //记录新闻信息
-    var messageData;
-    //获取地址栏中的参数
-    function GetQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return null;
-    }
+                                            });
+                                        }
+                                    //实例化编辑器
+                                    var ue = UE.getEditor('editor');
+                                    //记录新闻信息
+                                    var messageData;
+                                    //获取地址栏中的参数
+                                    function GetQueryString(name) {
+                                        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                                        var r = window.location.search.substr(1).match(reg);
+                                        if (r != null) return unescape(r[2]);
+                                        return null;
+                                    }
 
-    //加载完成时请求的方法
-    window.onload = function () {
+                                    //加载完成时请求的方法
+                                    window.onload = function () {
 
-        //请求加载管理员姓名
-        $.ajax({
-            url: 'getUsername',
-            type: 'post',
-            dataType: 'json',
-            async: true,//异步加载
-            success: function (data) {
-                //加载成功
-                if (data.code == "200") {
-                    //设置管理员名称
-                    $("#adminName").html("管理员:" + data.datas[0]);
-                } else {
-                    layer.msg("管理员名称加载失败!");
-                }
-            }
-        });
+                                        //请求加载管理员姓名
+                                        $.ajax({
+                                            url: 'getUsername',
+                                            type: 'post',
+                                            dataType: 'json',
+                                            async: true,//异步加载
+                                            success: function (data) {
+                                                //加载成功
+                                                if (data.code == "200") {
+                                                    //设置管理员名称
+                                                    $("#adminName").html("管理员:" + data.datas[0]);
+                                                } else {
+                                                    layer.msg("管理员名称加载失败!");
+                                                }
+                                            }
+                                        });
 
-        //请求加载栏目信息
-        $.ajax({
-            url: '/admin/selectColumn',
-            type: 'post',
-            dataType: 'json',
-            async: true,//异步加载
-            success: function (data) {
-                //加载成功
-                if (data.code == "200") {
-                    //设置栏目
-                    var options = "<option value=\"\">直接选择或搜索选择</option>\n";
-                    for (var i = 0; i < data.datas.length; i++) {
-                        options += "<option value=\"" + data.datas[i].id + "\">" + data.datas[i].name + "</option>\n";
-                    }
-                    $("#columnId").html(options);
-                    //启动加载id对应数据
-                    getIdData();
-                } else {
-                    layer.msg("栏目信息加载失败!");
-                }
-            }
-        });
-    };
+                                        //请求加载栏目信息
+                                        $.ajax({
+                                            url: '/admin/selectColumn',
+                                            type: 'post',
+                                            dataType: 'json',
+                                            async: true,//异步加载
+                                            success: function (data) {
+                                                //加载成功
+                                                if (data.code == "200") {
+                                                    //设置栏目
+                                                    var options = "<option value=\"\">直接选择或搜索选择</option>\n";
+                                                    for (var i = 0; i < data.datas.length; i++) {
+                                                        options += "<option value=\"" + data.datas[i].id + "\">" + data.datas[i].name + "</option>\n";
+                                                    }
+                                                    $("#columnId").html(options);
+                                                    //启动加载id对应数据
+                                                    getIdData();
+                                                } else {
+                                                    layer.msg("栏目信息加载失败!");
+                                                }
+                                            }
+                                        });
+                                    };
 
-    function getIdData() {
-        //获取要编辑的新闻的id
-        var id = GetQueryString("id");
-        // alert(id);
-        $.ajax({
-            url: ' /admin/selectMessageByMessageId',
-            type: 'post',
-            dataType: 'json',
-            data:{messageId: id},
-            async: true,//异步加载
-            success: function (data) {
-                //加载成功
-                if (data.code == "200") {
-                    messageData = data;
-                    //设置各组件属性
-                    $("#id").val(data.datas[0].id);
-                    $("#title").val(data.datas[0].title);
-                    $("#isPushed > option[value='" + data.datas[0].isPushed + "']").attr("selected", "selected");
-                    if (data.datas[0].titleImgPath != null) {
-                        $("#titleImg_p").html("<img src='" + data.datas[0].titleImgPath + "' style='max-width: 400px;max-height: 300px;' />");
-                    } else {
-                        $("#titleImg_p").html("无");
-                    }
-                    $("#columnId > option[value='" + data.datas[0].columnId + "']").attr("selected", "selected");
-                    if (data.datas[0].filePath != null) {
-                        $("#file_p").html(data.datas[0].filePath);
-                    } else {
-                        $("#file_p").html("无");
-                    }
-                    ue.setContent(data.datas[0].content==null?"":data.datas[0].content);
-                    createAll();
-                } else {
-                    layer.msg("编辑信息加载失败, 请刷新页面重新加载!");
-                }
-            }
-        });
+                                    function getIdData() {
+                                        //获取要编辑的新闻的id
+                                        var id = GetQueryString("id");
+                                        // alert(id);
+                                        $.ajax({
+                                            url: ' /admin/selectMessageByMessageId',
+                                            type: 'post',
+                                            dataType: 'json',
+                                            data:{messageId: id},
+                                            async: true,//异步加载
+                                            success: function (data) {
+                                                //加载成功
+                                                if (data.code == "200") {
+                                                    messageData = data;
+                                                    //设置各组件属性
+                                                    $("#id").val(data.datas[0].id);
+                                                    $("#title").val(data.datas[0].title);
+                                                    $("#isPushed > option[value='" + data.datas[0].isPushed + "']").attr("selected", "selected");
+                                                    if (data.datas[0].titleImgPath != null) {
+                                                        $("#titleImg_p").html("<img src='" + data.datas[0].titleImgPath + "' style='max-width: 400px;max-height: 300px;' />");
+                                                    } else {
+                                                        $("#titleImg_p").html("无");
+                                                    }
+                                                    $("#columnId > option[value='" + data.datas[0].columnId + "']").attr("selected", "selected");
+                                                    if (data.datas[0].filePath != null) {
+                                                        $("#file_p").html(data.datas[0].filePath);
+                                                    } else {
+                                                        $("#file_p").html("无");
+                                                    }
+                                                    ue.setContent(data.datas[0].content==null?"":data.datas[0].content);
+                                                    createAll();
+                                                } else {
+                                                    layer.msg("编辑信息加载失败, 请刷新页面重新加载!");
+                                                }
+                                            }
+                                        });
 
-    }
-    function adminLogout(){
-        $.ajax({
-            url: 'adminLogout',
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                //加载成功
-                if (data.code == "200") {
-                    layer.msg("退出登录成功!");
-                    setTimeout("location.href='login'", 500)
-                } else {
-                    layer.msg("管理员名称加载失败!");
-                }
-            }
-        });
-    }
+                                    }
+                                    function adminLogout(){
+                                        $.ajax({
+                                            url: 'adminLogout',
+                                            type: 'post',
+                                            dataType: 'json',
+                                            success: function (data) {
+                                                //加载成功
+                                                if (data.code == "200") {
+                                                    layer.msg("退出登录成功!");
+                                                    setTimeout("location.href='login'", 500)
+                                                } else {
+                                                    layer.msg("管理员名称加载失败!");
+                                                }
+                                            }
+                                        });
+                                    }
 
-    </script>
+                                    </script>
 </body>
 </html>

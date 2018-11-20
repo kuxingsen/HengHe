@@ -1,6 +1,7 @@
 package com.henghe.controller;
 
 import com.henghe.bean.Column;
+import com.henghe.bean.Member;
 import com.henghe.bean.Message;
 import com.henghe.dto.LayUIResult;
 import com.henghe.dto.Result;
@@ -46,7 +47,7 @@ public class AdminController{
     public Result adminLogout( HttpSession session) {
         session.setAttribute("username",null);
         session.setAttribute("adminId",null);
-        session.setAttribute("key", null);
+        session.setAttribute("admin_key", null);
         return new Result(200);
     }
 
@@ -176,4 +177,29 @@ public class AdminController{
         return new Result<>(500, "没有相应的记录");
     }
 
+    @RequestMapping("selectUser")
+    @ResponseBody
+    public LayUIResult<Member> selectUser(@RequestParam(value = "userName",defaultValue = "") String name,@RequestParam(defaultValue = "1") String page,@RequestParam(defaultValue = "10") String limit){
+        if((page == null) || page.equals("") || !page.matches("[1-9]\\d*")){
+            page = "1";
+        }
+        if((limit == null) || limit.equals("") || !limit.matches("[1-9]\\d*")){
+            limit = "10";
+        }
+        int index = Integer.valueOf(limit)*(Integer.valueOf(page)-1);
+        List<Member> memberList = adminService.selectMember(name, String.valueOf(index),limit);
+        int count = adminService.getCount(name);
+        if(memberList != null) return new LayUIResult<>(0,count,memberList);
+        return new LayUIResult<>(500, "没有相应的记录");
+    }
+
+    @RequestMapping("deleteUser")
+    @ResponseBody
+    public Result deleteUser(@RequestParam("userId[]") List<String> userId) {
+        int result = adminService.deleteUser(userId);
+        if(result > 0) {
+            return new Result(200);
+        }
+        return new Result(500, "删除失败");
+    }
 }
