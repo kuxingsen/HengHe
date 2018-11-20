@@ -75,14 +75,20 @@ public class UserController {
 
     @RequestMapping("selectMessageByColumnId")
     @ResponseBody
-    public Result<Message> selectMessageByColumnId(String columnId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int count) {
+    public Result<Message> selectMessageByColumnId(String columnId, @RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String count) {
 //        int count = 10;
-        int index = count*(page-1);
-        List<Message> messageList = userService.selectMessageByColumnId(columnId,index,count);
+        if((page == null) || page.equals("") || !page.matches("[1-9]\\d*")){
+            page = "1";
+        }
+        if((count == null) || count.equals("") || !count.matches("[1-9]\\d*")){
+            count = "5";
+        }
+        int index = Integer.valueOf(count)*(Integer.valueOf(page)-1);
+        List<Message> messageList = userService.selectMessageByColumnId(columnId,index,Integer.valueOf(count));
 
         int totalNum = commonService.getCount(columnId);
-        int totalPage = (int)Math.ceil(1.0*totalNum/count);
-        if(messageList != null) return new Result<>(200,page,totalNum,totalPage,messageList);
+        int totalPage = (int)Math.ceil(1.0*totalNum/Integer.valueOf(count));
+        if(messageList != null) return new Result<>(200,Integer.valueOf(page),totalNum,totalPage,messageList);
         return new Result<>(500, "没有相应的记录");
     }
 

@@ -9,7 +9,7 @@
 <div class="nav" id="shouye-nav">
 	<div class="center">
 		<h1 class="logo hearder-logo">
-			<a href="index.html"><img src="/static_user/images/logo1.png" alt="logo" title="广州恒河体育有限公司" style="" class="nav_logo"></a>
+			<a href="index.html"><img src="/static_user/images/logo1.png" alt="logo" title="广东恒河体育有限公司" style="" class="nav_logo"></a>
 		</h1>
 		<div class="navLis">
 			<ul id="nav_column">
@@ -28,28 +28,62 @@
 	</div>
 </div>
 <script>
-	var index = sessionStorage.getItem("index");
-	$(function () {
-		$.ajax({
-			url: '/selectColumn',
-			method: 'get',
-			success: function (res) {
-				if (res.code === 200) {
-					var list = res.datas;
-					for (var i = 0; i < list.length; i++) {
-						if (list[i].name === '新闻中心') {
-							$('#nav_column').append(`<li class="nav_column_item"><a href="news2.html?id=${list[i].id}"> ${list[i].name}</a></li>`);
-						} else if (list[i].name === '公司简介') {
-                            $('#nav_column').append(`<li class="nav_column_item"><a href="Homepage.html"> ${list[i].name}</a></li>`);
-						} else {
-                            $('#nav_column').append('<li class="nav_column_item"><a href="news.html?id=' + list[i].id + '">' + list[i].name + '</a></li>');
-						}
-					}
-					$('.nav_column_item').eq(parseInt(index)+1).addClass("now");
-				}
-			}
-		})
-	})
+	let titleObj = {
+	    url: {
+	      	column: function () {
+				return '/selectColumn';
+            }
+		},
+	    init: function () {
+	        this.setIndex();
+		},
+		setIndex: function () {
+			let index = sessionStorage.getItem("index");
+			$.get(this.url.column(),{})
+				.success(function (res) {
+                    if (res.code === 200) {
+                        var list = res.datas;
+                        for (var i = 0; i < list.length; i++) {
+                            if (list[i].name === '新闻中心') {
+                                $('#nav_column').append(`<li class="nav_column_item"><a href="news2.html?id=${list[i].id}"> ${list[i].name}</a></li>`);
+                            } else if (list[i].name === '公司简介') {
+                                $('#nav_column').append(`<li class="nav_column_item"><a href="Homepage.html"> ${list[i].name}</a></li>`);
+                            } else if (list[i].name === '会员中心') {
+                                $('#nav_column').append(`<li class="nav_column_item"><a href="member.html"> ${list[i].name}</a></li>`);
+							} else if (list[i].name === '联系我们') {
+                                $('#nav_column').append(`<li class="nav_column_item"><a href="Homepage2.html"> ${list[i].name}</a></li>`);
+                            } else {
+                                $('#nav_column').append('<li class="nav_column_item"><a href="news.html?id=' + list[i].id + '">' + list[i].name + '</a></li>');
+                            }
+                        }
+                        $('.nav_column_item').eq(parseInt(index)).addClass("now");
+                    }
+                })
+        }
+	};
+	titleObj.init();
+	// var index = sessionStorage.getItem("index");
+	// $(function () {
+	// 	$.ajax({
+	// 		url: '/selectColumn',
+	// 		method: 'get',
+	// 		success: function (res) {
+	// 			if (res.code === 200) {
+	// 				var list = res.datas;
+	// 				for (var i = 0; i < list.length; i++) {
+	// 					if (list[i].name === '新闻中心') {
+	// 						$('#nav_column').append(`<li class="nav_column_item"><a href="news2.html?id=${list[i].id}"> ${list[i].name}</a></li>`);
+	// 					} else if (list[i].name === '公司简介') {
+    //                         $('#nav_column').append(`<li class="nav_column_item"><a href="Homepage.html"> ${list[i].name}</a></li>`);
+	// 					} else {
+    //                         $('#nav_column').append('<li class="nav_column_item"><a href="news.html?id=' + list[i].id + '">' + list[i].name + '</a></li>');
+	// 					}
+	// 				}
+	// 				$('.nav_column_item').eq(parseInt(index)).addClass("now");
+	// 			}
+	// 		}
+	// 	})
+	// })
 
 
 </script>

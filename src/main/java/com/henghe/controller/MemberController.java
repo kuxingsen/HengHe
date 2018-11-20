@@ -70,20 +70,27 @@ public class MemberController{
 
     @RequestMapping("insertMember")
     public Result insertMember(Member member){
-        int r = memberService.insertMember(member);
-        if(r > 0){
-            return new Result(200);
+        int r1 = memberService.check(member);
+        if(r1 > 0){
+            int r = memberService.insertMember(member);
+            if(r > 0){
+                return new Result(200);
+            }
         }
-        return new Result(500,"账号重复");
+        return new Result(500,"账号信息出错");
     }
     @RequestMapping("updateMember")
     public Result updateMember(Member member,HttpSession session){
         String key = (String) session.getAttribute("member_key");
-        //todo 权限控制
-        int r = memberService.updateMember(member);
-        if(r > 0){
-            return new Result(200);
+        if(key.equals(Md5Utils.key(member.getAccount()))){
+            int r1 = memberService.check(member);
+            if(r1 > 0) {
+                int r = memberService.updateMember(member);
+                if(r > 0) {
+                    return new Result(200);
+                }
+            }
         }
-        return new Result(500,"账号重复");
+        return new Result(500,"账号信息出错");
     }
 }

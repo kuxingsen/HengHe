@@ -97,4 +97,41 @@ public class MemberService{
         }
         return result;
     }
+
+    public int check(Member member) {
+        //todo 数据校验需完善
+        String account = member.getAccount();
+        if(account == null || account.length()>20 || account.length() < 1){
+           return -1;
+        }
+        String password = member.getPassword();
+        if(password == null || password.length()>20 || password.length() < 1){
+            return -1;
+        }
+        String name = member.getName();
+        if(name == null || name.length()>20 || name.length() < 1){
+            return -1;
+        }
+        String sex = member.getSex();
+        if(sex == null || sex.length()>20 || sex.length() < 1 ){
+            return -1;
+        }
+        String birthday = member.getBirthday();
+        if(birthday == null || birthday.length()>20 || birthday.length() < 1){
+            return -1;
+        }
+        String phone = member.getPhone();
+        if(phone == null || phone.length()>20 || phone.length() < 1 || !phone.matches("1[34578]\\d{9}$")){
+            return -1;
+        }
+        String email = member.getEmail();
+        if(email == null || email.length()>20 || email.length() < 1 || !email.matches("^([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+\\.[a-zA-Z]{2,3}$")){
+            return -1;
+        }
+        String address = member.getAddress();
+        if(address == null || address.length()>20 || address.length() < 1){
+            return -1;
+        }
+        return 1;
+    }
 }

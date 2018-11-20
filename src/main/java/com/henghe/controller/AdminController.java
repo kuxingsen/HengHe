@@ -36,7 +36,7 @@ public class AdminController{
         if((adminId = adminService.getAdminId(username, password)) != 0){
             session.setAttribute("username",username);
             session.setAttribute("adminId",adminId);
-            session.setAttribute("key", Md5Utils.key(String.valueOf(adminId)));
+            session.setAttribute("admin_key", Md5Utils.key(String.valueOf(adminId)));
             return new Result(200);
         }
         return new Result(500, "用户名或密码错误");

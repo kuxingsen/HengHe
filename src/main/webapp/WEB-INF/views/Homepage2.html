@@ -162,12 +162,12 @@
 		        this.getArticle();
             },
 			loadComponents: function () {
-                sessionStorage.setItem("index", 1);
+                sessionStorage.setItem("index", 7);
                 $(".headerpage").load("title.html");
                 $(".footerpage").load("foot.html");
 			},
 			getArticle: function () {
-				$.get(this.url.article(),{columnId: 1})
+				$.get(this.url.article(),{columnId: 7})
 					.success(function (res) {
 						if (res.code == 200) {
 							// 渲染文章

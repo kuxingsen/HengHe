@@ -70,16 +70,6 @@
 	<!-- 中央新闻  -->
 	<div class="row">
 		<div class="column2-1">
-			<h3 class="column-head"> <a href="news.html?id=1">比赛信息</a></h3>
-			<ul>
-				<!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来</a></li>
-				<li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种</a></li>
-				<li><a href="#">港珠澳大桥通车 从珠海口岸到香港国际机场约45分钟可直达</a></li>
-				<li><a href="#">深圳城市建设应发挥“设计之都”优势</a></li>
-				<li><a href="#">广州首条直飞仰光低成本航线开通 单程票价约700多元</a></li> -->
-			</ul>
-		</div>
-		<div class="column2-1">
 			<h3 class="column-head"> <a href="news.html?id=2">新闻中心</a></h3>
 			<ul>
 				<!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来？</a></li>
@@ -89,10 +79,20 @@
 				<li><a href="#">广州首条直飞仰光低成本航线开通 单程票价约700多元</a></li> -->
 			</ul>
 		</div>
+		<div class="column2-1">
+			<h3 class="column-head"> <a href="news.html?id=3">比赛信息</a></h3>
+			<ul>
+				<!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来</a></li>
+				<li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种</a></li>
+				<li><a href="#">港珠澳大桥通车 从珠海口岸到香港国际机场约45分钟可直达</a></li>
+				<li><a href="#">深圳城市建设应发挥“设计之都”优势</a></li>
+				<li><a href="#">广州首条直飞仰光低成本航线开通 单程票价约700多元</a></li> -->
+			</ul>
+		</div>
 	</div>
 	<div class="row">
 		<div class="column2-1">
-			<h3 class="column-head"><a href="news.html?id=3">服务项目</a></h3>
+			<h3 class="column-head"><a href="news.html?id=4">服务项目</a></h3>
 			<ul>
 				<!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来</a></li>
 				<li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种</a></li>
@@ -102,7 +102,7 @@
 			</ul>
 		</div>
 		<div class="column2-1">
-			<h3 class="column-head"> <a href="news.html?id=4"> 顾问团队 </a></h3>
+			<h3 class="column-head"> <a href="news.html?id=5"> 顾问团队 </a></h3>
 			<ul>
 				<!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来？</a></li>
 				<li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种</a></li>
@@ -115,73 +115,75 @@
 
 	<div class="footerpage"></div>
 
-	<script>
-		$(function () {
-			sessionStorage.setItem("index", -1);
-			$(".headerpage").load("./title.html");
-			$(".footerpage").load("./foot.html");
-		});
-	</script>
-
-
 	<script type="text/javascript">
 
-		// 轮播图
-		$.ajax({
-			url: '/selectBanner',
-			method: 'get',
-			dataType: 'json',
-			success: function (res) {
-				if (res.code === 200) {
-					var list = res.datas;
-					for (var i = 0; i < list.length; i++) {
-						var id = list[i].id;
-						var title = list[i].title;
-						var titleImg = list[i].titleImg;
-						var html = '<div class="swiper-slide"><a href="article.html?id=' + id + '"><img src="' + titleImg + '" width=100% height=100%></a></div>';
-						//arr[]存储的是后台返回的data里的src
-						$('.swiper-wrapper').append(html);
-					}
+		let HomeObj = {
+		    url: {
+                columns: function () {
+					return '/selectMessageByColumnId'
+                },
+                banners: function () {
+                    return '/selectBanner'
+                }
+            },
+			init: function () {
+		        this.loadComponents();
+				this.columns();
+				this.banners();
+            },
+            loadComponents: function() {
+                sessionStorage.setItem("index", 0);
+                $(".headerpage").load("./title.html");
+                $(".footerpage").load("./foot.html");
+            },
+            columns: function () {
+                for (let cid=2; cid<=5; cid++) {
+                    $.get(this.url.columns(), {columnId: cid, page: 1,count:5})
+                        .success(function(res){
+                            if (res.code === 200) {
+                                var list = res.datas;
+                                var column = $('.column2-1').eq(cid-2).children('ul');
+                                for (var i = 0; i < list.length; i++) {
+                                    column.append('<li><a href="article.html?id=' + list[i].id + '">' + list[i].title + '</a></li>');
+                                }
+                            }
+                        })
+                }
+            },
+            banners: function() {
+		        $.get(this.url.banners(),{})
+                    .success(function(res) {
+                        if (res.code === 200) {
+                            var list = res.datas;
+                            for (var i = 0; i < list.length; i++) {
+                                var id = list[i].id;
+                                var title = list[i].title;
+                                var titleImg = list[i].titleImg;
+                                var html = '<div class="swiper-slide"><a href="article.html?id=' + id + '"><img src="' + titleImg + '" width=100% height=100%></a></div>';
+                                //arr[]存储的是后台返回的data里的src
+                                $('.swiper-wrapper').append(html);
+                            }
 
-					var mySwiper = new Swiper('.swiper-container', {
-						direction: 'horizontal', //水平切换
-						loop: true,//循环模式选项
+                            var mySwiper = new Swiper('.swiper-container', {
+                                direction: 'horizontal', //水平切换
+                                loop: true,//循环模式选项
 
-						// // 如果需要分页器
-						pagination: {
-							el: '.swiper-pagination',
-						},
+                                // // 如果需要分页器
+                                pagination: {
+                                    el: '.swiper-pagination',
+                                },
 
-						//如果需要前进后退按钮
-						navigation: {
-							nextEl: '.swiper-button-next',
-							prevEl: '.swiper-button-prev',
-						}
-					})
-				}
-			}
-		})
-
-		// 新闻列表
-		for (var i = 1; i <= 4; i++) {
-			getColumnList(i);
+                                //如果需要前进后退按钮
+                                navigation: {
+                                    nextEl: '.swiper-button-next',
+                                    prevEl: '.swiper-button-prev',
+                                }
+                            })
+                        }
+                    })
+            }
 		}
-		function getColumnList(cid) {
-			$.ajax({
-				url: '/selectMessageByColumnId',
-				type: 'get',
-				data: { columnId: cid, page: 1,count:10 },
-				success: function (res) {
-					if (res.code === 200) {
-						var list = res.datas;
-						var column = $('.column2-1').eq(cid - 1).children('ul');
-						for (var i = 0; i < list.length; i++) {
-							column.append('<li><a href="article.html?id=' + list[i].id + '">' + list[i].title + '</a></li>');
-						}
-					}
-				}
-			})
-		}
+        HomeObj.init();
 	</script>
 </body>
 

@@ -99,92 +99,186 @@
     <div class="footerpage"></div>
 
     <script>
-        var columnId = window.location.search.substr(4);
-        sessionStorage.setItem("index", columnId);
-        $(".headerpage").load("title.html");
-        $(".footerpage").load("foot.html");
 
-        $.ajax({
-            url: '/columnName',
-            type: 'get',
-            data: { columnId: columnId },
-            success: function (res) {
-                if (res.code == 200) {
-                    var titleName = res.datas[0];
-                    $('.center-head').text(titleName);
+        let news2Obj = {
+            url: {
+                columnName: function () {
+                    return '/columnName';
+                },
+                pages: function () {
+                    return '/selectMessageByColumnId';
                 }
+            },
+            attr: {
+                columnId: location.search.substr(4)
+            },
+            init: function () {
+                this.loadComponents();
+                this.getColumnName();
+                this.toPage(1);
+            },
+            loadComponents: function () {
+                sessionStorage.setItem("index", this.attr.columnId);
+                $(".headerpage").load("title.html");
+                $(".footerpage").load("foot.html");
+            },
+            getColumnName: function () {
+                $.get(this.url.columnName(), {columnId: this.attr.columnId})
+                    .success(function (res) {
+                        if (res.code == 200) {
+                            var titleName = res.datas[0];
+                            $('.center-head').text(titleName);
+                        }
+                    })
+            },
+            toPage: function (pageNum) {
+                $.get(this.url.pages(), {columnId: this.attr.columnId, page: pageNum, count: 5})
+                    .success(function (res) {
+                        if (res.code === 200) {
+                            $(".center-ul-img").empty();
+                            $('.pagination').empty();
+                            var list = res.datas;
+                            for (var i = 0; i < list.length; i++) {
+                                $(".center-ul-img").append(
+                                    `<div class="item-wrapper">
+                                        <a href="article.html?id=${list[i].id}">
+                                            <img src="${list[i].titleImgPath}" class="item-img">
+                                         </a>
+                                        <div class="item-text">
+                                            <a href="article.html?id=${list[i].id}">
+                                                ${list[i].title}
+                                            </a>
+                                        </div>
+                                        <div class="date">${list[i].date}</div>
+                                    </div>`
+                                );
+                            }
+
+                            var totalPage = res.totalPage;
+                            var pagenation = $('.pagination');
+                            pagenation.append('<li><a href="javascript:;" class="prev" onclick="toPage(1)">&laquo </a></li>');
+                            if (pageNum == 1 || pageNum == 2) {
+                                // 输出5个数字
+                                for (var i = 1; i <= 5 && i <= totalPage; i++) {
+                                    if (i == pageNum) {
+                                        pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
+                                    } else {
+                                        pagenation.append('<li><a href="javascript:;" onclick="news2Obj.toPage(' + i + ')">' + i + '</a></li>');
+                                    }
+                                }
+                            } else if (pageNum == totalPage - 1 || pageNum == totalPage) {
+                                // 输出5个数字
+                                for (var i = totalPage - 4; i <= totalPage; i++) {
+                                    if (i < 1) {
+                                        continue;
+                                    }
+                                    if (i == pageNum) {
+                                        pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
+                                    } else {
+                                        pagenation.append('<li><a href="javascript:;" onclick="news2Obj.toPage(' + i + ')">' + i + '</a></li>');
+                                    }
+                                }
+                            } else {
+                                // 在中间
+                                for (var i = pageNum - 2; i <= pageNum + 2 && i <= totalPage; i++) {
+                                    if (i == pageNum) {
+                                        pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
+                                    } else {
+                                        pagenation.append('<li><a href="javascript:;" onclick="news2Obj.toPage(' + i + ')">' + i + '</a></li>');
+                                    }
+                                }
+                            }
+                            pagenation.append('<li><a href="javascript:;" class="next" onclick="news2Obj.toPage(' + totalPage + ')"> &raquo;</a></li>')
+                        }
+                    })
             }
-        });
 
-        toPage(1);
-        function toPage(pageNum) {
-            // 发送ajax请求
-            $.ajax({
-                url: '/selectMessageByColumnId',
-                type: 'get',
-                data: { columnId: columnId, page: pageNum },
-                success: function (res) {
-                    if (res.code === 200) {
-                        $(".center-ul-img").empty();
-                        $('.pagination').empty();
-                        var list = res.datas;
-                        for (var i = 0; i < list.length; i++) {
-                            $(".center-ul-img").append(`
-                                <div class="item-wrapper">
-                                    <a href="article.html?id=${list[i].id}">
-                                        <img src="${list[i].titleImgPath}" class="item-img">
-                                     </a>
-                                <div class="item-text">
-                                    <a href="article.html?id=${list[i].id}">
-                                        ${list[i].title}
-                                    </a>
-                                </div>
-                                <div class="date">${list[i].date}</div>
-                                </div>`
-                            );
-                        }
-
-                        var totalPage = res.totalPage;
-                        var pagenation = $('.pagination');
-                        pagenation.append('<li><a href="javascript:;" class="prev" onclick="toPage(1)">&laquo </a></li>');
-                        if (pageNum == 1 || pageNum == 2) {
-                            // 输出5个数字
-                            for (var i = 1; i <= 5 && i <= totalPage; i++) {
-                                if (i == pageNum) {
-                                    pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
-                                } else {
-                                    pagenation.append('<li><a href="javascript:;" onclick="toPage(' + i + ')">' + i + '</a></li>');
-                                }
-                            }
-                        } else if (pageNum == totalPage - 1 || pageNum == totalPage) {
-                            // 输出5个数字
-                            for (var i = totalPage - 4; i <= totalPage; i++) {
-                                if (i < 1) {
-                                    continue;
-                                }
-                                if (i == pageNum) {
-                                    pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
-                                } else {
-                                    pagenation.append('<li><a href="javascript:;" onclick="toPage(' + i + ')">' + i + '</a></li>');
-                                }
-                            }
-                        } else {
-                            // 在中间
-                            for (var i = pageNum - 2; i <= pageNum + 2 && i <= totalPage; i++) {
-                                if (i == pageNum) {
-                                    pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
-                                } else {
-                                    pagenation.append('<li><a href="javascript:;" onclick="toPage(' + i + ')">' + i + '</a></li>');
-                                }
-                            }
-                        }
-                        pagenation.append('<li><a href="javascript:;" class="next" onclick="toPage(' + totalPage + ')"> &raquo;</a></li>')
-                    }
-                }
-            })
         }
-
-
+        news2Obj.init();
+        // var columnId = window.location.search.substr(4);
+        // sessionStorage.setItem("index", columnId);
+        // $(".headerpage").load("title.html");
+        // $(".footerpage").load("foot.html");
+        //
+        // $.ajax({
+        //     url: '/columnName',
+        //     type: 'get',
+        //     data: { columnId: columnId },
+        //     success: function (res) {
+        //         if (res.code == 200) {
+        //             var titleName = res.datas[0];
+        //             $('.center-head').text(titleName);
+        //         }
+        //     }
+        // });
+        //
+        // toPage(1);
+        // function toPage(pageNum) {
+        //     // 发送ajax请求
+        //     $.ajax({
+        //         url: '/selectMessageByColumnId',
+        //         type: 'get',
+        //         data: { columnId: columnId, page: pageNum },
+        //         success: function (res) {
+        //             if (res.code === 200) {
+        //                 $(".center-ul-img").empty();
+        //                 $('.pagination').empty();
+        //                 var list = res.datas;
+        //                 for (var i = 0; i < list.length; i++) {
+        //                     $(".center-ul-img").append(`
+        //                         <div class="item-wrapper">
+        //                             <a href="article.html?id=${list[i].id}">
+        //                                 <img src="${list[i].titleImgPath}" class="item-img">
+        //                              </a>
+        //                         <div class="item-text">
+        //                             <a href="article.html?id=${list[i].id}">
+        //                                 ${list[i].title}
+        //                             </a>
+        //                         </div>
+        //                         <div class="date">${list[i].date}</div>
+        //                         </div>`
+        //                     );
+        //                 }
+        //
+        //                 var totalPage = res.totalPage;
+        //                 var pagenation = $('.pagination');
+        //                 pagenation.append('<li><a href="javascript:;" class="prev" onclick="toPage(1)">&laquo </a></li>');
+        //                 if (pageNum == 1 || pageNum == 2) {
+        //                     // 输出5个数字
+        //                     for (var i = 1; i <= 5 && i <= totalPage; i++) {
+        //                         if (i == pageNum) {
+        //                             pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
+        //                         } else {
+        //                             pagenation.append('<li><a href="javascript:;" onclick="toPage(' + i + ')">' + i + '</a></li>');
+        //                         }
+        //                     }
+        //                 } else if (pageNum == totalPage - 1 || pageNum == totalPage) {
+        //                     // 输出5个数字
+        //                     for (var i = totalPage - 4; i <= totalPage; i++) {
+        //                         if (i < 1) {
+        //                             continue;
+        //                         }
+        //                         if (i == pageNum) {
+        //                             pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
+        //                         } else {
+        //                             pagenation.append('<li><a href="javascript:;" onclick="toPage(' + i + ')">' + i + '</a></li>');
+        //                         }
+        //                     }
+        //                 } else {
+        //                     // 在中间
+        //                     for (var i = pageNum - 2; i <= pageNum + 2 && i <= totalPage; i++) {
+        //                         if (i == pageNum) {
+        //                             pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
+        //                         } else {
+        //                             pagenation.append('<li><a href="javascript:;" onclick="toPage(' + i + ')">' + i + '</a></li>');
+        //                         }
+        //                     }
+        //                 }
+        //                 pagenation.append('<li><a href="javascript:;" class="next" onclick="toPage(' + totalPage + ')"> &raquo;</a></li>')
+        //             }
+        //         }
+        //     })
+        // }
     </script>
 </body>
 

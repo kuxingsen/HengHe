@@ -116,32 +116,69 @@
     <div class="footerpage"></div>
 
     <script>
-        $(function () {
-            $(".headerpage").load("title.html");
-            $(".footerpage").load("foot.html");
-            var articleId = window.location.search.substr(4);
-            $.ajax({
-                url: '/selectMessageByMessageId',
-                type: 'get',
-                data: { messageId: articleId},
-                success: function (res) {
-                    if (res.code == 200) {
-                        // 渲染文章
-                        var title = $('.content-head').children('h1');
-                        var date = $('.content-head').children('div');
-                        title.text(res.datas[0].title);
-                        date.text(res.datas[0].date);
-                        $('.content').html(res.datas[0].content);
-                        if (res.datas[0].filePath) {
-                            $('.content-foot').children('a').text('附件: ' + res.datas[0].filePath);
-                            $('.content-foot').children('a').attr('href', '/downFile?messageId=' + res.datas[0].id);
-                        } else {
-                            $('.content-foot').children('a').remove();
-                        }
-                    }
+        let artidleObj = {
+            url: {
+                articleUrl: function () {
+                    return '/selectMessageByMessageId'
                 }
-            })
-        });
+            },
+            init: function() {
+                this.loadComponents();
+                this.getArticle();
+            },
+            loadComponents: function () {
+                $(".headerpage").load("title.html");
+                $(".footerpage").load("foot.html");
+            },
+            getArticle: function () {
+                let articleId  = location.search.substr(4);
+                $.get(this.url.articleUrl(),{messageId: articleId})
+                    .success(function (res) {
+                        if (res.code == 200) {
+                            // 渲染文章
+                            var title = $('.content-head').children('h1');
+                            var date = $('.content-head').children('div');
+                            title.text(res.datas[0].title);
+                            date.text(res.datas[0].date);
+                            $('.content').html(res.datas[0].content);
+                            if (res.datas[0].filePath) {
+                                $('.content-foot').children('a').text('附件: ' + res.datas[0].filePath);
+                                $('.content-foot').children('a').attr('href', '/downFile?messageId=' + res.datas[0].id);
+                            } else {
+                                $('.content-foot').children('a').remove();
+                            }
+                        }
+                    })
+            }
+        };
+
+        artidleObj.init();
+        // $(function () {
+        //     $(".headerpage").load("title.html");
+        //     $(".footerpage").load("foot.html");
+        //     var articleId = window.location.search.substr(4);
+        //     $.ajax({
+        //         url: '/selectMessageByMessageId',
+        //         type: 'get',
+        //         data: { messageId: articleId},
+        //         success: function (res) {
+        //             if (res.code == 200) {
+        //                 // 渲染文章
+        //                 var title = $('.content-head').children('h1');
+        //                 var date = $('.content-head').children('div');
+        //                 title.text(res.datas[0].title);
+        //                 date.text(res.datas[0].date);
+        //                 $('.content').html(res.datas[0].content);
+        //                 if (res.datas[0].filePath) {
+        //                     $('.content-foot').children('a').text('附件: ' + res.datas[0].filePath);
+        //                     $('.content-foot').children('a').attr('href', '/downFile?messageId=' + res.datas[0].id);
+        //                 } else {
+        //                     $('.content-foot').children('a').remove();
+        //                 }
+        //             }
+        //         }
+        //     })
+        // });
     </script>
 
 </body>
