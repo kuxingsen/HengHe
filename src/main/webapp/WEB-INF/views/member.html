@@ -169,17 +169,29 @@
         }
         #form-message{
             background: #ffffff;
-            font-size:17px;
+            font-size:18px;
             padding-left:20%;
             
         }
         #form-message tr td{
             background: #ffffff;
+            padding: 6px 6px 6px 6px;
             text-align:center;
         }
-        /*.mb_rg_box,.showMsg {*/
-            /*display: none;*/
-        /*}*/
+        #form-message input {
+            line-height: 26px;
+            padding-left: 10px;
+            border: 1px solid #e2e2e2;
+        }
+        .btn {
+            margin-top: 10px;
+            background: #ee2737;
+            line-height: 18px;
+            color: #fff;
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
         </style>
 </head>
 
@@ -187,7 +199,7 @@
     <div class="headerpage"></div>
     <div id="container">
         <div class="mb_rg_box">
-            <div class="randl" style="display: none;">
+            <div class="randl" style="display:none">
                 <div class="mb_rg_title">
                     <h3>会员注册</h3>
                 </div>
@@ -216,17 +228,19 @@
                     <button class="form_submit" id="regist_button">点击注册</button>
                 </div>
                 <div class="mb_rg_form" id="login_form" >
-                    <div class="login_tips" style="display:none">这是提示消息</div>
+                    <div class="login_tips" style="display:none; color: #ee2737;">这是提示消息</div>
                     <input type="text" id="login_account" placeholder="账号">
                     <input type="password" id="login_password" placeholder="密码">
                     <button class="form_submit" id="login_button">登录</button>
                 </div>
             </div>
-            <div class="showMsg" style="display: none;">
+            <div class="showMsg" style="display:none"> 
                 <div id="title-message">个人信息中心</div>
                 <div id="form-message">
                     <table rules="none">
-                        <tr><td>用户名(账号)：</td><td id="showAccount"></td></tr>
+                        <tr><td class="modifyTips" colspan="2" style="color: #ee2737; text-align: center; display: none;">这是提示信息</td></tr>
+                        <tr><td>账号：</td><td id="showAccount"></td></tr>
+                        <tr style="display: none;" id="mima"><td>密码：</td><td id="showPassword"></td></tr>
                         <tr><td>性别：</td><td id="showSex"></td></tr>
                         <tr><td>真实姓名：</td><td id="showName"></td></tr>
                         <tr><td>出生日期：</td><td id="showBirthday"></td></tr>
@@ -234,6 +248,8 @@
                         <tr><td>联系邮箱：</td><td id="showEmail"></td></tr>
                         <tr><td>个人住址：</td><td id="showAddress"></td></tr>
                     </table>
+                    <button class="modify btn">点击修改</button>
+                    <button id="modifyBtn" class="btn" style="display: none">确认修改</button>
                 </div>
             </div>
         </div>
@@ -244,7 +260,7 @@
 
         let validate = {
             attr: {
-                isValidate: false,
+                userData: {},
                 isLogin: false
             },
             loadComponents () {
@@ -253,8 +269,11 @@
                 $(".footerpage").load("foot.html");
             },
             showTips (message) {
-                $('.tips').text(message).show();
-                this.attr.isValidate = false;
+                if (this.attr.isLogin == false) {
+                    $('.tips').text(message).show();
+                } else {
+                    $('.modifyTips').text(message).show();
+                }
             },
             closeTips () {
                 $('.tips').hide();
@@ -270,58 +289,117 @@
                 }
                 return true;
             },
-            bindDom() {
-                $('#account').on('blur', function () {
-                    if (validate.vLength('账号', this.value)) {
-                        validate.closeTips();
-                    }
+            vAccount (account) {
+                // let account = $('#account').val();
+                if (validate.vLength('账号', account)){
+                    return true;
+                }
+                return false;
+            },
+            vPassword (password) {
+                // let password = $('#password').val();
+                if (validate.vLength('密码',password)){
+                    return true;
+                }
+                return false;
+            },
+            vConfirmPassword (pw, cpw) {
+                // let pw = $('#password').val();
+                // let cpw = $('#confirmPassword').val();
+                if (pw != cpw) {
+                    validate.showTips('两次输入密码不一致');
+                    return false;
+                }
+                return true;
+            },
+            vName (name) {
+                // let name = $('#name').val();
+                if(validate.vLength('名字', name)) {
+                    return true;
+                }
+                return false;
+            },
+            vBirthday (birthday) {
+                // let birthday = $('#birthday').val();
+                if(validate.vLength('出生日期',birthday)) {
+                    return true;
+                }
+                return false;
+            },
+            vPhone (phone) {
+                // let phone = $('#phone').val();
+                let reg = /^1[34578]\d{9}$/;
+                if(!reg.test(phone)) {
+                    validate.showTips('请填写正确的手机号');
+                    return false;
+                }
+                return true;
+            },
+            vEmail (email) {
+                // let email = $('#email').val();
+                let reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                if (!reg.test(email)) {
+                    validate.showTips('请填写正确的邮箱地址');
+                    return false;
+                }
+                return true;
+            },
+            vAddress (address) {
+                // let address = $('#address').val();
+                if (validate.vLength('地址',address)) {
+                    return true;
+                }
+                return false;
+            },
+            valAll () {
+                let v1 = validate.vAccount($('#account').val());
+                let v2 = validate.vPassword($('#password').val());
+                let v3 = validate.vConfirmPassword($('#password').val(), $('#confirmPassword').val());
+                let v4 = validate.vName($('#name').val());
+                let v5 = validate.vBirthday($('#birthday').val());
+                let v6 = validate.vPhone($('#phone').val());
+                let v7 = validate.vEmail($('#email').val());
+                let v8 = validate.vAddress($('#address').val());
+                if (v1&&v2&&v3&&v4&&v5&&v6&&v7&&v8) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            },
+            bindDom () {
+                switchPanel.bindEvent();
+                $('#account').on('blur', function (){
+                    validate.vAccount($('#account').val());
+
                 });
                 $('#password').on('blur', function () {
-                    if (validate.vLength('密码', this.value)) {
-                        validate.closeTips();
-                    }
+                    validate.vPassword($('#password').val());
                 });
                 $('#confirmPassword').on('blur', function () {
-                    if (this.value != $('#password').val()) {
-                        validate.showTips('两次输入密码不一致');
-                    }
+                    validate.vConfirmPassword($('#password').val(), $('#confirmPassword').val());
                 });
                 $('#name').on('blur', function () {
-                    if (validate.vLength('名字', this.value)) {
-                        validate.closeTips();
-                    }
+                    validate.vName($('#name').val());
                 });
                 $('#birthday').on('blur', function () {
-                    if (validate.vLength('出生日期', this.value)) {
-                        validate.closeTips();
-                    }
+                    validate.vBirthday($('#birthday').val());
                 });
                 $('#phone').on('blur', function () {
-                    if (validate.vLength('电话', this.value)) {
-                        if (!(/^1[34578]\d{9}$/.test(this.value))) {
-                            validate.showTips('请填写正确的手机号');
-                        } else {
-                            validate.closeTips();
-                        }
-                    }
+                    validate.vPhone($('#phone').val());
                 });
                 $('#email').on('blur', function () {
-                    if (validate.vLength('邮箱',this.value)) {
-                        if (!(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(this.value))) {
-                            validate.showTips('请填写正确的邮箱地址');
-                        } else {
-                            validate.closeTips();
-                        }
-                    }
+                    validate.vEmail($('#email').val());
                 });
                 $('#address').on('blur', function () {
-                    if (validate.vLength('地址', this.value)) {
-                        validate.closeTips();
-                    }
+                    validate.vAddress($('#address').val());
                 });
                 $('#regist_button').on('click', function () {
-                    if (validate.attr.isValidate) {
+                    // 执行一次校验
+                    if (validate.valAll()) {
                         // 执行注册
+                        validate.showTips('正在注册')
+                        let account = $('#account').val();
                         $.post('/insertMember',{
                             account: $('#account').val(),
                             password: $('#password').val(),
@@ -338,6 +416,8 @@
                                 setTimeout(function() {
                                     location.reload();
                                 }, 1500);
+                            } else {
+                                validate.showTips(res.msg);
                             }
                         })
                     } else {
@@ -359,12 +439,15 @@
                                 setTimeout(function() {
                                     location.reload();
                                 }, 1500);
+                            }else {
+                                $('.login_tips').text(res.msg).show();
                             }
                         })
                     } else {
                         $('.login_tips').text('表单内容不能为空');
                     }
-                });
+                })
+
             },
             isShowMessage (callback) {
                 $.get('/isLogin').success(function(res){
@@ -388,14 +471,20 @@
                             data: {},
                             success: function (res) {
                                 if(res.code==200){
+                                    validate.attr.userData = res.datas[0];
+
                                     var account = res.datas[0].account;
-                                    $('#showAccount').text(account); 
-                                    
+                                    sessionStorage.setItem('user', account);
+                                    $('#showAccount').text(account);
+
+                                    var password = res.datas[0].password;
+                                    $('#showPassword').text(password);
+
                                     var sex = res.datas[0].sex;
-                                    $('#showSex').text(sex); 
+                                    $('#showSex').text(sex);
                                     
                                     var name = res.datas[0].name;
-                                    $('#showName').text(name); 
+                                    $('#showName').text(name);
                                     
                                     var birthday = res.datas[0].birthday;
                                     $('#showBirthday').text(birthday); 
@@ -416,8 +505,95 @@
                         $('.randl').show();
                         $('.showMsg').hide();
                     }
+
+                    // 绑定修改事件
+                    $(".modify").click(function() {
+                        $('#mima').show();
+                        $(this).hide();
+                        $('#modifyBtn').show();
+                        var showSex = $('#showSex');
+                        var now_str = showSex.text();
+                        var input_str = $(
+                            `<div>
+                            <label>
+                                <input type="radio" name="modisex" value="男" ${now_str=='男'?'checked':''}> <i>男</i>
+                            </label>
+                            <label>
+                                <input type="radio" name="modisex" value="女" ${now_str=='女'?'checked':''}> <i>女</i>
+                            </label>
+                        </div>`
+                        );
+                        showSex.html(input_str);
+                        
+                        var showPassword = $('#showPassword');
+                        var now_str = showPassword.text();
+                        var input_str = $("<input type='password' class='editPassword' value='"+now_str+"' />");
+                        showPassword.html(input_str);
+
+                        var showName = $('#showName');
+                        var now_str = showName.text();
+                        var input_str = $("<input type='text' class='editName' value='"+now_str+"' />");
+                        showName.html(input_str);
+                        
+                        var showBirthday = $('#showBirthday');
+                        var now_str = showBirthday.text();
+                        var input_str = $("<input type='date' class='editBirthday' value='"+now_str+"' />");
+                        showBirthday.html(input_str);
+                        
+                        var showPhone = $('#showPhone');
+                        var now_str = showPhone.text();
+                        var input_str = $("<input type='text' class='editPhone' value='"+now_str+"' />");
+                        showPhone.html(input_str);
+                        
+                        var showEmail = $('#showEmail');
+                        var now_str = showEmail.text();
+                        var input_str = $("<input type='text' class='editEmail' value='"+now_str+"' />");
+                        showEmail.html(input_str);
+                        
+                        var showAddress = $('#showAddress');
+                        var now_str = showAddress.text();
+                        var input_str = $("<input type='text' class='editAddress' value='"+now_str+"' />");
+                        showAddress.html(input_str);
+                        
+                    });
                 });
-                
+                $('#modifyBtn').on('click', function() {
+                    let v1 = validate.vAccount($('#showAccount').text());
+                    let v2 = validate.vPassword($('.editPassword').val());
+                    let v3 = validate.vName($('.editName').val());
+                    let v4 = validate.vBirthday($('.editBirthday').val());
+                    let v5 = validate.vPhone($('.editPhone').val());
+                    let v6 = validate.vEmail($('.editEmail').val());
+                    let v7 = validate.vAddress($('.editAddress').val());
+                    if (v1&&v2&&v3&&v4&&v5&&v6&&v7) {
+                        validate.showTips('正在修改');
+                        // 执行修改
+                        let account = $('#showAccount').text();
+                        $.post('/updateMember',{
+                            account: $('#showAccount').text(),
+                            password: $('.editPassword').val(),
+                            name: $('.editName').val(),
+                            sex: $('input[name="modisex"]:checked').val(),
+                            birthday: $('.editBirthday').val(),
+                            phone: $('.editPhone').val(),
+                            email: $('.editEmail').val(),
+                            address: $('.editAddress').val()
+
+                        }).success(function (res) {
+                            if (res.code == 200) {
+                                validate.showTips('修改成功');
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1500);
+                            } else {
+                                validate.showTips(res.msg);
+                            }
+                        })
+                    } else {
+                        // 未完成表单
+                        validate.showTips('表单不完整或有错误,请重试');
+                    }
+                })
                 this.bindDom();
             }
         }
@@ -429,7 +605,6 @@
                     $('.mb_rg_switch_right').removeClass('switch_active');
                     $('#regist_form').hide(300);
                     $('#login_form').show(500);
-                    
                 });
                 $('.mb_rg_switch_right').on('click', function () {
                     $(this).addClass('switch_active');
@@ -442,8 +617,8 @@
 
         let member = {
             init () {
-                switchPanel.bindEvent();
                 validate.init();
+                switchPanel.bindEvent();
             }
         }
         member.init();

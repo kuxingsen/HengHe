@@ -27,6 +27,7 @@ public class MemberController{
         Member member = memberService.login(account,password);
         if(member != null){
             session.setAttribute("member",member);
+            session.setAttribute("member_id",member.getId());
             session.setAttribute("member_key", Md5Utils.key(member.getAccount()));
             return new Result(200);
         }
@@ -37,6 +38,7 @@ public class MemberController{
     public Result logout(HttpSession session){
         session.setAttribute("member",null);
         session.setAttribute("member_key", null);
+        session.setAttribute("member_id", null);
         return new Result(200);
     }
 
@@ -83,6 +85,7 @@ public class MemberController{
     public Result updateMember(Member member,HttpSession session){
         String key = (String) session.getAttribute("member_key");
         if(key.equals(Md5Utils.key(member.getAccount()))){
+            member.setId((String) session.getAttribute("member_id"));
             int r1 = memberService.check(member);
             if(r1 > 0) {
                 int r = memberService.updateMember(member);

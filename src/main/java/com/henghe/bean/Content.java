@@ -30,10 +30,12 @@ public class Content{
         } catch (IOException e) {
             throw new RuntimeException("content.properties import exception");
         }
-        REAL_TITLE_IMG_PATH = properties.getProperty("real_title_img_path");
-        REAL_FILE_PATH = properties.getProperty("real_file_path");
+        String projectPath = Content.class.getClassLoader().getResource("../../").getPath();
+        projectPath = projectPath.substring(0,projectPath.length()-1);
         TITLE_IMG_PATH = properties.getProperty("title_img_path");
         FILE_PATH = properties.getProperty("file_path");
+        REAL_TITLE_IMG_PATH = projectPath+ TITLE_IMG_PATH;
+        REAL_FILE_PATH = projectPath+ FILE_PATH;
         URL = properties.getProperty("jdbc_url");
         USER = properties.getProperty("jdbc_user");
         PASSWORD = properties.getProperty("jdbc_password");
