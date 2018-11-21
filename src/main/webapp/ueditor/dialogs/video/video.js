@@ -2,7 +2,7 @@
  * Created by JetBrains PhpStorm.
  * User: taoqili
  * Date: 12-2-20
- * Time: ä¸Šåˆ11:19
+ * Time: ÉÏÎç11:19
  * To change this template use File | Settings | File Templates.
  */
 
@@ -20,7 +20,7 @@
         initUpload();
     };
 
-    /* åˆå§‹åŒ–tabæ ‡ç­¾ */
+    /* ³õÊ¼»¯tab±êÇ© */
     function initTabs(){
         var tabs = $G('tabHeads').children;
         for (var i = 0; i < tabs.length; i++) {
@@ -45,7 +45,7 @@
         addUrlChangeListener($G("videoUrl"));
         addOkListener();
 
-        //ç¼–è¾‘è§†é¢‘æ—¶åˆå§‹åŒ–ç›¸å…³ä¿¡æ¯
+        //±à¼­ÊÓÆµÊ±³õÊ¼»¯Ïà¹ØĞÅÏ¢
         (function(){
             var img = editor.selection.getRange().getClosedNode(),url;
             if(img && img.className){
@@ -68,7 +68,7 @@
     }
 
     /**
-     * ç›‘å¬ç¡®è®¤å’Œå–æ¶ˆä¸¤ä¸ªæŒ‰é’®äº‹ä»¶ï¼Œç”¨æˆ·æ‰§è¡Œæ’å…¥æˆ–è€…æ¸…ç©ºæ­£åœ¨æ’­æ”¾çš„è§†é¢‘å®ä¾‹æ“ä½œ
+     * ¼àÌıÈ·ÈÏºÍÈ¡ÏûÁ½¸ö°´Å¥ÊÂ¼ş£¬ÓÃ»§Ö´ĞĞ²åÈë»òÕßÇå¿ÕÕıÔÚ²¥·ÅµÄÊÓÆµÊµÀı²Ù×÷
      */
     function addOkListener(){
         dialog.onok = function(){
@@ -92,7 +92,7 @@
     }
 
     /**
-     * ä¾æ®ä¼ å…¥çš„alignå€¼æ›´æ–°æŒ‰é’®ä¿¡æ¯
+     * ÒÀ¾İ´«ÈëµÄalignÖµ¸üĞÂ°´Å¥ĞÅÏ¢
      * @param align
      */
     function updateAlignButton( align ) {
@@ -111,7 +111,7 @@
     }
 
     /**
-     * å°†å•ä¸ªè§†é¢‘ä¿¡æ¯æ’å…¥ç¼–è¾‘å™¨ä¸­
+     * ½«µ¥¸öÊÓÆµĞÅÏ¢²åÈë±à¼­Æ÷ÖĞ
      */
     function insertSingle(){
         var width = $G("videoWidth"),
@@ -129,7 +129,7 @@
     }
 
     /**
-     * å°†å…ƒç´ idä¸‹çš„æ‰€æœ‰ä»£è¡¨è§†é¢‘çš„å›¾ç‰‡æ’å…¥ç¼–è¾‘å™¨ä¸­
+     * ½«ÔªËØidÏÂµÄËùÓĞ´ú±íÊÓÆµµÄÍ¼Æ¬²åÈë±à¼­Æ÷ÖĞ
      * @param id
      */
     function insertSearch(id){
@@ -149,7 +149,7 @@
     }
 
     /**
-     * æ‰¾åˆ°idä¸‹å…·æœ‰focusç±»çš„èŠ‚ç‚¹å¹¶è¿”å›è¯¥èŠ‚ç‚¹ä¸‹çš„æŸä¸ªå±æ€§
+     * ÕÒµ½idÏÂ¾ßÓĞfocusÀàµÄ½Úµã²¢·µ»Ø¸Ã½ÚµãÏÂµÄÄ³¸öÊôĞÔ
      * @param id
      * @param returnProperty
      */
@@ -184,8 +184,8 @@
     }
 
     /**
-      * æ£€æµ‹ä¼ å…¥çš„æ‰€æœ‰inputæ¡†ä¸­è¾“å…¥çš„é•¿å®½æ˜¯å¦æ˜¯æ­£æ•°
-      * @param nodes inputæ¡†é›†åˆï¼Œ
+      * ¼ì²â´«ÈëµÄËùÓĞinput¿òÖĞÊäÈëµÄ³¤¿íÊÇ·ñÊÇÕıÊı
+      * @param nodes input¿ò¼¯ºÏ£¬
       */
      function checkNum( nodes ) {
          for ( var i = 0, ci; ci = nodes[i++]; ) {
@@ -201,7 +201,7 @@
      }
 
     /**
-     * æ•°å­—åˆ¤æ–­
+     * Êı×ÖÅĞ¶Ï
      * @param value
      */
     function isNumber( value ) {
@@ -209,7 +209,7 @@
     }
 
     /**
-      * åˆ›å»ºå›¾ç‰‡æµ®åŠ¨é€‰æ‹©æŒ‰é’®
+      * ´´½¨Í¼Æ¬¸¡¶¯Ñ¡Ôñ°´Å¥
       * @param ids
       */
      function createAlignButton( ids ) {
@@ -229,7 +229,7 @@
      }
 
     /**
-     * é€‰æ‹©åˆ‡æ¢
+     * Ñ¡ÔñÇĞ»»
      * @param selectParentId
      */
     function switchSelect( selectParentId ) {
@@ -246,7 +246,7 @@
     }
 
     /**
-     * ç›‘å¬urlæ”¹å˜äº‹ä»¶
+     * ¼àÌıurl¸Ä±äÊÂ¼ş
      * @param url
      */
     function addUrlChangeListener(url){
@@ -262,7 +262,7 @@
     }
 
     /**
-     * æ ¹æ®urlç”Ÿæˆè§†é¢‘é¢„è§ˆ
+     * ¸ù¾İurlÉú³ÉÊÓÆµÔ¤ÀÀ
      * @param url
      */
     function createPreviewVideo(url){
@@ -282,7 +282,7 @@
     }
 
 
-    /* æ’å…¥ä¸Šä¼ è§†é¢‘ */
+    /* ²åÈëÉÏ´«ÊÓÆµ */
     function insertUpload(){
         var videoObjs=[],
             uploadDir = editor.getOpt('videoUrlPrefix'),
@@ -301,20 +301,20 @@
 
         var count = uploadFile.getQueueCount();
         if (count) {
-            $('.info', '#queueList').html('<span style="color:red;">' + 'è¿˜æœ‰2ä¸ªæœªä¸Šä¼ æ–‡ä»¶'.replace(/[\d]/, count) + '</span>');
+            $('.info', '#queueList').html('<span style="color:red;">' + '»¹ÓĞ2¸öÎ´ÉÏ´«ÎÄ¼ş'.replace(/[\d]/, count) + '</span>');
             return false;
         } else {
             editor.execCommand('insertvideo', videoObjs, 'upload');
         }
     }
 
-    /*åˆå§‹åŒ–ä¸Šä¼ æ ‡ç­¾*/
+    /*³õÊ¼»¯ÉÏ´«±êÇ©*/
     function initUpload(){
         uploadFile = new UploadFile('queueList');
     }
 
 
-    /* ä¸Šä¼ é™„ä»¶ */
+    /* ÉÏ´«¸½¼ş */
     function UploadFile(target) {
         this.$wrap = target.constructor == String ? $('#' + target) : $(target);
         this.init();
@@ -328,39 +328,39 @@
         initContainer: function () {
             this.$queue = this.$wrap.find('.filelist');
         },
-        /* åˆå§‹åŒ–å®¹å™¨ */
+        /* ³õÊ¼»¯ÈİÆ÷ */
         initUploader: function () {
             var _this = this,
                 $ = jQuery,    // just in case. Make sure it's not an other libaray.
                 $wrap = _this.$wrap,
-            // å›¾ç‰‡å®¹å™¨
+            // Í¼Æ¬ÈİÆ÷
                 $queue = $wrap.find('.filelist'),
-            // çŠ¶æ€æ ï¼ŒåŒ…æ‹¬è¿›åº¦å’Œæ§åˆ¶æŒ‰é’®
+            // ×´Ì¬À¸£¬°üÀ¨½ø¶ÈºÍ¿ØÖÆ°´Å¥
                 $statusBar = $wrap.find('.statusBar'),
-            // æ–‡ä»¶æ€»ä½“é€‰æ‹©ä¿¡æ¯ã€‚
+            // ÎÄ¼ş×ÜÌåÑ¡ÔñĞÅÏ¢¡£
                 $info = $statusBar.find('.info'),
-            // ä¸Šä¼ æŒ‰é’®
+            // ÉÏ´«°´Å¥
                 $upload = $wrap.find('.uploadBtn'),
-            // ä¸Šä¼ æŒ‰é’®
+            // ÉÏ´«°´Å¥
                 $filePickerBtn = $wrap.find('.filePickerBtn'),
-            // ä¸Šä¼ æŒ‰é’®
+            // ÉÏ´«°´Å¥
                 $filePickerBlock = $wrap.find('.filePickerBlock'),
-            // æ²¡é€‰æ‹©æ–‡ä»¶ä¹‹å‰çš„å†…å®¹ã€‚
+            // Ã»Ñ¡ÔñÎÄ¼şÖ®Ç°µÄÄÚÈİ¡£
                 $placeHolder = $wrap.find('.placeholder'),
-            // æ€»ä½“è¿›åº¦æ¡
+            // ×ÜÌå½ø¶ÈÌõ
                 $progress = $statusBar.find('.progress').hide(),
-            // æ·»åŠ çš„æ–‡ä»¶æ•°é‡
+            // Ìí¼ÓµÄÎÄ¼şÊıÁ¿
                 fileCount = 0,
-            // æ·»åŠ çš„æ–‡ä»¶æ€»å¤§å°
+            // Ìí¼ÓµÄÎÄ¼ş×Ü´óĞ¡
                 fileSize = 0,
-            // ä¼˜åŒ–retina, åœ¨retinaä¸‹è¿™ä¸ªå€¼æ˜¯2
+            // ÓÅ»¯retina, ÔÚretinaÏÂÕâ¸öÖµÊÇ2
                 ratio = window.devicePixelRatio || 1,
-            // ç¼©ç•¥å›¾å¤§å°
+            // ËõÂÔÍ¼´óĞ¡
                 thumbnailWidth = 113 * ratio,
                 thumbnailHeight = 113 * ratio,
-            // å¯èƒ½æœ‰pedding, ready, uploading, confirm, done.
+            // ¿ÉÄÜÓĞpedding, ready, uploading, confirm, done.
                 state = '',
-            // æ‰€æœ‰æ–‡ä»¶çš„è¿›åº¦ä¿¡æ¯ï¼Œkeyä¸ºfile id
+            // ËùÓĞÎÄ¼şµÄ½ø¶ÈĞÅÏ¢£¬keyÎªfile id
                 percentages = {},
                 supportTransition = (function () {
                     var s = document.createElement('p').style,
@@ -372,7 +372,7 @@
                     s = null;
                     return r;
                 })(),
-            // WebUploaderå®ä¾‹
+            // WebUploaderÊµÀı
                 uploader,
                 actionUrl = editor.getActionUrl(editor.getOpt('videoActionName')),
                 fileMaxSize = editor.getOpt('videoMaxSize'),
@@ -408,7 +408,7 @@
 
             setState('pedding');
 
-            // å½“æœ‰æ–‡ä»¶æ·»åŠ è¿›æ¥æ—¶æ‰§è¡Œï¼Œè´Ÿè´£viewçš„åˆ›å»º
+            // µ±ÓĞÎÄ¼şÌí¼Ó½øÀ´Ê±Ö´ĞĞ£¬¸ºÔğviewµÄ´´½¨
             function addFile(file) {
                 var $li = $('<li id="' + file.id + '">' +
                         '<p class="title">' + file.name + '</p>' +
@@ -472,7 +472,7 @@
                     percentages[ file.id ] = [ file.size, 0 ];
                     file.rotation = 0;
 
-                    /* æ£€æŸ¥æ–‡ä»¶æ ¼å¼ */
+                    /* ¼ì²éÎÄ¼ş¸ñÊ½ */
                     if (!file.ext || acceptExtensions.indexOf(file.ext.toLowerCase()) == -1) {
                         showError('not_allow_type');
                         uploader.removeFile(file);
@@ -486,7 +486,7 @@
                         $li.off('mouseenter mouseleave');
                         $btns.remove();
                     }
-                    // æˆåŠŸ
+                    // ³É¹¦
                     if (cur === 'error' || cur === 'invalid') {
                         showError(file.statusText);
                         percentages[ file.id ][ 1 ] = 1;
@@ -543,7 +543,7 @@
                 $li.insertBefore($filePickerBlock);
             }
 
-            // è´Ÿè´£viewçš„é”€æ¯
+            // ¸ºÔğviewµÄÏú»Ù
             function removeFile(file) {
                 var $li = $('#' + file.id);
                 delete percentages[ file.id ];
@@ -580,7 +580,7 @@
 
                     switch (val) {
 
-                        /* æœªé€‰æ‹©æ–‡ä»¶ */
+                        /* Î´Ñ¡ÔñÎÄ¼ş */
                         case 'pedding':
                             $queue.addClass('element-invisible');
                             $statusBar.addClass('element-invisible');
@@ -589,7 +589,7 @@
                             uploader.refresh();
                             break;
 
-                        /* å¯ä»¥å¼€å§‹ä¸Šä¼  */
+                        /* ¿ÉÒÔ¿ªÊ¼ÉÏ´« */
                         case 'ready':
                             $placeHolder.addClass('element-invisible');
                             $queue.removeClass('element-invisible');
@@ -599,13 +599,13 @@
                             uploader.refresh();
                             break;
 
-                        /* ä¸Šä¼ ä¸­ */
+                        /* ÉÏ´«ÖĞ */
                         case 'uploading':
                             $progress.show(); $info.hide();
                             $upload.text(lang.uploadPause);
                             break;
 
-                        /* æš‚åœä¸Šä¼  */
+                        /* ÔİÍ£ÉÏ´« */
                         case 'paused':
                             $progress.show(); $info.hide();
                             $upload.text(lang.uploadContinue);
@@ -702,9 +702,9 @@
                         setState('confirm', files);
                         break;
                     case 'startUpload':
-                        /* æ·»åŠ é¢å¤–çš„GETå‚æ•° */
+                        /* Ìí¼Ó¶îÍâµÄGET²ÎÊı */
                         var params = utils.serializeParam(editor.queryCommandValue('serverparam')) || '',
-                            url = utils.formatUrl(actionUrl + (actionUrl.indexOf('?') == -1 ? '?':'&') + 'encode=utf-8&' + params);
+                            url = utils.formatUrl(actionUrl + (actionUrl.indexOf('?') == -1 ? '?':'&') + 'encode=gbk&' + params);
                         uploader.option('server', url);
                         setState('uploading', files);
                         break;
@@ -715,7 +715,7 @@
             });
 
             uploader.on('uploadBeforeSend', function (file, data, header) {
-                //è¿™é‡Œå¯ä»¥é€šè¿‡dataå¯¹è±¡æ·»åŠ POSTå‚æ•°
+                //ÕâÀï¿ÉÒÔÍ¨¹ıdata¶ÔÏóÌí¼ÓPOST²ÎÊı
                 header['X_Requested_With'] = 'XMLHttpRequest';
             });
 

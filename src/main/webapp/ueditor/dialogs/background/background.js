@@ -8,7 +8,7 @@
         initColorSelector();
     };
 
-    /* åˆå§‹åŒ–tabæ ‡ç­¾ */
+    /* ³õÊ¼»¯tab±êÇ© */
     function initTabs(){
         var tabs = $G('tabHeads').children;
         for (var i = 0; i < tabs.length; i++) {
@@ -31,7 +31,7 @@
         }
     }
 
-    /* åˆå§‹åŒ–é¢œè‰²è®¾ç½® */
+    /* ³õÊ¼»¯ÑÕÉ«ÉèÖÃ */
     function initColorSelector () {
         var obj = editor.queryCommandValue('background');
         if (obj) {
@@ -73,12 +73,12 @@
         initColorPicker();
     }
 
-    /* åˆå§‹åŒ–é¢œè‰²é€‰æ‹©å™¨ */
+    /* ³õÊ¼»¯ÑÕÉ«Ñ¡ÔñÆ÷ */
     function initColorPicker() {
         var me = editor,
             cp = $G("colorPicker");
 
-        /* ç”Ÿæˆé¢œè‰²é€‰æ‹©å™¨uiå¯¹è±¡ */
+        /* Éú³ÉÑÕÉ«Ñ¡ÔñÆ÷ui¶ÔÏó */
         var popup = new UE.ui.Popup({
             content: new UE.ui.ColorPicker({
                 noColorText: me.getLang("clearColor"),
@@ -99,7 +99,7 @@
             }
         });
 
-        /* è®¾ç½®é¢œè‰²é€‰æ‹©å™¨ */
+        /* ÉèÖÃÑÕÉ«Ñ¡ÔñÆ÷ */
         domUtils.on(cp, "click", function () {
             popup.showAnchor(this);
         });
@@ -112,12 +112,12 @@
         });
     }
 
-    /* åˆå§‹åŒ–åœ¨çº¿å›¾ç‰‡åˆ—è¡¨ */
+    /* ³õÊ¼»¯ÔÚÏßÍ¼Æ¬ÁĞ±í */
     function initImagePanel() {
         onlineImage = onlineImage || new OnlineImage('imageList');
     }
 
-    /* æ›´æ–°èƒŒæ™¯è‰²è®¾ç½®é¢æ¿ */
+    /* ¸üĞÂ±³¾°É«ÉèÖÃÃæ°å */
     function updateFormState (radio, color, url, align, x, y) {
         var nocolorRadio = $G('nocolorRadio'),
             coloredRadio = $G('coloredRadio');
@@ -154,7 +154,7 @@
         $G('custom').style.display = coloredRadio.checked && $G('url').value && $G('repeatType').value == 'self' ? '':'none';
     }
 
-    /* æ›´æ–°èƒŒæ™¯é¢œè‰² */
+    /* ¸üĞÂ±³¾°ÑÕÉ« */
     function updateBackground () {
         if ($G('coloredRadio').checked) {
             var color = domUtils.getStyle($G("colorPicker"), "background-color"),
@@ -180,7 +180,7 @@
     }
 
 
-    /* åœ¨çº¿å›¾ç‰‡ */
+    /* ÔÚÏßÍ¼Æ¬ */
     function OnlineImage(target) {
         this.container = utils.isString(target) ? document.getElementById(target) : target;
         this.init();
@@ -190,7 +190,7 @@
             this.reset();
             this.initEvents();
         },
-        /* åˆå§‹åŒ–å®¹å™¨ */
+        /* ³õÊ¼»¯ÈİÆ÷ */
         initContainer: function () {
             this.container.innerHTML = '';
             this.list = document.createElement('ul');
@@ -203,18 +203,18 @@
             this.list.appendChild(this.clearFloat);
             this.container.appendChild(this.list);
         },
-        /* åˆå§‹åŒ–æ»šåŠ¨äº‹ä»¶,æ»šåŠ¨åˆ°åœ°æ­¥è‡ªåŠ¨æ‹‰å–æ•°æ® */
+        /* ³õÊ¼»¯¹ö¶¯ÊÂ¼ş,¹ö¶¯µ½µØ²½×Ô¶¯À­È¡Êı¾İ */
         initEvents: function () {
             var _this = this;
 
-            /* æ»šåŠ¨æ‹‰å–å›¾ç‰‡ */
+            /* ¹ö¶¯À­È¡Í¼Æ¬ */
             domUtils.on($G('imageList'), 'scroll', function(e){
                 var panel = this;
                 if (panel.scrollHeight - (panel.offsetHeight + panel.scrollTop) < 10) {
                     _this.getImageData();
                 }
             });
-            /* é€‰ä¸­å›¾ç‰‡ */
+            /* Ñ¡ÖĞÍ¼Æ¬ */
             domUtils.on(this.container, 'click', function (e) {
                 var target = e.target || e.srcElement,
                     li = target.parentNode,
@@ -234,24 +234,24 @@
                 }
             });
         },
-        /* åˆå§‹åŒ–ç¬¬ä¸€æ¬¡çš„æ•°æ® */
+        /* ³õÊ¼»¯µÚÒ»´ÎµÄÊı¾İ */
         initData: function () {
 
-            /* æ‹‰å–æ•°æ®éœ€è¦ä½¿ç”¨çš„å€¼ */
+            /* À­È¡Êı¾İĞèÒªÊ¹ÓÃµÄÖµ */
             this.state = 0;
             this.listSize = editor.getOpt('imageManagerListSize');
             this.listIndex = 0;
             this.listEnd = false;
 
-            /* ç¬¬ä¸€æ¬¡æ‹‰å–æ•°æ® */
+            /* µÚÒ»´ÎÀ­È¡Êı¾İ */
             this.getImageData();
         },
-        /* é‡ç½®ç•Œé¢ */
+        /* ÖØÖÃ½çÃæ */
         reset: function() {
             this.initContainer();
             this.initData();
         },
-        /* å‘åå°æ‹‰å–å›¾ç‰‡åˆ—è¡¨æ•°æ® */
+        /* ÏòºóÌ¨À­È¡Í¼Æ¬ÁĞ±íÊı¾İ */
         getImageData: function () {
             var _this = this;
 
@@ -294,7 +294,7 @@
                 });
             }
         },
-        /* æ·»åŠ å›¾ç‰‡åˆ°åˆ—è¡¨ç•Œé¢ä¸Š */
+        /* Ìí¼ÓÍ¼Æ¬µ½ÁĞ±í½çÃæÉÏ */
         pushData: function (list) {
             var i, item, img, icon, _this = this,
                 urlPrefix = editor.getOpt('imageManagerUrlPrefix');
@@ -320,7 +320,7 @@
                 }
             }
         },
-        /* æ”¹å˜å›¾ç‰‡å¤§å° */
+        /* ¸Ä±äÍ¼Æ¬´óĞ¡ */
         scale: function (img, w, h, type) {
             var ow = img.width,
                 oh = img.height;

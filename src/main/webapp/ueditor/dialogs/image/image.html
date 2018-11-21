@@ -1,8 +1,8 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>ueditorÂõæÁâáÂØπËØùÊ°Ü</title>
+    <meta charset="gbk">
+    <title>ueditorÕº∆¨∂‘ª∞øÚ</title>
     <script type="text/javascript" src="../internal.js"></script>
 
     <!-- jquery -->
@@ -22,6 +22,7 @@
             <span class="tab" data-content-id="remote"><var id="lang_tab_remote"></var></span>
             <span class="tab focus" data-content-id="upload"><var id="lang_tab_upload"></var></span>
             <span class="tab" data-content-id="online"><var id="lang_tab_online"></var></span>
+            <span class="tab" data-content-id="search"><var id="lang_tab_search"></var></span>
         </div>
         <div class="alignBar">
             <label class="algnLabel"><var id="lang_input_align"></var></label>
@@ -35,7 +36,7 @@
         </div>
         <div id="tabbody" class="tabbody">
 
-            <!-- ËøúÁ®ãÂõæÁâá -->
+            <!-- ‘∂≥ÃÕº∆¨ -->
             <div id="remote" class="panel">
                 <div class="top">
                     <div class="row">
@@ -66,7 +67,7 @@
                 <div class="right"><div id="preview"></div></div>
             </div>
 
-            <!-- ‰∏ä‰º†ÂõæÁâá -->
+            <!-- …œ¥´Õº∆¨ -->
             <div id="upload" class="panel focus">
                 <div id="queueList" class="queueList">
                     <div class="statusBar element-invisible">
@@ -90,9 +91,25 @@
                 </div>
             </div>
 
-            <!-- Âú®Á∫øÂõæÁâá -->
+            <!-- ‘⁄œﬂÕº∆¨ -->
             <div id="online" class="panel">
                 <div id="imageList"><var id="lang_imgLoading"></var></div>
+            </div>
+
+            <!-- À—À˜Õº∆¨ -->
+            <div id="search" class="panel">
+                <div class="searchBar">
+                    <input id="searchTxt" class="searchTxt text" type="text" />
+                    <select id="searchType" class="searchType">
+                        <option value="&s=4&z=0"></option>
+                        <option value="&s=1&z=19"></option>
+                        <option value="&s=2&z=0"></option>
+                        <option value="&s=3&z=0"></option>
+                    </select>
+                    <input id="searchReset" type="button"  />
+                    <input id="searchBtn" type="button"  />
+                </div>
+                <div id="searchList" class="searchList"><ul id="searchListUl"></ul></div>
             </div>
 
         </div>

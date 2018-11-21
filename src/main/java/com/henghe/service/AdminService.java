@@ -33,7 +33,7 @@ public class AdminService{
             ps.setString(2, oldPassword);
             result = ps.executeQuery();
             if(result != null && result.next()) {
-                System.out.println(result.getInt("id"));
+                //System.out.println(result.getInt("id"));
                 return result.getInt("id");
             }
         } catch(SQLException e) {
@@ -139,7 +139,7 @@ public class AdminService{
         File dir = new File(REAL_FILE_PATH);
         if(!dir.getParentFile().exists()) {
             boolean mk = dir.getParentFile().mkdirs();
-            System.out.println("create: yundao_dir " + mk);
+            System.out.println("create: henghe_dir " + mk);
         }
         if(!dir.exists()) {
             boolean mk = dir.mkdirs();
@@ -156,7 +156,7 @@ public class AdminService{
         File dir = new File(REAL_TITLE_IMG_PATH);
         if(!dir.getParentFile().exists()) {
             boolean mk = dir.getParentFile().mkdirs();
-            System.out.println("create: yundao_dir " + mk);
+            System.out.println("create: henghe_dir " + mk);
         }
         if(!dir.exists()) {
             boolean mk = dir.mkdirs();

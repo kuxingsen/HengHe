@@ -30,7 +30,7 @@ public class MemberController{
             session.setAttribute("member_key", Md5Utils.key(member.getAccount()));
             return new Result(200);
         }
-        return new Result(500,"è´¦å·æˆ–å¯†ç å‡ºé”™");
+        return new Result(500,"ÕËºÅ»òÃÜÂë³ö´í");
     }
 
     @RequestMapping("logout")
@@ -45,7 +45,7 @@ public class MemberController{
         if(session.getAttribute("member_key") != null){
             return new Result(200);
         }
-        return new Result(500,"æœªç™»å½•");
+        return new Result(500,"Î´µÇÂ¼");
     }
 
     @RequestMapping("selectMember")
@@ -56,7 +56,7 @@ public class MemberController{
             memberList.add(member);
             return new Result<>(200,memberList);
         }
-        return new Result<>(500,"æœªç™»å½•");
+        return new Result<>(500,"Î´µÇÂ¼");
     }
 
     @RequestMapping("accountRepeat")
@@ -65,7 +65,7 @@ public class MemberController{
         if(r > 0){
             return new Result(200);
         }
-        return new Result(500,"è´¦å·é‡å¤");
+        return new Result(500,"ÕËºÅÖØ¸´");
     }
 
     @RequestMapping("insertMember")
@@ -77,7 +77,7 @@ public class MemberController{
                 return new Result(200);
             }
         }
-        return new Result(500,"è´¦å·ä¿¡æ¯å‡ºé”™");
+        return new Result(500,"ÕËºÅĞÅÏ¢³ö´í");
     }
     @RequestMapping("updateMember")
     public Result updateMember(Member member,HttpSession session){
@@ -91,6 +91,6 @@ public class MemberController{
                 }
             }
         }
-        return new Result(500,"è´¦å·ä¿¡æ¯å‡ºé”™");
+        return new Result(500,"ÕËºÅĞÅÏ¢³ö´í");
     }
 }

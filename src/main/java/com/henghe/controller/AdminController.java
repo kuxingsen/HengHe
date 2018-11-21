@@ -115,7 +115,7 @@ public class AdminController{
         }
         System.out.println(imgPath+":::::"+filePath);
         message = adminService.updatePathInMessage(message,imgPath,filePath);
-        System.out.println(message.getTitleImgPath()+":::::"+message.getFilePath());
+        //System.out.println(message.getTitleImgPath()+":::::"+message.getFilePath());
         int result = adminService.updateMessage(adminId,message);
         if(result > 0) {
             return new Result(200);

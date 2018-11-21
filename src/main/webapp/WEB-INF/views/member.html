@@ -1,0 +1,455 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>公司介绍</title>
+
+    <meta name="keywords" content="恒河">
+    <meta name="description" content="恒河">
+    <meta name="renderer" content="webkit">
+
+    <link rel="stylesheet" href="/static_user/css/public.css">
+    <link rel="stylesheet" href="/static_user/css/style.css">
+
+    <script type="text/javascript" src="/static_user/js/jquery.min.js"></script>
+
+    <style media="screen">
+        @media only screen and (max-width: 1230px) {
+
+            body,
+            #shouye-nav {
+                width: 1230px !important;
+            }
+
+            .layout .zllist li {
+                margin-right: 88px;
+            }
+
+            #demark .index-issue .content .prev,
+            #demark .index-issue .content .next {
+                display: none;
+            }
+
+            .tempWrap {
+                width: 1215px !important;
+            }
+
+            #domain .floor1 .btnr,
+            #domain .floor1.btnl {
+                display: none;
+            }
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            background: #eeefef;
+            /* height: 880px; */
+            padding-bottom: 30px;
+            display: block;
+        }
+        .mb_rg_box {
+            display: block;
+            background: #fff;
+            width: 960px;
+            /* height: 800px; */
+            margin: 0 auto;
+            padding-bottom: 30px;
+            margin-bottom: 80px;
+        }
+        .mb_rg_title {
+            text-align: center;
+            width: 760px;
+            font-size: 24px;
+            line-height: 35px;
+            margin: 0 auto;
+            padding: 15px 0 15px 0;
+            border-bottom: 1px dashed #e2e2e2;
+        }
+        .mb_rg_switch {
+            font-size: 18px;
+            width: 760px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .mb_rg_switch>span {
+            width: 378px;
+            padding: 10px 0 10px 0;
+            display: inline-block;
+            border-bottom: 5px solid #e2e2e2;
+            cursor: pointer;
+        }
+        .mb_rg_switch_left {
+            margin-right: 4px;
+        }
+        .switch_active {
+            border-bottom: 5px solid #ee2737 !important;
+            transition: 1.4s;
+        }
+        .mb_rg_form {
+            width: 760px;
+            margin: 0 auto;
+            padding-top: 30px;
+        }
+        .mb_rg_form>input {
+            display: block;
+            font-size: 18px;
+            width: 385px;
+            line-height: 38px;
+            margin: 10px auto;
+            padding-left: 15px;
+            border: 1px solid #e2e2e2;
+        }
+        .mb_rg_form>div {
+            font-size: 18px;
+            width: 400px;
+            line-height: 38px;
+            margin: 10px auto;
+        }
+        .mb_rg_form>button {
+            display: block;
+            width: 400px;
+            margin: 0 auto;
+            line-height: 48px;
+            font-size: 20px;
+            border: none;
+            background: #ee2737;
+            color: #fff;
+        }
+        .label {
+            margin-right: 4rem;
+        }
+        .label input[type='radio'] {
+            opacity: 0;
+            position: absolute;
+        }
+        .label>i::before {
+            content: '';
+            background: #e6e6e6;
+            border-radius: 100%;
+            border: 1px solid darken(#f6f6f6, 25%);
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            position: relative;
+            top: .5rem;
+            margin-right: .6em; 
+            vertical-align: top;
+            cursor: pointer;
+            text-align: center;
+            transition: all 250ms ease;
+            /* background-color: #3197EE;
+            box-shadow: inset 0 0 0 4px #f6f6f6; */
+        }
+        .radio:checked + i::before {
+            background-color: #ee2737;
+            box-shadow: inset 0 0 0 4px #f6f6f6;
+        }
+        .tips {
+            color: #ee2737;
+            text-align: center;
+        }
+
+        #regist_form {
+            display: none;
+        }
+        
+        .showMsg {
+            padding-top: 30px;
+        }
+        #title-message{
+            font-size: 20px;
+            background: #ffffff;
+            text-align:center;
+            margin-bottom: 40px;
+        }
+        #form-message{
+            background: #ffffff;
+            font-size:17px;
+            padding-left:20%;
+            
+        }
+        #form-message tr td{
+            background: #ffffff;
+            text-align:center;
+        }
+        /*.mb_rg_box,.showMsg {*/
+            /*display: none;*/
+        /*}*/
+        </style>
+</head>
+
+<body>
+    <div class="headerpage"></div>
+    <div id="container">
+        <div class="mb_rg_box">
+            <div class="randl" style="display: none;">
+                <div class="mb_rg_title">
+                    <h3>会员注册</h3>
+                </div>
+                <div class="mb_rg_switch">
+                    <span class="mb_rg_switch_left switch_active">账号登录</span><span class="mb_rg_switch_right">会员注册</span>
+                </div>
+                <div class="mb_rg_form" id="regist_form">
+                    <div class="tips" style="display:none">这是提示消息</div>
+                    <input type="text" name="account" placeholder="账号" id="account" onkeyup="value=value.replace(/[^a-za-z0-9u4e00-u9fa5@.]/g,'')">
+                    <input type="password" name="password" placeholder="密码" id="password">
+                    <input type="password" placeholder="确认密码" id="confirmPassword">
+                    <input type="text" name="name" placeholder="姓名"id="name">
+                    <div>
+                        <label for="male" class="label">
+                            <input type="radio" name="sex" id="male" class="radio" value="男" checked> <i>男</i>
+                        </label>
+                        <label for="female" class="label">
+                            <input type="radio" name="sex" id="female" class="radio" value="女"> <i>女</i>
+                        </label>
+                    </div>
+                    <!-- <input type="radio" name="sex" placeholder="性别"> -->
+                    <input type="date" name="birthday" placeholder="出生日期" id="birthday">
+                    <input type="text" name="phone" placeholder="电话" id="phone">
+                    <input type="email" name="email" placeholder="邮箱" id="email">
+                    <input type="text" name="address" placeholder="地址" id="address">
+                    <button class="form_submit" id="regist_button">点击注册</button>
+                </div>
+                <div class="mb_rg_form" id="login_form" >
+                    <div class="login_tips" style="display:none">这是提示消息</div>
+                    <input type="text" id="login_account" placeholder="账号">
+                    <input type="password" id="login_password" placeholder="密码">
+                    <button class="form_submit" id="login_button">登录</button>
+                </div>
+            </div>
+            <div class="showMsg" style="display: none;">
+                <div id="title-message">个人信息中心</div>
+                <div id="form-message">
+                    <table rules="none">
+                        <tr><td>用户名(账号)：</td><td id="showAccount"></td></tr>
+                        <tr><td>性别：</td><td id="showSex"></td></tr>
+                        <tr><td>真实姓名：</td><td id="showName"></td></tr>
+                        <tr><td>出生日期：</td><td id="showBirthday"></td></tr>
+                        <tr><td>电话号码：</td><td id="showPhone"></td></tr>
+                        <tr><td>联系邮箱：</td><td id="showEmail"></td></tr>
+                        <tr><td>个人住址：</td><td id="showAddress"></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footerpage"></div>
+
+    <script>
+
+        let validate = {
+            attr: {
+                isValidate: false,
+                isLogin: false
+            },
+            loadComponents () {
+                sessionStorage.setItem("index",6);
+                $(".headerpage").load("title.html");
+                $(".footerpage").load("foot.html");
+            },
+            showTips (message) {
+                $('.tips').text(message).show();
+                this.attr.isValidate = false;
+            },
+            closeTips () {
+                $('.tips').hide();
+                this.attr.isValidate = true;
+            },
+            vLength (name, vdata) {
+                if (vdata.length < 1) {
+                    this.showTips(name+'不能为空');
+                    return false;
+                } else if (vdata.length > 20) {
+                    this.showTips(name+'长度不能大于20个字符');
+                    return false;
+                }
+                return true;
+            },
+            bindDom() {
+                $('#account').on('blur', function () {
+                    if (validate.vLength('账号', this.value)) {
+                        validate.closeTips();
+                    }
+                });
+                $('#password').on('blur', function () {
+                    if (validate.vLength('密码', this.value)) {
+                        validate.closeTips();
+                    }
+                });
+                $('#confirmPassword').on('blur', function () {
+                    if (this.value != $('#password').val()) {
+                        validate.showTips('两次输入密码不一致');
+                    }
+                });
+                $('#name').on('blur', function () {
+                    if (validate.vLength('名字', this.value)) {
+                        validate.closeTips();
+                    }
+                });
+                $('#birthday').on('blur', function () {
+                    if (validate.vLength('出生日期', this.value)) {
+                        validate.closeTips();
+                    }
+                });
+                $('#phone').on('blur', function () {
+                    if (validate.vLength('电话', this.value)) {
+                        if (!(/^1[34578]\d{9}$/.test(this.value))) {
+                            validate.showTips('请填写正确的手机号');
+                        } else {
+                            validate.closeTips();
+                        }
+                    }
+                });
+                $('#email').on('blur', function () {
+                    if (validate.vLength('邮箱',this.value)) {
+                        if (!(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(this.value))) {
+                            validate.showTips('请填写正确的邮箱地址');
+                        } else {
+                            validate.closeTips();
+                        }
+                    }
+                });
+                $('#address').on('blur', function () {
+                    if (validate.vLength('地址', this.value)) {
+                        validate.closeTips();
+                    }
+                });
+                $('#regist_button').on('click', function () {
+                    if (validate.attr.isValidate) {
+                        // 执行注册
+                        $.post('/insertMember',{
+                            account: $('#account').val(),
+                            password: $('#password').val(),
+                            name: $('#name').val(),
+                            sex: $('input[name="sex"]:checked').val(),
+                            birthday: $('#birthday').val(),
+                            phone: $('#phone').val(),
+                            email: $('#email').val(),
+                            address: $('#address').val()
+
+                        }).success(function (res) {
+                            if (res.code == 200) {
+                                validate.showTips('注册成功');
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1500);
+                            }
+                        })
+                    } else {
+                        // 未完成表单
+                        validate.showTips('表单有错误,请重试');
+                    }
+                })
+
+                $('#login_button').on('click', function () {
+                    let account = $('#login_account').val();
+                    let password = $('#login_password').val();
+                    if(account.length > 0 && password.length > 0) {
+                        $.post('/login', {
+                            account: account,
+                            password: password
+                        }).success(function(res){
+                            if (res.code == 200) {
+                                $('.login_tips').text('登录成功').show();
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1500);
+                            }
+                        })
+                    } else {
+                        $('.login_tips').text('表单内容不能为空');
+                    }
+                });
+            },
+            isShowMessage (callback) {
+                $.get('/isLogin').success(function(res){
+                    if (res.code == 200) {
+                        validate.attr.isLogin = true;
+                    } else {
+                        validate.attr.isLogin = false;
+                    }
+                    callback();
+                })
+            },
+            init () {
+                this.loadComponents();
+                this.isShowMessage(function(){
+                    if ( validate.attr.isLogin ) {
+                        $('.randl').hide();
+                        $('.showMsg').show();
+                        $.ajax({
+                            url: '/selectMember',
+                            type: 'get',
+                            data: {},
+                            success: function (res) {
+                                if(res.code==200){
+                                    var account = res.datas[0].account;
+                                    $('#showAccount').text(account); 
+                                    
+                                    var sex = res.datas[0].sex;
+                                    $('#showSex').text(sex); 
+                                    
+                                    var name = res.datas[0].name;
+                                    $('#showName').text(name); 
+                                    
+                                    var birthday = res.datas[0].birthday;
+                                    $('#showBirthday').text(birthday); 
+                                    
+                                    var phone = res.datas[0].phone;
+                                    $('#showPhone').text(phone); 
+                                    
+                                    var email = res.datas[0].email;
+                                    $('#showEmail').text(email); 
+                                    
+                                    var address = res.datas[0].address;
+                                    $('#showAddress').text(address); 
+                                    
+                                }
+                            }
+                        })
+                    } else {
+                        $('.randl').show();
+                        $('.showMsg').hide();
+                    }
+                });
+                
+                this.bindDom();
+            }
+        }
+
+        let switchPanel = {
+            bindEvent () {
+                $('.mb_rg_switch_left').on('click', function () {
+                    $(this).addClass('switch_active');
+                    $('.mb_rg_switch_right').removeClass('switch_active');
+                    $('#regist_form').hide(300);
+                    $('#login_form').show(500);
+                    
+                });
+                $('.mb_rg_switch_right').on('click', function () {
+                    $(this).addClass('switch_active');
+                    $('.mb_rg_switch_left').removeClass('switch_active');
+                    $('#regist_form').show(500);
+                    $('#login_form').hide(300);
+                });
+            }
+        }
+
+        let member = {
+            init () {
+                switchPanel.bindEvent();
+                validate.init();
+            }
+        }
+        member.init();
+
+    </script>
+
+</body>
+
+</html>

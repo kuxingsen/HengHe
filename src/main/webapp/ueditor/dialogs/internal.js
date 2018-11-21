@@ -1,8 +1,8 @@
 (function () {
     var parent = window.parent;
-    //dialogå¯¹è±¡
+    //dialog¶ÔÏó
     dialog = parent.$EDITORUI[window.frameElement.id.replace( /_iframe$/, '' )];
-    //å½“å‰æ‰“å¼€dialogçš„ç¼–è¾‘å™¨å®ä¾‹
+    //µ±Ç°´ò¿ªdialogµÄ±à¼­Æ÷ÊµÀı
     editor = dialog.editor;
 
     UE = parent.UE;
@@ -18,7 +18,7 @@
     $G = function ( id ) {
         return document.getElementById( id )
     };
-    //focuså…ƒç´ 
+    //focusÔªËØ
     $focus = function ( node ) {
         setTimeout( function () {
             if ( browser.ie ) {
@@ -41,7 +41,7 @@
         domUtils.on(window,'load',function () {
 
             var langImgPath = editor.options.langPath + editor.options.lang + "/images/";
-            //é’ˆå¯¹é™æ€èµ„æº
+            //Õë¶Ô¾²Ì¬×ÊÔ´
             for ( var i in lang["static"] ) {
                 var dom = $G( i );
                 if(!dom) continue;

@@ -24,9 +24,9 @@ public class Content{
         Resource resource = new ClassPathResource("content.properties");
         Properties properties;
         try {
-            System.out.println("?????????");
+            //System.out.println("?????????");
             properties = PropertiesLoaderUtils.loadProperties(resource);
-            System.out.println("?????????");
+            //System.out.println("?????????");
         } catch (IOException e) {
             throw new RuntimeException("content.properties import exception");
         }

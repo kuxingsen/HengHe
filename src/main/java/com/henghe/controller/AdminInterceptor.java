@@ -12,7 +12,7 @@ public class AdminInterceptor implements HandlerInterceptor{
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println("interceptor");
+        //System.out.println("interceptor");
         HttpSession session = httpServletRequest.getSession();
         Integer adminId = (Integer)session.getAttribute("adminId");
         String md5 = (String)session.getAttribute("admin_key");

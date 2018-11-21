@@ -25,7 +25,7 @@ public class CommonService{
         try {
             PreparedStatement ps = DbUtil.executePreparedStatement(sql);
             result = ps.executeQuery();
-            System.out.println(result);
+            //System.out.println(result);
             if(result != null) {
                 List<Column> columnList = new ArrayList<>();
                 while(result.next()) {

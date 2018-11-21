@@ -1,26 +1,26 @@
 /*
- * å›¾ç‰‡è½¬æ¢å¯¹è¯æ¡†è„šæœ¬
+ * Í¼Æ¬×ª»»¶Ô»°¿ò½Å±¾
  **/
 
 var tableData = [],
-    //ç¼–è¾‘å™¨é¡µé¢table
+    //±à¼­Æ÷Ò³Ãætable
     editorTable = null,
     chartsConfig = window.typeConfig,
     resizeTimer = null,
-    //åˆå§‹é»˜è®¤å›¾è¡¨ç±»å‹
+    //³õÊ¼Ä¬ÈÏÍ¼±íÀàĞÍ
     currentChartType = 0;
 
 window.onload = function () {
 
     editorTable = domUtils.findParentByTagName( editor.selection.getRange().startContainer, 'table', true);
 
-    //æœªæ‰¾åˆ°è¡¨æ ¼ï¼Œ æ˜¾ç¤ºé”™è¯¯é¡µé¢
+    //Î´ÕÒµ½±í¸ñ£¬ ÏÔÊ¾´íÎóÒ³Ãæ
     if ( !editorTable ) {
-        document.body.innerHTML = "<div class='edui-charts-not-data'>æœªæ‰¾åˆ°æ•°æ®</div>";
+        document.body.innerHTML = "<div class='edui-charts-not-data'>Î´ÕÒµ½Êı¾İ</div>";
         return;
     }
 
-    //åˆå§‹åŒ–å›¾è¡¨ç±»å‹é€‰æ‹©
+    //³õÊ¼»¯Í¼±íÀàĞÍÑ¡Ôñ
     initChartsTypeView();
     renderTable( editorTable );
     initEvent();
@@ -60,12 +60,12 @@ function initChartsTypeView () {
 
 }
 
-//æ¸²æŸ“tableï¼Œ ä»¥ä¾¿ç”¨æˆ·ä¿®æ”¹æ•°æ®
+//äÖÈ¾table£¬ ÒÔ±ãÓÃ»§ĞŞ¸ÄÊı¾İ
 function renderTable ( table ) {
 
     var tableHtml = [];
 
-    //æ„é€ æ•°æ®
+    //¹¹ÔìÊı¾İ
     for ( var i = 0, row; row = table.rows[ i ]; i++ ) {
 
         tableData[ i ] = [];
@@ -93,13 +93,13 @@ function renderTable ( table ) {
 
     }
 
-    //draw è¡¨æ ¼
+    //draw ±í¸ñ
     $( "#tableContainer" ).html( '<table id="showTable" border="1"><tbody><tr>'+ tableHtml.join( "</tr><tr>" ) +'</tr></tbody></table>' );
 
 }
 
 /*
- * æ ¹æ®è¡¨æ ¼å·²æœ‰çš„å›¾è¡¨å±æ€§åˆå§‹åŒ–å½“å‰å›¾è¡¨å±æ€§
+ * ¸ù¾İ±í¸ñÒÑÓĞµÄÍ¼±íÊôĞÔ³õÊ¼»¯µ±Ç°Í¼±íÊôĞÔ
  */
 function initUserConfig ( config ) {
 
@@ -125,7 +125,7 @@ function initUserConfig ( config ) {
 function initEvent () {
 
     var cacheValue = null,
-        //å›¾è¡¨ç±»å‹æ•°
+        //Í¼±íÀàĞÍÊı
         typeViewCount = chartsConfig.length- 1,
         $chartsTypeViewBox = $( '#scrollBed .view-box' );
 
@@ -171,7 +171,7 @@ function initEvent () {
 
     } );
 
-    //å›¾è¡¨ç±»å‹å˜åŒ–
+    //Í¼±íÀàĞÍ±ä»¯
     $( '#scrollBed' ).delegate( ".view-box", "click", function (e) {
 
         var index = $( this ).attr( "data-chart-type" );
@@ -180,12 +180,12 @@ function initEvent () {
 
         currentChartType = index | 0;
 
-        //é¥¼å›¾ï¼Œ ç¦ç”¨éƒ¨åˆ†é…ç½®
+        //±ıÍ¼£¬ ½ûÓÃ²¿·ÖÅäÖÃ
         if ( currentChartType === chartsConfig.length - 1 ) {
 
             disableNotPieConfig();
 
-        //å¯ç”¨å®Œæ•´é…ç½®
+        //ÆôÓÃÍêÕûÅäÖÃ
         } else {
 
             enableNotPieConfig();
@@ -266,7 +266,7 @@ function collectData () {
         data = getSeriesAndCategories();
         $.extend( data, getUserConfig() );
 
-    //é¥¼å›¾æ•°æ®æ ¼å¼
+    //±ıÍ¼Êı¾İ¸ñÊ½
     } else {
         data = getSeriesForPieChart();
         data.title = form[ 'title' ].value;
@@ -278,7 +278,7 @@ function collectData () {
 }
 
 /**
- * è·å–ç”¨æˆ·é…ç½®ä¿¡æ¯
+ * »ñÈ¡ÓÃ»§ÅäÖÃĞÅÏ¢
  */
 function getUserConfig () {
 
@@ -289,9 +289,9 @@ function getUserConfig () {
             xTitle: form[ 'x-title' ].value,
             yTitle: form[ 'y-title' ].value,
             suffix: form[ 'unit' ].value,
-            //æ•°æ®å¯¹é½æ–¹å¼
+            //Êı¾İ¶ÔÆë·½Ê½
             tableDataFormat: getTableDataFormat (),
-            //é¥¼å›¾æç¤ºæ–‡å­—
+            //±ıÍ¼ÌáÊ¾ÎÄ×Ö
             tip: $( "#tipInput" ).val()
         };
 
@@ -322,7 +322,7 @@ function getSeriesAndCategories () {
         tmp = [],
         tableData = getTableData();
 
-    //åè½¬æ•°æ®
+    //·´×ªÊı¾İ
     if ( getTableDataFormat() === "-1" ) {
 
         for ( var i = 0, len = tableData.length; i < len; i++ ) {
@@ -362,7 +362,7 @@ function getSeriesAndCategories () {
 }
 
 /*
- * è·å–æ•°æ®æºæ•°æ®å¯¹é½æ–¹å¼
+ * »ñÈ¡Êı¾İÔ´Êı¾İ¶ÔÆë·½Ê½
  */
 function getTableDataFormat () {
 
@@ -374,7 +374,7 @@ function getTableDataFormat () {
 }
 
 /*
- * ç¦ç”¨éé¥¼å›¾ç±»å‹çš„é…ç½®é¡¹
+ * ½ûÓÃ·Ç±ıÍ¼ÀàĞÍµÄÅäÖÃÏî
  */
 function disableNotPieConfig() {
 
@@ -383,7 +383,7 @@ function disableNotPieConfig() {
 }
 
 /*
- * å¯ç”¨éé¥¼å›¾ç±»å‹çš„é…ç½®é¡¹
+ * ÆôÓÃ·Ç±ıÍ¼ÀàĞÍµÄÅäÖÃÏî
  */
 function enableNotPieConfig() {
 
@@ -396,7 +396,7 @@ function updateConfigItem ( value ) {
     var table = $( "#showTable" )[ 0 ],
         isDisable = value === 'disable' ? true : false;
 
-    //tableä¸­çš„inputå¤„ç†
+    //tableÖĞµÄinput´¦Àí
     for ( var i = 2 , row; row = table.rows[ i ]; i++ ) {
 
         for ( var j = 1, cell; cell = row.cells[ j ]; j++ ) {
@@ -407,15 +407,15 @@ function updateConfigItem ( value ) {
 
     }
 
-    //å…¶ä»–é¡¹å¤„ç†
+    //ÆäËûÏî´¦Àí
     $( "input.not-pie-item" ).attr( "disabled", isDisable );
     $( "#tipInput" ).attr( "disabled", !isDisable )
 
 }
 
 /*
- * è·å–é¥¼å›¾æ•°æ®
- * é¥¼å›¾çš„æ•°æ®åªå–ç¬¬ä¸€è¡Œçš„
+ * »ñÈ¡±ıÍ¼Êı¾İ
+ * ±ıÍ¼µÄÊı¾İÖ»È¡µÚÒ»ĞĞµÄ
  **/
 function getSeriesForPieChart () {
 
@@ -481,26 +481,26 @@ function getCellValue ( cell ) {
 }
 
 
-//dialogç¡®è®¤äº‹ä»¶
+//dialogÈ·ÈÏÊÂ¼ş
 dialog.onok = function () {
 
-    //æ”¶é›†ä¿¡æ¯
+    //ÊÕ¼¯ĞÅÏ¢
     var form = document.forms[ 'data-form' ],
         info = getUserConfig();
 
-    //æ·»åŠ å›¾è¡¨ç±»å‹
+    //Ìí¼ÓÍ¼±íÀàĞÍ
     info.chartType = currentChartType;
 
-    //åŒæ­¥è¡¨æ ¼æ•°æ®åˆ°ç¼–è¾‘å™¨
+    //Í¬²½±í¸ñÊı¾İµ½±à¼­Æ÷
     syncTableData();
 
-    //æ‰§è¡Œå›¾è¡¨å‘½ä»¤
+    //Ö´ĞĞÍ¼±íÃüÁî
     editor.execCommand( 'charts', info );
 
 };
 
 /*
- * åŒæ­¥å›¾è¡¨ç¼–è¾‘è§†å›¾çš„è¡¨æ ¼æ•°æ®åˆ°ç¼–è¾‘å™¨é‡Œçš„åŸå§‹è¡¨æ ¼
+ * Í¬²½Í¼±í±à¼­ÊÓÍ¼µÄ±í¸ñÊı¾İµ½±à¼­Æ÷ÀïµÄÔ­Ê¼±í¸ñ
  */
 function syncTableData () {
 

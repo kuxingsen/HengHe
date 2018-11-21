@@ -2,13 +2,13 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>å®Œæ•´demo</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="ueditor.all.min.js"> </script>
-    <!--å»ºè®®æ‰‹åŠ¨åŠ åœ¨è¯­è¨€ï¼Œé¿å…åœ¨ieä¸‹æœ‰æ—¶å› ä¸ºåŠ è½½è¯­è¨€å¤±è´¥å¯¼è‡´ç¼–è¾‘å™¨åŠ è½½å¤±è´¥-->
-    <!--è¿™é‡ŒåŠ è½½çš„è¯­è¨€æ–‡ä»¶ä¼šè¦†ç›–ä½ åœ¨é…ç½®é¡¹ç›®é‡Œæ·»åŠ çš„è¯­è¨€ç±»å‹ï¼Œæ¯”å¦‚ä½ åœ¨é…ç½®é¡¹ç›®é‡Œé…ç½®çš„æ˜¯è‹±æ–‡ï¼Œè¿™é‡ŒåŠ è½½çš„ä¸­æ–‡ï¼Œé‚£æœ€åå°±æ˜¯ä¸­æ–‡-->
-    <script type="text/javascript" charset="utf-8" src="lang/zh-cn/zh-cn.js"></script>
+    <title>ÍêÕûdemo</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
+    <script type="text/javascript" charset="gbk" src="ueditor.config.js"></script>
+    <script type="text/javascript" charset="gbk" src="ueditor.all.min.js"> </script>
+    <!--½¨ÒéÊÖ¶¯¼ÓÔÚÓïÑÔ£¬±ÜÃâÔÚieÏÂÓĞÊ±ÒòÎª¼ÓÔØÓïÑÔÊ§°Üµ¼ÖÂ±à¼­Æ÷¼ÓÔØÊ§°Ü-->
+    <!--ÕâÀï¼ÓÔØµÄÓïÑÔÎÄ¼ş»á¸²¸ÇÄãÔÚÅäÖÃÏîÄ¿ÀïÌí¼ÓµÄÓïÑÔÀàĞÍ£¬±ÈÈçÄãÔÚÅäÖÃÏîÄ¿ÀïÅäÖÃµÄÊÇÓ¢ÎÄ£¬ÕâÀï¼ÓÔØµÄÖĞÎÄ£¬ÄÇ×îºó¾ÍÊÇÖĞÎÄ-->
+    <script type="text/javascript" charset="gbk" src="lang/zh-cn/zh-cn.js"></script>
 
     <style type="text/css">
         div{
@@ -18,50 +18,50 @@
 </head>
 <body>
 <div>
-    <h1>å®Œæ•´demo</h1>
+    <h1>ÍêÕûdemo</h1>
     <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
 </div>
 <div id="btns">
     <div>
-        <button onclick="getAllHtml()">è·å¾—æ•´ä¸ªhtmlçš„å†…å®¹</button>
-        <button onclick="getContent()">è·å¾—å†…å®¹</button>
-        <button onclick="setContent()">å†™å…¥å†…å®¹</button>
-        <button onclick="setContent(true)">è¿½åŠ å†…å®¹</button>
-        <button onclick="getContentTxt()">è·å¾—çº¯æ–‡æœ¬</button>
-        <button onclick="getPlainTxt()">è·å¾—å¸¦æ ¼å¼çš„çº¯æ–‡æœ¬</button>
-        <button onclick="hasContent()">åˆ¤æ–­æ˜¯å¦æœ‰å†…å®¹</button>
-        <button onclick="setFocus()">ä½¿ç¼–è¾‘å™¨è·å¾—ç„¦ç‚¹</button>
-        <button onmousedown="isFocus(event)">ç¼–è¾‘å™¨æ˜¯å¦è·å¾—ç„¦ç‚¹</button>
-        <button onmousedown="setblur(event)" >ç¼–è¾‘å™¨å¤±å»ç„¦ç‚¹</button>
+        <button onclick="getAllHtml()">»ñµÃÕû¸öhtmlµÄÄÚÈİ</button>
+        <button onclick="getContent()">»ñµÃÄÚÈİ</button>
+        <button onclick="setContent()">Ğ´ÈëÄÚÈİ</button>
+        <button onclick="setContent(true)">×·¼ÓÄÚÈİ</button>
+        <button onclick="getContentTxt()">»ñµÃ´¿ÎÄ±¾</button>
+        <button onclick="getPlainTxt()">»ñµÃ´ø¸ñÊ½µÄ´¿ÎÄ±¾</button>
+        <button onclick="hasContent()">ÅĞ¶ÏÊÇ·ñÓĞÄÚÈİ</button>
+        <button onclick="setFocus()">Ê¹±à¼­Æ÷»ñµÃ½¹µã</button>
+        <button onmousedown="isFocus(event)">±à¼­Æ÷ÊÇ·ñ»ñµÃ½¹µã</button>
+        <button onmousedown="setblur(event)" >±à¼­Æ÷Ê§È¥½¹µã</button>
 
     </div>
     <div>
-        <button onclick="getText()">è·å¾—å½“å‰é€‰ä¸­çš„æ–‡æœ¬</button>
-        <button onclick="insertHtml()">æ’å…¥ç»™å®šçš„å†…å®¹</button>
-        <button id="enable" onclick="setEnabled()">å¯ä»¥ç¼–è¾‘</button>
-        <button onclick="setDisabled()">ä¸å¯ç¼–è¾‘</button>
-        <button onclick=" UE.getEditor('editor').setHide()">éšè—ç¼–è¾‘å™¨</button>
-        <button onclick=" UE.getEditor('editor').setShow()">æ˜¾ç¤ºç¼–è¾‘å™¨</button>
-        <button onclick=" UE.getEditor('editor').setHeight(300)">è®¾ç½®é«˜åº¦ä¸º300é»˜è®¤å…³é—­äº†è‡ªåŠ¨é•¿é«˜</button>
+        <button onclick="getText()">»ñµÃµ±Ç°Ñ¡ÖĞµÄÎÄ±¾</button>
+        <button onclick="insertHtml()">²åÈë¸ø¶¨µÄÄÚÈİ</button>
+        <button id="enable" onclick="setEnabled()">¿ÉÒÔ±à¼­</button>
+        <button onclick="setDisabled()">²»¿É±à¼­</button>
+        <button onclick=" UE.getEditor('editor').setHide()">Òş²Ø±à¼­Æ÷</button>
+        <button onclick=" UE.getEditor('editor').setShow()">ÏÔÊ¾±à¼­Æ÷</button>
+        <button onclick=" UE.getEditor('editor').setHeight(300)">ÉèÖÃ¸ß¶ÈÎª300Ä¬ÈÏ¹Ø±ÕÁË×Ô¶¯³¤¸ß</button>
     </div>
 
     <div>
-        <button onclick="getLocalData()" >è·å–è‰ç¨¿ç®±å†…å®¹</button>
-        <button onclick="clearLocalData()" >æ¸…ç©ºè‰ç¨¿ç®±</button>
+        <button onclick="getLocalData()" >»ñÈ¡²İ¸åÏäÄÚÈİ</button>
+        <button onclick="clearLocalData()" >Çå¿Õ²İ¸åÏä</button>
     </div>
 
 </div>
 <div>
     <button onclick="createEditor()">
-    åˆ›å»ºç¼–è¾‘å™¨</button>
+    ´´½¨±à¼­Æ÷</button>
     <button onclick="deleteEditor()">
-    åˆ é™¤ç¼–è¾‘å™¨</button>
+    É¾³ı±à¼­Æ÷</button>
 </div>
 
 <script type="text/javascript">
 
-    //å®ä¾‹åŒ–ç¼–è¾‘å™¨
-    //å»ºè®®ä½¿ç”¨å·¥å‚æ–¹æ³•getEditoråˆ›å»ºå’Œå¼•ç”¨ç¼–è¾‘å™¨å®ä¾‹ï¼Œå¦‚æœåœ¨æŸä¸ªé—­åŒ…ä¸‹å¼•ç”¨è¯¥ç¼–è¾‘å™¨ï¼Œç›´æ¥è°ƒç”¨UE.getEditor('editor')å°±èƒ½æ‹¿åˆ°ç›¸å…³çš„å®ä¾‹
+    //ÊµÀı»¯±à¼­Æ÷
+    //½¨ÒéÊ¹ÓÃ¹¤³§·½·¨getEditor´´½¨ºÍÒıÓÃ±à¼­Æ÷ÊµÀı£¬Èç¹ûÔÚÄ³¸ö±Õ°üÏÂÒıÓÃ¸Ã±à¼­Æ÷£¬Ö±½Óµ÷ÓÃUE.getEditor('editor')¾ÍÄÜÄÃµ½Ïà¹ØµÄÊµÀı
     var ue = UE.getEditor('editor');
 
 
@@ -74,7 +74,7 @@
         UE.dom.domUtils.preventDefault(e)
     }
     function insertHtml() {
-        var value = prompt('æ’å…¥htmlä»£ç ', '');
+        var value = prompt('²åÈëhtml´úÂë', '');
         UE.getEditor('editor').execCommand('insertHtml', value)
     }
     function createEditor() {
@@ -86,22 +86,22 @@
     }
     function getContent() {
         var arr = [];
-        arr.push("ä½¿ç”¨editor.getContent()æ–¹æ³•å¯ä»¥è·å¾—ç¼–è¾‘å™¨çš„å†…å®¹");
-        arr.push("å†…å®¹ä¸ºï¼š");
+        arr.push("Ê¹ÓÃeditor.getContent()·½·¨¿ÉÒÔ»ñµÃ±à¼­Æ÷µÄÄÚÈİ");
+        arr.push("ÄÚÈİÎª£º");
         arr.push(UE.getEditor('editor').getContent());
         alert(arr.join("\n"));
     }
     function getPlainTxt() {
         var arr = [];
-        arr.push("ä½¿ç”¨editor.getPlainTxt()æ–¹æ³•å¯ä»¥è·å¾—ç¼–è¾‘å™¨çš„å¸¦æ ¼å¼çš„çº¯æ–‡æœ¬å†…å®¹");
-        arr.push("å†…å®¹ä¸ºï¼š");
+        arr.push("Ê¹ÓÃeditor.getPlainTxt()·½·¨¿ÉÒÔ»ñµÃ±à¼­Æ÷µÄ´ø¸ñÊ½µÄ´¿ÎÄ±¾ÄÚÈİ");
+        arr.push("ÄÚÈİÎª£º");
         arr.push(UE.getEditor('editor').getPlainTxt());
         alert(arr.join('\n'))
     }
     function setContent(isAppendTo) {
         var arr = [];
-        arr.push("ä½¿ç”¨editor.setContent('æ¬¢è¿ä½¿ç”¨ueditor')æ–¹æ³•å¯ä»¥è®¾ç½®ç¼–è¾‘å™¨çš„å†…å®¹");
-        UE.getEditor('editor').setContent('æ¬¢è¿ä½¿ç”¨ueditor', isAppendTo);
+        arr.push("Ê¹ÓÃeditor.setContent('»¶Ó­Ê¹ÓÃueditor')·½·¨¿ÉÒÔÉèÖÃ±à¼­Æ÷µÄÄÚÈİ");
+        UE.getEditor('editor').setContent('»¶Ó­Ê¹ÓÃueditor', isAppendTo);
         alert(arr.join("\n"));
     }
     function setDisabled() {
@@ -115,7 +115,7 @@
     }
 
     function getText() {
-        //å½“ä½ ç‚¹å‡»æŒ‰é’®æ—¶ç¼–è¾‘åŒºåŸŸå·²ç»å¤±å»äº†ç„¦ç‚¹ï¼Œå¦‚æœç›´æ¥ç”¨getTextå°†ä¸ä¼šå¾—åˆ°å†…å®¹ï¼Œæ‰€ä»¥è¦åœ¨é€‰å›æ¥ï¼Œç„¶åå–å¾—å†…å®¹
+        //µ±Äãµã»÷°´Å¥Ê±±à¼­ÇøÓòÒÑ¾­Ê§È¥ÁË½¹µã£¬Èç¹ûÖ±½ÓÓÃgetText½«²»»áµÃµ½ÄÚÈİ£¬ËùÒÔÒªÔÚÑ¡»ØÀ´£¬È»ºóÈ¡µÃÄÚÈİ
         var range = UE.getEditor('editor').selection.getRange();
         range.select();
         var txt = UE.getEditor('editor').selection.getText();
@@ -124,15 +124,15 @@
 
     function getContentTxt() {
         var arr = [];
-        arr.push("ä½¿ç”¨editor.getContentTxt()æ–¹æ³•å¯ä»¥è·å¾—ç¼–è¾‘å™¨çš„çº¯æ–‡æœ¬å†…å®¹");
-        arr.push("ç¼–è¾‘å™¨çš„çº¯æ–‡æœ¬å†…å®¹ä¸ºï¼š");
+        arr.push("Ê¹ÓÃeditor.getContentTxt()·½·¨¿ÉÒÔ»ñµÃ±à¼­Æ÷µÄ´¿ÎÄ±¾ÄÚÈİ");
+        arr.push("±à¼­Æ÷µÄ´¿ÎÄ±¾ÄÚÈİÎª£º");
         arr.push(UE.getEditor('editor').getContentTxt());
         alert(arr.join("\n"));
     }
     function hasContent() {
         var arr = [];
-        arr.push("ä½¿ç”¨editor.hasContents()æ–¹æ³•åˆ¤æ–­ç¼–è¾‘å™¨é‡Œæ˜¯å¦æœ‰å†…å®¹");
-        arr.push("åˆ¤æ–­ç»“æœä¸ºï¼š");
+        arr.push("Ê¹ÓÃeditor.hasContents()·½·¨ÅĞ¶Ï±à¼­Æ÷ÀïÊÇ·ñÓĞÄÚÈİ");
+        arr.push("ÅĞ¶Ï½á¹ûÎª£º");
         arr.push(UE.getEditor('editor').hasContents());
         alert(arr.join("\n"));
     }
@@ -168,7 +168,7 @@
 
     function clearLocalData () {
         UE.getEditor('editor').execCommand( "clearlocaldata" );
-        alert("å·²æ¸…ç©ºè‰ç¨¿ç®±")
+        alert("ÒÑÇå¿Õ²İ¸åÏä")
     }
 </script>
 </body>
