@@ -144,11 +144,6 @@
       <version>2.4</version>
       <classifier>jdk15</classifier>
     </dependency>
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20150729</version>
-    </dependency>
 
     <!--jdbc jar包 -->
     <dependency>

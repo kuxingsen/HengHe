@@ -22,37 +22,7 @@
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header header header-demo" autumn>
-        <div class="layui-logo">
-            <span style="font-size: 22px;">新闻发布中心</span>
-        </div>
-        <div class="layui-main">
-            <div class="layui-form component" lay-filter="LAY-site-header-component"></div>
-        </div>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-
-                <a id="adminName" href="javascript:void(0);">
-                    管理员:
-                </a>
-            </li>
-            <li class="layui-nav-item"><a href="javascript:void(0);" onclick="adminLogout()">退出登录</a></li>
-        </ul>
-    </div>
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree site-demo-nav">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">所有操作</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="add">新闻添加</a></dd>
-                        <dd><a href="control">新闻管理</a></dd>
-                        <dd><a href="changepwd">修改密码</a></dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <div id="outside" ></div>
     <div class="layui-tab layui-tab-brief" lay-filter="demoTitle">
         <div class="layui-body layui-tab-content site-demo site-demo-body">
             <div class="layui-tab-item layui-show">
@@ -134,7 +104,7 @@
                                         </div>
                                         </div>
                                         </div>
-
+                                        <div id="footer"></div>
                                         </div>
 
                                         </div>
@@ -300,6 +270,12 @@
                                         });
                                     }
 
+                                    //加载外部
+                                    $("#outside").load("outside.html", function ()  {
+                                        $("#doControl").addClass("layui-this");
+                                    });
+                                    //加载底部
+                                    $("#footer").load("footer.html");
                                     </script>
 </body>
 </html>
