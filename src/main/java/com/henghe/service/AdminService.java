@@ -193,13 +193,13 @@ public class AdminService{
                     String imgTmp = result1.getString("title_img");
                     String fileTmp = result1.getString("file");
                     if(imgPath != null){
-                        deleteImg(imgTmp);
+                        deleteFileOrImg(imgTmp,REAL_TITLE_IMG_PATH);
                         message.setTitleImgPath(imgPath);
                     }else {
                         message.setTitleImgPath(imgTmp);
                     }
                     if(filePath != null){
-                        deleteFile(fileTmp);
+                        deleteFileOrImg(fileTmp,REAL_FILE_PATH);
                         message.setFilePath(filePath);
                     }else {
                         message.setFilePath(fileTmp);
@@ -209,27 +209,20 @@ public class AdminService{
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(message.getTitleImgPath()+":::::"+message.getFilePath());
+//        System.out.println(message.getTitleImgPath()+":::::"+message.getFilePath());
         return message;
     }
-
-    private void deleteImg(String imgTmp) {
-        if(imgTmp != null){
-            File dir = new File(REAL_TITLE_IMG_PATH,imgTmp);
-            if (dir.exists()) {
-                boolean res = dir.delete();
-                System.out.println("delete img: "+res);
-            }
-        }
-    }
-    private void deleteFile(String fileTmp) {
+    private int deleteFileOrImg(String fileTmp,String path) {
         if(fileTmp != null){
-            File dir = new File(REAL_FILE_PATH,fileTmp);
+            File dir = new File(path,fileTmp);
             if (dir.exists()) {
                 boolean res = dir.delete();
-                System.out.println("delete file: "+res);
+//                System.out.println(dir.getAbsolutePath()+res);
+                return res?1:0;
             }
+//            System.out.println(dir.getAbsolutePath());
         }
+        return 0;
     }
 
     public int deleteMessage(List<String> messageId){
@@ -270,8 +263,8 @@ public class AdminService{
                 while(result.next()){
                     String titleImg = result.getString("title_img");
                     String file = result.getString("file");
-                    deleteImg(titleImg);
-                    deleteFile(file);
+                    deleteFileOrImg(titleImg,REAL_TITLE_IMG_PATH);
+                    deleteFileOrImg(file,REAL_FILE_PATH);
                 }
             }
         } catch(SQLException e) {
@@ -345,5 +338,49 @@ public class AdminService{
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public int deleteOldFileOrImg(int messageId,String w) {
+        String file=null;
+        String sql="select "+w+" as need from message where id = ?";
+        ResultSet result;
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
+//            ps.setString(1,w);
+            ps.setInt(1,messageId);
+            result = ps.executeQuery();
+            if(result != null) {
+                if(result.next()){
+                    file = result.getString("need");
+//                    System.out.println(file);
+                }
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+//        System.out.println(file);
+        if(file != null && !file.equals("")){
+            setPathNull(w,messageId);
+            if(w.equals("title_img")){
+                return deleteFileOrImg(file,REAL_TITLE_IMG_PATH);
+            }else {
+                return deleteFileOrImg(file,REAL_FILE_PATH);
+            }
+        }
+        return -1;//-1代表该id没有相应的title_img
+    }
+    private int setPathNull(String path,Integer messageId){
+        String sql="update message set "+path+"=? where id = ?";
+        int result=0;
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
+//            ps.setString(1,w);
+            ps.setString(1,null);
+            ps.setInt(2,messageId);
+            result = ps.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

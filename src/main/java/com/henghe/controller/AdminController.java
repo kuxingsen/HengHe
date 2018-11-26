@@ -103,6 +103,7 @@ public class AdminController{
     @RequestMapping("updateMessage")
     @ResponseBody
     public Result updateMessage(@RequestParam(value = "titleImg", required = false) MultipartFile titleImg, @RequestParam(value = "file", required = false) MultipartFile file, Message message, HttpSession session) {
+//        System.out.println("update111");
         int adminId = (int) session.getAttribute("adminId");
         String imgPath = null, filePath = null;
         if(titleImg != null) {
@@ -113,7 +114,7 @@ public class AdminController{
             System.out.println("file is not null");
             filePath = adminService.saveFile(file);
         }
-        System.out.println(imgPath+":::::"+filePath);
+//        System.out.println(imgPath+":::::"+filePath);
         message = adminService.updatePathInMessage(message,imgPath,filePath);
         //System.out.println(message.getTitleImgPath()+":::::"+message.getFilePath());
         int result = adminService.updateMessage(adminId,message);
@@ -201,5 +202,26 @@ public class AdminController{
             return new Result(200);
         }
         return new Result(500, "É¾³ıÊ§°Ü");
+    }
+
+    @RequestMapping("delOldImage")
+    @ResponseBody
+    public Result deleteOldImage(String messageId){
+        int result = adminService.deleteOldFileOrImg(Integer.parseInt(messageId),"title_img");
+        if(result > 0) {
+            return new Result(200);
+        }
+        return new Result(500, "É¾³ıÊ§°Ü");
+
+    }
+    @RequestMapping("delOldFile")
+    @ResponseBody
+    public Result deleteOldFile(String messageId){
+        int result = adminService.deleteOldFileOrImg(Integer.parseInt(messageId),"file");
+        if(result > 0) {
+            return new Result(200);
+        }
+        return new Result(500, "É¾³ıÊ§°Ü");
+
     }
 }

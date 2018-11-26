@@ -24,6 +24,7 @@ public class MemberController{
     private CommonService commonService;
     @RequestMapping("login")
     public Result login(String account, String password, HttpSession session){
+
         Member member = memberService.login(account,password);
         if(member != null){
             session.setAttribute("member",member);

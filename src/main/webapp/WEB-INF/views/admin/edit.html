@@ -55,8 +55,10 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">原标题图</label>
                                 <div class="layui-input-inline" id="titleImg_p">
-
                                 </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-inline" style="padding-left: 110px"><input type="button" id="delOldImageBtn" class= "layui-btn" value="删除原标题图" onclick="delImage()" ></div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">新标题图</label>
@@ -79,6 +81,7 @@
                                 <label class="layui-form-label">附件</label>
                                 <div class="layui-input-inline" id="file_p">
                                 </div>
+                                <input type="button" id="delOldFileBtn" class= "layui-btn" value="删除附件" onclick="delFile()">
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">新附件</label>
@@ -90,7 +93,7 @@
                                 <label class="layui-form-label">新闻内容</label>
                                 <div class="layui-input-inline">
                                     <script id="editor" name="content" type="text/plain"
-                                            style="width:1024px;height:500px;"> </script>
+                                            style="width:1024px;height:500px;"></script>
                                     </div>
                                     </div>
                                     <div class= "layui-form-item" >
@@ -189,6 +192,7 @@
                                                     layer.msg("管理员名称加载失败!");
                                                 }
                                             }
+
                                         });
 
                                         //请求加载栏目信息
@@ -213,6 +217,12 @@
                                                 }
                                             }
                                         });
+                                        //加载外部
+                                        $("#outside").load("outside.html", function () {
+                                            $("#doAdd").addClass("layui-this");
+                                        });
+                                        //加载底部
+                                        $("#footer").load("footer.html");
                                     };
 
                                     function getIdData() {
@@ -237,12 +247,14 @@
                                                         $("#titleImg_p").html("<img src='" + data.datas[0].titleImgPath + "' style='max-width: 400px;max-height: 300px;' />");
                                                     } else {
                                                         $("#titleImg_p").html("无");
+                                                        $("#delOldImageBtn").css("display","none");
                                                     }
                                                     $("#columnId > option[value='" + data.datas[0].columnId + "']").attr("selected", "selected");
                                                     if (data.datas[0].filePath != null) {
                                                         $("#file_p").html(data.datas[0].filePath);
                                                     } else {
                                                         $("#file_p").html("无");
+                                                        $("#delOldFileBtn").css("display","none");
                                                     }
                                                     ue.setContent(data.datas[0].content==null?"":data.datas[0].content);
                                                     createAll();
@@ -269,13 +281,60 @@
                                             }
                                         });
                                     }
-
-                                    //加载外部
-                                    $("#outside").load("outside.html", function ()  {
-                                        $("#doControl").addClass("layui-this");
-                                    });
-                                    //加载底部
-                                    $("#footer").load("footer.html");
+                                    //删除原附件
+                                    function delFile(){
+                                        layer.confirm("确认要删除原附件吗(此操作将立即执行并无法找回)",
+                                            {btn:['确认', '取消']},
+                                            function() {
+                                                //获取新闻id
+                                                var id = GetQueryString("id");
+                                                //请求删除id对应的附件
+                                                $.ajax({
+                                                    url: 'delOldFile',
+                                                    type: 'post',
+                                                    data:{messageId: id},
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        //加载成功
+                                                        if (data.code == "200") {
+                                                            layer.msg("附件删除成功!");
+                                                            $("#file_p").html("无");
+                                                            $("#delOldFileBtn").css("display","none");
+                                                            messageData.datas[0].filePath = null;
+                                                        } else {
+                                                            layer.msg("附件删除失败!");
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                    }
+                                    //删除原标题图
+                                    function delImage(){
+                                        layer.confirm("确认要删除原标题图吗(此操作将立即执行并无法找回)",
+                                            {btn:['确认', '取消']},
+                                            function() {
+                                                //获取新闻id
+                                                var id = GetQueryString("id");
+                                                //请求删除id对应的标题图
+                                                $.ajax({
+                                                    url: 'delOldImage',
+                                                    type: 'post',
+                                                    data:{messageId: id},
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        //加载成功
+                                                        if (data.code == "200") {
+                                                            layer.msg("标题图删除成功!");
+                                                            $("#titleImg_p").html("无");
+                                                            $("#delOldImageBtn").css("display","none");
+                                                            messageData.datas[0].titleImgPath = null;
+                                                        } else {
+                                                            layer.msg("标题图删除失败!");
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                    }
                                     </script>
 </body>
 </html>

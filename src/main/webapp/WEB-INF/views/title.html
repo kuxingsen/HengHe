@@ -28,7 +28,7 @@
 	</div>
 </div>
 <script>
-	let titleObj = {
+	var titleObj = {
 	    url: {
 	      	column: function () {
 				return '/selectColumn';
@@ -38,20 +38,20 @@
 	        this.setIndex();
 		},
 		setIndex: function () {
-			let index = sessionStorage.getItem("index");
+			var index = sessionStorage.getItem("index");
 			$.get(this.url.column(),{})
 				.success(function (res) {
                     if (res.code === 200) {
                         var list = res.datas;
                         for (var i = 0; i < list.length; i++) {
                             if (list[i].name === '新闻中心') {
-                                $('#nav_column').append(`<li class="nav_column_item"><a href="news2.html?id=${list[i].id}"> ${list[i].name}</a></li>`);
+                                $('#nav_column').append('<li class="nav_column_item"><a href="news2.html?id='+list[i].id+'">'+ list[i].name+'</a></li>');
                             } else if (list[i].name === '公司简介') {
-                                $('#nav_column').append(`<li class="nav_column_item"><a href="Homepage.html"> ${list[i].name}</a></li>`);
+                                $('#nav_column').append('<li class="nav_column_item"><a href="Homepage.html">'+ list[i].name +'</a></li>');
                             } else if (list[i].name === '会员中心') {
-                                $('#nav_column').append(`<li class="nav_column_item"><a href="member.html"> ${list[i].name}</a></li>`);
+                                $('#nav_column').append('<li class="nav_column_item"><a href="member.html">'+ list[i].name +'</a></li>');
 							} else if (list[i].name === '联系我们') {
-                                $('#nav_column').append(`<li class="nav_column_item"><a href="Homepage2.html"> ${list[i].name}</a></li>`);
+                                $('#nav_column').append('<li class="nav_column_item"><a href="Homepage2.html">'+ list[i].name + '</a></li>');
                             } else {
                                 $('#nav_column').append('<li class="nav_column_item"><a href="news.html?id=' + list[i].id + '">' + list[i].name + '</a></li>');
                             }

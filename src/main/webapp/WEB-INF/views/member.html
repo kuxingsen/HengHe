@@ -211,7 +211,7 @@
                     <input type="text" name="account" placeholder="账号" id="account" onkeyup="value=value.replace(/[^a-za-z0-9u4e00-u9fa5@.]/g,'')">
                     <input type="password" name="password" placeholder="密码" id="password">
                     <input type="password" placeholder="确认密码" id="confirmPassword">
-                    <input type="text" name="name" placeholder="姓名"id="name">
+                    <input type="text" name="name" placeholder="姓名" id="name">
                     <div>
                         <label for="male" class="label">
                             <input type="radio" name="sex" id="male" class="radio" value="男" checked> <i>男</i>
@@ -228,7 +228,7 @@
                     <button class="form_submit" id="regist_button">点击注册</button>
                 </div>
                 <div class="mb_rg_form" id="login_form" >
-                    <div class="login_tips" style="display:none; color: #ee2737;">这是提示消息</div>
+                    <div class="login_tips" style="display:none">这是提示消息</div>
                     <input type="text" id="login_account" placeholder="账号">
                     <input type="password" id="login_password" placeholder="密码">
                     <button class="form_submit" id="login_button">登录</button>
@@ -239,8 +239,8 @@
                 <div id="form-message">
                     <table rules="none">
                         <tr><td class="modifyTips" colspan="2" style="color: #ee2737; text-align: center; display: none;">这是提示信息</td></tr>
-                        <tr><td>账号：</td><td id="showAccount"></td></tr>
-                        <tr style="display: none;" id="mima"><td>密码：</td><td id="showPassword"></td></tr>
+                        <tr><td>用户名(账号)：</td><td id="showAccount"></td></tr>
+                        <tr><td>密码：</td><td id="showPassword"></td></tr>
                         <tr><td>性别：</td><td id="showSex"></td></tr>
                         <tr><td>真实姓名：</td><td id="showName"></td></tr>
                         <tr><td>出生日期：</td><td id="showBirthday"></td></tr>
@@ -255,31 +255,31 @@
         </div>
     </div>
     <div class="footerpage"></div>
-
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script> -->
     <script>
 
-        let validate = {
+        var validate = {
             attr: {
                 userData: {},
                 isLogin: false
             },
-            loadComponents () {
+            loadComponents: function () {
                 sessionStorage.setItem("index",6);
                 $(".headerpage").load("title.html");
                 $(".footerpage").load("foot.html");
             },
-            showTips (message) {
-                if (this.attr.isLogin == false) {
+            showTips: function (message) {
+                if (this.isLogin == false) {
                     $('.tips').text(message).show();
                 } else {
                     $('.modifyTips').text(message).show();
                 }
             },
-            closeTips () {
+            closeTips: function () {
                 $('.tips').hide();
                 this.attr.isValidate = true;
             },
-            vLength (name, vdata) {
+            vLength: function (name, vdata) {
                 if (vdata.length < 1) {
                     this.showTips(name+'不能为空');
                     return false;
@@ -289,77 +289,77 @@
                 }
                 return true;
             },
-            vAccount (account) {
-                // let account = $('#account').val();
+            vAccount: function (account) {
+                // var account = $('#account').val();
                 if (validate.vLength('账号', account)){
                     return true;
                 }
                 return false;
             },
-            vPassword (password) {
-                // let password = $('#password').val();
+            vPassword: function (password) {
+                // var password = $('#password').val();
                 if (validate.vLength('密码',password)){
                     return true;
                 }
                 return false;
             },
-            vConfirmPassword (pw, cpw) {
-                // let pw = $('#password').val();
-                // let cpw = $('#confirmPassword').val();
+            vConfirmPassword: function (pw, cpw) {
+                // var pw = $('#password').val();
+                // var cpw = $('#confirmPassword').val();
                 if (pw != cpw) {
                     validate.showTips('两次输入密码不一致');
                     return false;
                 }
                 return true;
             },
-            vName (name) {
-                // let name = $('#name').val();
+            vName: function (name) {
+                // var name = $('#name').val();
                 if(validate.vLength('名字', name)) {
                     return true;
                 }
                 return false;
             },
-            vBirthday (birthday) {
-                // let birthday = $('#birthday').val();
+            vBirthday: function (birthday) {
+                // var birthday = $('#birthday').val();
                 if(validate.vLength('出生日期',birthday)) {
                     return true;
                 }
                 return false;
             },
-            vPhone (phone) {
-                // let phone = $('#phone').val();
-                let reg = /^1[34578]\d{9}$/;
+            vPhone: function (phone) {
+                // var phone = $('#phone').val();
+                var reg = /^1[34578]\d{9}$/;
                 if(!reg.test(phone)) {
                     validate.showTips('请填写正确的手机号');
                     return false;
                 }
                 return true;
             },
-            vEmail (email) {
-                // let email = $('#email').val();
-                let reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+            vEmail: function (email) {
+                // var email = $('#email').val();
+                var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
                 if (!reg.test(email)) {
                     validate.showTips('请填写正确的邮箱地址');
                     return false;
                 }
                 return true;
             },
-            vAddress (address) {
-                // let address = $('#address').val();
+            vAddress: function (address) {
+                // var address = $('#address').val();
                 if (validate.vLength('地址',address)) {
                     return true;
                 }
                 return false;
             },
-            valAll () {
-                let v1 = validate.vAccount($('#account').val());
-                let v2 = validate.vPassword($('#password').val());
-                let v3 = validate.vConfirmPassword($('#password').val(), $('#confirmPassword').val());
-                let v4 = validate.vName($('#name').val());
-                let v5 = validate.vBirthday($('#birthday').val());
-                let v6 = validate.vPhone($('#phone').val());
-                let v7 = validate.vEmail($('#email').val());
-                let v8 = validate.vAddress($('#address').val());
+            valAll: function () {
+                var v1 = validate.vAccount($('#account').val());
+                var v2 = validate.vPassword($('#password').val());
+                var v3 = validate.vConfirmPassword($('#password').val(), $('#confirmPassword').val());
+                var v4 = validate.vName($('#name').val());
+                var v5 = validate.vBirthday($('#birthday').val());
+                var v6 = validate.vPhone($('#phone').val());
+                var v7 = validate.vEmail($('#email').val());
+                var v8 = validate.vAddress($('#address').val());
                 if (v1&&v2&&v3&&v4&&v5&&v6&&v7&&v8) {
                     return true;
                 } else {
@@ -367,11 +367,10 @@
                 }
 
             },
-            bindDom () {
+            bindDom: function () {
                 switchPanel.bindEvent();
                 $('#account').on('blur', function (){
                     validate.vAccount($('#account').val());
-
                 });
                 $('#password').on('blur', function () {
                     validate.vPassword($('#password').val());
@@ -399,7 +398,7 @@
                     if (validate.valAll()) {
                         // 执行注册
                         validate.showTips('正在注册')
-                        let account = $('#account').val();
+                        var account = $('#account').val();
                         $.post('/insertMember',{
                             account: $('#account').val(),
                             password: $('#password').val(),
@@ -417,7 +416,7 @@
                                     location.reload();
                                 }, 1500);
                             } else {
-                                validate.showTips(res.msg);
+                                validate.showTips(res.Msg);
                             }
                         })
                     } else {
@@ -427,8 +426,8 @@
                 })
 
                 $('#login_button').on('click', function () {
-                    let account = $('#login_account').val();
-                    let password = $('#login_password').val();
+                    var account = $('#login_account').val();
+                    var password = $('#login_password').val();
                     if(account.length > 0 && password.length > 0) {
                         $.post('/login', {
                             account: account,
@@ -439,8 +438,6 @@
                                 setTimeout(function() {
                                     location.reload();
                                 }, 1500);
-                            }else {
-                                $('.login_tips').text(res.msg).show();
                             }
                         })
                     } else {
@@ -449,7 +446,7 @@
                 })
 
             },
-            isShowMessage (callback) {
+            isShowMessage: function (callback) {
                 $.get('/isLogin').success(function(res){
                     if (res.code == 200) {
                         validate.attr.isLogin = true;
@@ -459,7 +456,7 @@
                     callback();
                 })
             },
-            init () {
+            init: function () {
                 this.loadComponents();
                 this.isShowMessage(function(){
                     if ( validate.attr.isLogin ) {
@@ -508,21 +505,17 @@
 
                     // 绑定修改事件
                     $(".modify").click(function() {
-                        $('#mima').show();
                         $(this).hide();
                         $('#modifyBtn').show();
                         var showSex = $('#showSex');
                         var now_str = showSex.text();
-                        var input_str = $(
-                            `<div>
-                            <label>
-                                <input type="radio" name="modisex" value="男" ${now_str=='男'?'checked':''}> <i>男</i>
-                            </label>
-                            <label>
-                                <input type="radio" name="modisex" value="女" ${now_str=='女'?'checked':''}> <i>女</i>
-                            </label>
-                        </div>`
-                        );
+                        var input_str = '';
+                        if (now_str == '男') {
+                            input_str = '<div><label><input type="radio" name="modisex" value="男" checked> <i>男</i></label><label><input type="radio" name="modisex" value="女"> <i>女</i></label></div>';
+                        } else {
+                            input_str = '<div><label><input type="radio" name="modisex" value="男"> <i>男</i></label><label><input type="radio" name="modisex" value="女" checked> <i>女</i></label></div>';
+                        }
+                            
                         showSex.html(input_str);
                         
                         var showPassword = $('#showPassword');
@@ -558,17 +551,17 @@
                     });
                 });
                 $('#modifyBtn').on('click', function() {
-                    let v1 = validate.vAccount($('#showAccount').text());
-                    let v2 = validate.vPassword($('.editPassword').val());
-                    let v3 = validate.vName($('.editName').val());
-                    let v4 = validate.vBirthday($('.editBirthday').val());
-                    let v5 = validate.vPhone($('.editPhone').val());
-                    let v6 = validate.vEmail($('.editEmail').val());
-                    let v7 = validate.vAddress($('.editAddress').val());
+                    var v1 = validate.vAccount($('#showAccount').text());
+                    var v2 = validate.vPassword($('.editPassword').val());
+                    var v3 = validate.vName($('.editName').val());
+                    var v4 = validate.vBirthday($('.editBirthday').val());
+                    var v5 = validate.vPhone($('.editPhone').val());
+                    var v6 = validate.vEmail($('.editEmail').val());
+                    var v7 = validate.vAddress($('.editAddress').val());
                     if (v1&&v2&&v3&&v4&&v5&&v6&&v7) {
                         validate.showTips('正在修改');
                         // 执行修改
-                        let account = $('#showAccount').text();
+                        var account = $('#showAccount').text();
                         $.post('/updateMember',{
                             account: $('#showAccount').text(),
                             password: $('.editPassword').val(),
@@ -586,7 +579,7 @@
                                     location.reload();
                                 }, 1500);
                             } else {
-                                validate.showTips(res.msg);
+                                validate.showTips(res.Msg);
                             }
                         })
                     } else {
@@ -596,10 +589,10 @@
                 })
                 this.bindDom();
             }
-        }
+        };
 
-        let switchPanel = {
-            bindEvent () {
+        var switchPanel = {
+            bindEvent: function () {
                 $('.mb_rg_switch_left').on('click', function () {
                     $(this).addClass('switch_active');
                     $('.mb_rg_switch_right').removeClass('switch_active');
@@ -613,14 +606,14 @@
                     $('#login_form').hide(300);
                 });
             }
-        }
+        };
 
-        let member = {
-            init () {
+        var member = {
+            init: function () {
                 validate.init();
                 switchPanel.bindEvent();
             }
-        }
+        };
         member.init();
 
     </script>
