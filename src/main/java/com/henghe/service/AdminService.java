@@ -362,10 +362,11 @@ public class AdminService{
         if(file != null && !file.equals("")){
             setPathNull(w,messageId);
             if(w.equals("title_img")){
-                return deleteFileOrImg(file,REAL_TITLE_IMG_PATH);
+                deleteFileOrImg(file,REAL_TITLE_IMG_PATH);
             }else {
-                return deleteFileOrImg(file,REAL_FILE_PATH);
+                deleteFileOrImg(file,REAL_FILE_PATH);
             }
+            return 1;
         }
         return -1;//-1代表该id没有相应的title_img
     }
