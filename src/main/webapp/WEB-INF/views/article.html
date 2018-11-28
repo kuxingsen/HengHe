@@ -91,13 +91,6 @@
                 </td>
 
                 <td valign="top" style="padding-left:25px;padding-right:22px;">
-                    <!-- <dl class="info">
-                <dt>关于恒河</dt>
-                    <dd style="line-height:220%;padding-left:280px;background:url(images/b.jpg) no-repeat;">
-                    <div style="text-align: justify"><br>&nbsp;</div>
-                    <div style="text-align: justify">我们为专业赛事，世界品牌，体育组织，体育部门以及体育场馆提供专业的体育营销服务。我们通过体育营销咨询，整合赞助服务赛事管理运营、媒体综合服务和体育公关活动，帮助最大化的提升客户的影响力品牌价值、销售数量和赛事规模。</div>
-                    </dd>
-                </dl> -->
                     <div id="content-wrapper">
                         <div class="content-head">
                             <h1></h1>
@@ -116,7 +109,7 @@
     <div class="footerpage"></div>
 
     <script>
-        let artidleObj = {
+        var artidleObj = {
             url: {
                 articleUrl: function () {
                     return '/selectMessageByMessageId'
@@ -131,7 +124,7 @@
                 $(".footerpage").load("foot.html");
             },
             getArticle: function () {
-                let articleId  = location.search.substr(4);
+                var articleId  = location.search.substr(4);
                 $.get(this.url.articleUrl(),{messageId: articleId})
                     .success(function (res) {
                         if (res.code == 200) {
@@ -153,32 +146,6 @@
         };
 
         artidleObj.init();
-        // $(function () {
-        //     $(".headerpage").load("title.html");
-        //     $(".footerpage").load("foot.html");
-        //     var articleId = window.location.search.substr(4);
-        //     $.ajax({
-        //         url: '/selectMessageByMessageId',
-        //         type: 'get',
-        //         data: { messageId: articleId},
-        //         success: function (res) {
-        //             if (res.code == 200) {
-        //                 // 渲染文章
-        //                 var title = $('.content-head').children('h1');
-        //                 var date = $('.content-head').children('div');
-        //                 title.text(res.datas[0].title);
-        //                 date.text(res.datas[0].date);
-        //                 $('.content').html(res.datas[0].content);
-        //                 if (res.datas[0].filePath) {
-        //                     $('.content-foot').children('a').text('附件: ' + res.datas[0].filePath);
-        //                     $('.content-foot').children('a').attr('href', '/downFile?messageId=' + res.datas[0].id);
-        //                 } else {
-        //                     $('.content-foot').children('a').remove();
-        //                 }
-        //             }
-        //         }
-        //     })
-        // });
     </script>
 
 </body>

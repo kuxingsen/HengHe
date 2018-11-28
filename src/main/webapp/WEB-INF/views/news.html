@@ -52,49 +52,20 @@
 
     <div class="container-wrap">
         <div class="container">
-            <!-- <div class="content-left">
-                <h3>这是栏目名</h3>
-                <ul>
-                    <li><a href="#">这是子栏目</a></li>
-                    <li><a href="#">另一个栏目</a></li>
-                </ul>
-            </div> -->
             <div class="content-center">
                 <h3 class="center-head">子栏目名</h3>
-                <ul class="center-ul">
-                    <!-- <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来？ <span class="right-date">(2018-09-30)</span></a></li>
-                    <li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种 <span class="right-date">(2018-09-30)</span></a></li>
-                    <li><a href="#">港珠澳大桥通车 从珠海口岸到香港国际机场约45分钟可直达 <span class="right-date">(2018-09-30)</span></a></li>
-                    <li><a href="#">深圳城市建设应发挥“设计之都”优势 <span class="right-date">(2018-09-30)</span></a></li>
-                    <li><a href="#">广州首条直飞仰光低成本航线开通 单程票价约700多元 <span class="right-date">(2018-09-30)</span></a></li>
-                    <li><a href="#">投资1200亿元！建设港珠澳大桥的钱从何而来？ <span class="right-date">(2018-09-30)</span></a></li>
-                    <li><a href="#">广东医保报销目录新增17种抗癌药 可报销抗癌药达115种 <span class="right-date">(2018-09-30)</span></a></li>
-                    <li><a href="#">港珠澳大桥通车 从珠海口岸到香港国际机场约45分钟可直达 <span class="right-date">(2018-09-30)</span></a></li>
-                    <li><a href="#">深圳城市建设应发挥“设计之都”优势 <span class="right-date">(2018-09-30)</span></a></li>
-                    <li><a href="#">广州首条直飞仰光低成本航线开通 单程票价约700多元 <span class="right-date">(2018-09-30)</span></a></li> -->
-                </ul>
+                <ul class="center-ul"></ul>
                 <div class="center-footer">
-                    <ul class="pagination modal-2">
-                        <!-- <li><a href="#">1</a></li>
-                        <li> <a href="#">2</a></li>
-                        <li> <a href="#" class="active">3</a></li>
-                        <li> <a href="#">4</a></li>
-                        <li> <a href="#">5</a></li>
-                        <li> <a href="#">6</a></li>
-                        <li> <a href="#">7</a></li> -->
-                    </ul>
+                    <ul class="pagination modal-2"></ul>
                 </div>
             </div>
         </div>
     </div>
     <!-- 新闻中心 -->
-   
-
     <div class="footerpage"></div>
 
     <script>
-
-        let newsObj = {
+        var newsObj = {
             url: {
                 columnName: function() {
                     return '/columnName';
@@ -177,79 +148,6 @@
             }
         };
         newsObj.init();
-        // var columnId = window.location.search.substr(4);
-        // sessionStorage.setItem("index", columnId);
-        // $(".headerpage").load("title.html");
-        // $(".footerpage").load("foot.html");
-        //
-        // $.ajax({
-        //     url: '/columnName',
-        //     type: 'get',
-        //     data: { columnId: columnId },
-        //     success: function (res) {
-        //         if (res.code == 200) {
-        //             var titleName = res.datas[0];
-        //             $('.center-head').text(titleName);
-        //         }
-        //     }
-        // });
-        //
-        // toPage(1);
-        // function toPage(pageNum) {
-        //     // 发送ajax请求
-        //     $.ajax({
-        //         url: '/selectMessageByColumnId',
-        //         type: 'get',
-        //         data: { columnId: columnId, page: pageNum },
-        //         success: function (res) {
-        //             if (res.code === 200) {
-        //                 // 清空列表, 重新更新
-        //                 $(".center-ul").empty();
-        //                 $('.pagination').empty();
-        //                 var list = res.datas;
-        //                 for (var i = 0; i < list.length; i++) {
-        //                     $(".center-ul").append('<li><a href="article.html?id=' + list[i].id + '">' + list[i].title + ' <span class="right-date">(2018-09-30)</span></a></li>')
-        //                 }
-        //
-        //                 var totalPage = res.totalPage;
-        //                 var pagenation = $('.pagination');
-        //                 pagenation.append('<li><a href="javascript:;" class="prev" onclick="toPage(1)">&laquo </a></li>');
-        //                 if (pageNum == 1 || pageNum == 2) {
-        //                     // 输出5个数字
-        //                     for (var i = 1; i <= 5 && i <= totalPage; i++) {
-        //                         if (i == pageNum) {
-        //                             pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
-        //                         } else {
-        //                             pagenation.append('<li><a href="javascript:;" onclick="toPage(' + i + ')">' + i + '</a></li>');
-        //                         }
-        //                     }
-        //                 } else if (pageNum == totalPage - 1 || pageNum == totalPage) {
-        //                     // 输出5个数字
-        //                     for (var i = totalPage - 4; i <= totalPage; i++) {
-        //                         if (i < 1) {
-        //                             continue;
-        //                         }
-        //                         if (i == pageNum) {
-        //                             pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
-        //                         } else {
-        //                             pagenation.append('<li><a href="javascript:;" onclick="toPage(' + i + ')">' + i + '</a></li>');
-        //                         }
-        //                     }
-        //                 } else {
-        //                     // 在中间
-        //                     for (var i = pageNum - 2; i <= pageNum + 2 && i <= totalPage; i++) {
-        //                         if (i == pageNum) {
-        //                             pagenation.append('<li><a href="javascript:;" class="active">' + i + '</a></li>');
-        //                         } else {
-        //                             pagenation.append('<li><a href="javascript:;" onclick="toPage(' + i + ')">' + i + '</a></li>');
-        //                         }
-        //                     }
-        //                 }
-        //                 pagenation.append('<li><a href="javascript:;" class="next" onclick="toPage(' + totalPage + ')"> &raquo;</a></li>')
-        //             }
-        //         }
-        //     })
-        // }
     </script>
 </body>
 

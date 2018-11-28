@@ -7,13 +7,7 @@
     <meta http-equiv="description" content="this is my page">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="/static_user/js/jquery.min.js"></script>
-    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
-    <style type="text/css">
-        /*body*/
-        /*{*/
-        	/*background:#acedfa;*/
-        /*}*/
-        
+    <style type="text/css">  
     	.hp_left
     	{
     		left: 0px; 
@@ -31,7 +25,6 @@
     		height: 300px; 
     		position: absolute; 
     		z-index: 126;
-    		/* background:#ffffff; */
     	}
     	
     	.hp_left-content
@@ -74,11 +67,6 @@
     	
     	.img_style
     	{
-    		/* width: 300px; 
-    		height: auto; 
-    		top: -15px; 
-    		left: 180px;  */
-			/* position: absolute; */
 			width: 100%;
 			height: 100%;
     	}
@@ -106,8 +94,6 @@
 		{
 			margin: 10px auto;
 			position: relative;
-			/* top: 300px; */
-			/* bottom: 150px; */
 			height: 380px;
 			width: 1200px;
 		}
@@ -128,13 +114,11 @@
 					<span class="content-span"><strong class="content-head">公司简介</strong><br></span>
 				</p>
 				<p>
-					<div class="content-span content">
-				<!--&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 我们为专业赛事，世界品牌，体育组织，体育部门以及体育场馆提供专业的体育营销服务。我们通过体育营销咨询，整合赞助服务赛事管理运营、媒体综合服务和体育公关活动，帮助最大化的提升客户的影响力品牌价值、销售数量和赛事规模。-->
-			</div>
+					<div class="content-span content"></div>
 				</p>
-					<div class="content-div">
-						<span class="content-span">​</span><br>
-					</div>
+				<div class="content-div">
+					<span class="content-span">​</span><br>
+				</div>
 				</div>
 			</div>
 			
@@ -151,7 +135,7 @@
 	<div class="footerpage"></div>
 
 	<script>
-		let hopgObj = {
+		var hopgObj = {
 		    url: {
 		        article: function () {
 					return '/selectMessageByColumnId';
@@ -182,26 +166,6 @@
             }
 		};
 		hopgObj.init();
-		// sessionStorage.setItem("index", 1);
-		// $(".headerpage").load("title.html");
-		// $(".footerpage").load("foot.html");
-		//
-		// $.ajax({
-		// 	url: '/selectMessageByColumnId',
-		// 	type: 'get',
-		// 	data: { columnId: 1 },
-		// 	success: function (res) {
-		// 		if (res.code == 200) {
-		// 			// 渲染文章
-		// 			var title = $('.content-title');
-		// 			var date = $('.content-date');
-		// 			title.text(res.datas[0].title);
-		// 			date.text(res.datas[0].date);
-		// 			$('.content').html(res.datas[0].content);
-		// 			$('.img_style').attr("src",res.datas[0].titleImgPath);
-		// 		}
-		// 	}
-		// })
 	</script>
   </body>
 </html>

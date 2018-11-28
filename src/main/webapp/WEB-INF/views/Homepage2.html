@@ -8,12 +8,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="/static_user/js/jquery.min.js"></script>
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
-    <style type="text/css">
-        /*body*/
-        /*{*/
-        	/*background:#acedfa;*/
-        /*}*/
-        
+    <style type="text/css">       
     	.hp_left
     	{
     		left: 0px; 
@@ -23,7 +18,6 @@
     		position: absolute; 
     		z-index: 102; 
     	}
-    	
     	.hp_right
     	{
     		left: 600px;  
@@ -33,7 +27,6 @@
     		z-index: 126;
     		/* background:#ffffff; */
     	}
-    	
     	.hp_left-content
     	{
     		padding: 0px;
@@ -43,7 +36,6 @@
     		border-width: 0px; 
     		border-style: solid;
     	}
-    	
     	.hp_right-content
     	{
     		border-width: 0px; 
@@ -56,7 +48,6 @@
     		border-style: solid; 
     		background-color: rgb(255, 255, 255);
     	}
-    	
     	.img_over
     	{
     		width: 602px; 
@@ -66,7 +57,6 @@
     		border-width: 0px; 
     		position: relative; 
     	}
-    	
     	.img_loading
     	{
     		z-index:100;
@@ -74,11 +64,6 @@
     	
     	.img_style
     	{
-    		/* width: 300px; 
-    		height: auto; 
-    		top: -15px; 
-    		left: 180px;  */
-			/* position: absolute; */
 			width: 100%;
 			height: 100%;
     	}
@@ -106,8 +91,6 @@
 		{
 			margin: 10px auto;
 			position: relative;
-			/* top: 300px; */
-			/* bottom: 150px; */
 			height: 380px;
 			width: 1200px;
 		}
@@ -150,7 +133,7 @@
 	<div class="footerpage"></div>
 
 	<script>
-		let hopgObj = {
+		var hopgObj = {
 		    url: {
 		        article: function () {
 					return '/selectMessageByColumnId';
@@ -181,26 +164,6 @@
             }
 		};
 		hopgObj.init();
-		// sessionStorage.setItem("index", 1);
-		// $(".headerpage").load("title.html");
-		// $(".footerpage").load("foot.html");
-		//
-		// $.ajax({
-		// 	url: '/selectMessageByColumnId',
-		// 	type: 'get',
-		// 	data: { columnId: 1 },
-		// 	success: function (res) {
-		// 		if (res.code == 200) {
-		// 			// 渲染文章
-		// 			var title = $('.content-title');
-		// 			var date = $('.content-date');
-		// 			title.text(res.datas[0].title);
-		// 			date.text(res.datas[0].date);
-		// 			$('.content').html(res.datas[0].content);
-		// 			$('.img_style').attr("src",res.datas[0].titleImgPath);
-		// 		}
-		// 	}
-		// })
 	</script>
   </body>
 </html>

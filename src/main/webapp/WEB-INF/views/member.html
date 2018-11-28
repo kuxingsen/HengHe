@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>公司介绍</title>
+    <title>会员中心</title>
 
     <meta name="keywords" content="恒河">
     <meta name="description" content="恒河">
@@ -99,6 +99,7 @@
             display: block;
             font-size: 18px;
             width: 385px;
+            height: 38px;
             line-height: 38px;
             margin: 10px auto;
             padding-left: 15px;
@@ -142,8 +143,6 @@
             cursor: pointer;
             text-align: center;
             transition: all 250ms ease;
-            /* background-color: #3197EE;
-            box-shadow: inset 0 0 0 4px #f6f6f6; */
         }
         .radio:checked + i::before {
             background-color: #ee2737;
@@ -178,7 +177,8 @@
             padding: 6px 6px 6px 6px;
             text-align:center;
         }
-        #form-message input {
+        #form-message input[type=text],#form-message input[type=password],#form-message input[type=date] {
+            height: 26px;
             line-height: 26px;
             padding-left: 10px;
             border: 1px solid #e2e2e2;
@@ -201,7 +201,7 @@
         <div class="mb_rg_box">
             <div class="randl" style="display:none">
                 <div class="mb_rg_title">
-                    <h3>会员注册</h3>
+                    <h3>会员中心</h3>
                 </div>
                 <div class="mb_rg_switch">
                     <span class="mb_rg_switch_left switch_active">账号登录</span><span class="mb_rg_switch_right">会员注册</span>
@@ -255,7 +255,7 @@
         </div>
     </div>
     <div class="footerpage"></div>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script> -->
+
     <script>
 
         var validate = {
@@ -269,7 +269,7 @@
                 $(".footerpage").load("foot.html");
             },
             showTips: function (message) {
-                if (this.isLogin == false) {
+                if (this.attr.isLogin == false) {
                     $('.tips').text(message).show();
                 } else {
                     $('.modifyTips').text(message).show();
@@ -277,14 +277,13 @@
             },
             closeTips: function () {
                 $('.tips').hide();
-                this.attr.isValidate = true;
             },
             vLength: function (name, vdata) {
                 if (vdata.length < 1) {
-                    this.showTips(name+'不能为空');
+                    validate.showTips(name+'不能为空');
                     return false;
                 } else if (vdata.length > 20) {
-                    this.showTips(name+'长度不能大于20个字符');
+                    validate.showTips(name+'长度不能大于20个字符');
                     return false;
                 }
                 return true;
@@ -304,8 +303,6 @@
                 return false;
             },
             vConfirmPassword: function (pw, cpw) {
-                // var pw = $('#password').val();
-                // var cpw = $('#confirmPassword').val();
                 if (pw != cpw) {
                     validate.showTips('两次输入密码不一致');
                     return false;
@@ -368,8 +365,10 @@
 
             },
             bindDom: function () {
-                switchPanel.bindEvent();
+                // switchPanel.bindEvent();
+                console.log('1');
                 $('#account').on('blur', function (){
+                    console.log('2');
                     validate.vAccount($('#account').val());
                 });
                 $('#password').on('blur', function () {
@@ -587,7 +586,7 @@
                         validate.showTips('表单不完整或有错误,请重试');
                     }
                 })
-                this.bindDom();
+                validate.bindDom();
             }
         };
 

@@ -91,6 +91,10 @@ public class MemberController{
             if(r1 > 0) {
                 int r = memberService.updateMember(member);
                 if(r > 0) {
+                    member.setPassword(null);
+                    session.setAttribute("member",member);
+                    session.setAttribute("member_id",member.getId());
+                    session.setAttribute("member_key", Md5Utils.key(member.getAccount()));
                     return new Result(200);
                 }
             }
