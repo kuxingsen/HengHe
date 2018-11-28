@@ -53,21 +53,21 @@
 	<!-- 中央新闻  -->
 	<div class="row">
 		<div class="column2-1">
-			<h3 class="column-head"> <a href="news.html?id=2">新闻中心</a></h3>
+			<h3 class="column-head"> <a href="news.html?id=2" class="news-name"></a></h3>
 			<ul></ul>
 		</div>
 		<div class="column2-1">
-			<h3 class="column-head"> <a href="news.html?id=3">比赛信息</a></h3>
+			<h3 class="column-head"> <a href="news.html?id=3" class="news-name"></a></h3>
 			<ul></ul>
 		</div>
 	</div>
 	<div class="row">
 		<div class="column2-1">
-			<h3 class="column-head"><a href="news.html?id=4">服务项目</a></h3>
+			<h3 class="column-head"><a href="news.html?id=4" class="news-name"></a></h3>
 			<ul></ul>
 		</div>
 		<div class="column2-1">
-			<h3 class="column-head"> <a href="news.html?id=5"> 顾问团队 </a></h3>
+			<h3 class="column-head"> <a href="news.html?id=5" class="news-name"> </a></h3>
 			<ul></ul>
 		</div>
 	</div>
@@ -107,6 +107,13 @@
                                     column.append('<li><a href="article.html?id=' + list[i].id + '">' + list[i].title + '</a></li>');
                                 }
                             }
+                        });
+					$.get("/columnName",{columnId: cid})
+						.success(function (res) {
+                            var column = $('.news-name').eq(cid-2);
+                            if (res.code == 200) {
+                                column.text(res.datas[0]);
+							}
                         })
                 }
 				$.ajaxSettings.async = true;

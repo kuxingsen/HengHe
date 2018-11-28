@@ -222,6 +222,17 @@ public class AdminController{
             return new Result(200);
         }
         return new Result(500, "É¾³ıÊ§°Ü");
-
+    }
+    @RequestMapping("updateColumn")
+    @ResponseBody
+    public Result updateColumn(Column column){
+        System.out.println(column);
+        if(column != null){
+            int result = adminService.updateColumn(column);
+            if(result > 0) {
+                return new Result(200);
+            }
+        }
+        return new Result(500, "É¾³ıÊ§°Ü");
     }
 }

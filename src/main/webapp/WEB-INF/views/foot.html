@@ -54,22 +54,22 @@
 	        <li class="first">
 	          <dl>
 	            <dt>关于我们</dt>
-	            <dd><a href="Homepage.html">公司简介</a></dd>
-	            <dd><a href="Homepage2.html">联系我们</a></dd>
+	            <dd><a href="Homepage.html" class="link-name"></a></dd>
+	            <dd><a href="Homepage2.html" class="link-name"></a></dd>
 	          </dl>
 	        </li>
 					<li>
 	          <dl>
 	            <dt>新闻集合</dt>
-							<dd><a href="news2.html?id=2">新闻中心</a></dd>
-							<dd><a href="news.html?id=3">比赛项目</a></dd>
+							<dd><a href="news2.html?id=2" class="link-name"></a></dd>
+							<dd><a href="news.html?id=3" class="link-name"></a></dd>
 	          </dl>
 	        </li>	 
 	        <li>
 	          <dl>
 	            <dt>公司管理</dt>
-	            <dd><a href="member.html">会员中心</a></dd>
-	            <dd><a href="/admin">后台管理</a></dd>
+	            <dd><a href="member.html" class="link-name"></a></dd>
+	            <dd><a href="/admin" class="link-name">后台管理</a></dd>
 	          </dl>
 	        </li>
 	        
@@ -82,6 +82,34 @@
   </div>
 
     <div style="display: none; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; cursor: move; opacity: 0; background: rgb(255, 255, 255);"></div>
-  
+  	
+  <script>
+	  (function () {
+		  $.get('/selectColumn')
+			  .success(function (res) {
+			      var lname =$('.link-name');
+				  if (res.code == 200) {
+                      var list = res.datas;
+                      for (var i=0; i<list.length; i++) {
+                          if (list[i].id == 1) {
+                              lname.eq(0).text(list[i].name);
+                          }
+                          if (list[i].id == 7) {
+                              lname.eq(1).text(list[i].name);
+						  }
+                          if (list[i].id == 2) {
+                              lname.eq(2).text(list[i].name);
+                          }
+                          if (list[i].id == 3) {
+                              lname.eq(3).text(list[i].name);
+                          }
+                          if (list[i].id == 6) {
+                              lname.eq(4).text(list[i].name);
+                          }
+                      }
+				  }
+              })
+      })();
+  </script>
   </body>
 </html>

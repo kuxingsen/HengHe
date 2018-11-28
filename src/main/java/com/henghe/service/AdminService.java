@@ -1,5 +1,6 @@
 package com.henghe.service;
 
+import com.henghe.bean.Column;
 import com.henghe.bean.Member;
 import com.henghe.bean.Message;
 import com.henghe.dto.Result;
@@ -23,7 +24,7 @@ import static com.henghe.bean.Content.TITLE_IMG_PATH;
 
 @Service
 public class AdminService{
-
+    //操作admin
     public int getAdminId(String username, String oldPassword) {
         ResultSet result;
         String sql = "select id from admin where name=? and password=?";
@@ -41,8 +42,23 @@ public class AdminService{
         }
         return 0;
     }
+    public int updateAdmin(Integer adminId,String username,String newPassword) {
+        int result = 0;
+        String sql = "update admin set name=?,password=? where id=?";
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, newPassword);
+            ps.setInt(3, adminId);
+            result = ps.executeUpdate();
+//            System.out.println(result);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
-
+    //操作message
     public List<Message> getMessageResult(String searchId, String sql) {
         ResultSet result;
         try {
@@ -78,24 +94,6 @@ public class AdminService{
         }
         return null;
     }
-
-
-    public int updateAdmin(Integer adminId,String username,String newPassword) {
-        int result = 0;
-        String sql = "update admin set name=?,password=? where id=?";
-        try {
-            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
-            ps.setString(1, username);
-            ps.setString(2, newPassword);
-            ps.setInt(3, adminId);
-            result = ps.executeUpdate();
-//            System.out.println(result);
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
     public int insertMessage(Integer adminId,Message message,String imgPath,String filePath){
         int result = 0;
         String sql = "insert into message(title,title_img,date,content,file,is_push,menu_id,admin_id) values(?,?,?,?,?,?,?,?)";
@@ -134,54 +132,7 @@ public class AdminService{
         }
         return result;
     }
-    public String saveFile(MultipartFile file) {
-        String millis = System.currentTimeMillis() + "";
-        File dir = new File(REAL_FILE_PATH);
-        if(!dir.getParentFile().exists()) {
-            boolean mk = dir.getParentFile().mkdirs();
-            System.out.println("create: henghe_dir " + mk);
-        }
-        if(!dir.exists()) {
-            boolean mk = dir.mkdirs();
-            System.out.println("create file_path_dir:" + mk);
-        }
-        String fileName = millis + "_" + file.getOriginalFilename();
-        File uploadFile = new File(REAL_FILE_PATH, fileName);
-        if(copyFile(file, uploadFile)) return fileName;
-        return null;
-    }
-
-    public String saveTitleImg(MultipartFile titleImg) {
-        String millis = System.currentTimeMillis() + "";
-        File dir = new File(REAL_TITLE_IMG_PATH);
-        if(!dir.getParentFile().exists()) {
-            boolean mk = dir.getParentFile().mkdirs();
-            System.out.println("create: henghe_dir " + mk);
-        }
-        if(!dir.exists()) {
-            boolean mk = dir.mkdirs();
-            System.out.println("create title_img_path_dir:" + mk);
-        }
-        String originalFileName = titleImg.getOriginalFilename();
-        String fileName = millis + originalFileName.substring(originalFileName.lastIndexOf("."));
-        File uploadFile = new File(REAL_TITLE_IMG_PATH, fileName);
-//        System.out.println(fileName);
-        if(copyFile(titleImg, uploadFile)) return fileName;
-        return null;
-    }
-
-    private boolean copyFile(MultipartFile titleImg, File uploadFile) {
-        try {
-            FileUtils.copyInputStreamToFile(titleImg.getInputStream(), uploadFile);
-        } catch(IOException e) {
-            e.printStackTrace();
-            System.err.println("filePath is not save");
-            return false;
-        }
-        return true;
-    }
-
-    public Message updatePathInMessage(Message message, String imgPath,String filePath) {
+    public Message updatePathInMessage(Message message, String imgPath,String filePath) {//to midify message
         ResultSet result1;
         String sql = "select title_img,file from message where id =?";
         try {
@@ -212,66 +163,27 @@ public class AdminService{
 //        System.out.println(message.getTitleImgPath()+":::::"+message.getFilePath());
         return message;
     }
-    private int deleteFileOrImg(String fileTmp,String path) {
-        if(fileTmp != null){
-            File dir = new File(path,fileTmp);
-            if (dir.exists()) {
-                boolean res = dir.delete();
-//                System.out.println(dir.getAbsolutePath()+res);
-                return res?1:0;
-            }
-//            System.out.println(dir.getAbsolutePath());
-        }
-        return 0;
-    }
-
     public int deleteMessage(List<String> messageId){
-        int result=0;
-        int size = messageId.size();
-        StringBuilder sql = new StringBuilder("delete from message where id in( ?");
-        for(int i = 1;i < size;i++){
-            sql.append(",?");
-        }
-        sql.append(")");
-        try {
-            PreparedStatement ps = DbUtil.executePreparedStatement(sql.toString());
-            for(int i = 1;i <= size;i++){
-                ps.setInt(i, Integer.valueOf(messageId.get(i-1)));
-            }
-            result = ps.executeUpdate();
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
+        return deleteByIds(messageId,"message");
     }
-
-    public void deleteImgAndFile(List<String> messageId) {
-        int size = messageId.size();
+    public int getCount(String name) {
+        String sql="select count(id) count from member where name like '%"+name+"%'";
         ResultSet result;
-        StringBuilder sql = new StringBuilder("select title_img,file from message where id in( ?");
-        for(int i = 1;i < size;i++){
-            sql.append(",?");
-        }
-        sql.append(")");
         try {
-            PreparedStatement ps = DbUtil.executePreparedStatement(sql.toString());
-            for(int i = 1;i <= size;i++){
-                ps.setInt(i, Integer.valueOf(messageId.get(i-1)));
-            }
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
             result = ps.executeQuery();
             if(result != null) {
-                while(result.next()){
-                    String titleImg = result.getString("title_img");
-                    String file = result.getString("file");
-                    deleteFileOrImg(titleImg,REAL_TITLE_IMG_PATH);
-                    deleteFileOrImg(file,REAL_FILE_PATH);
+                if(result.next()){
+                    return result.getInt("count");
                 }
             }
         } catch(SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
+    //操作User
     public List<Member> selectMember(String name, String index, String limit) {
         String sql = "select * from member where name like '%"+name+ "%' limit ?,?";
         ResultSet result;
@@ -302,7 +214,6 @@ public class AdminService{
         }
         return null;
     }
-
     public int deleteUser(List<String> userId) {
         int result=0;
         int size = userId.size();
@@ -323,24 +234,90 @@ public class AdminService{
         return result;
     }
 
-    public int getCount(String name) {
-        String sql="select count(id) count from member where name like '%"+name+"%'";
-        ResultSet result;
+    //操作file/img
+    public String saveFile(MultipartFile file) {
+        String millis = System.currentTimeMillis() + "";
+        File dir = new File(REAL_FILE_PATH);
+        if(!dir.getParentFile().exists()) {
+            boolean mk = dir.getParentFile().mkdirs();
+            System.out.println("create: henghe_dir " + mk);
+        }
+        if(!dir.exists()) {
+            boolean mk = dir.mkdirs();
+            System.out.println("create file_path_dir:" + mk);
+        }
+        String fileName = millis + "_" + file.getOriginalFilename();
+        File uploadFile = new File(REAL_FILE_PATH, fileName);
+        if(copyFile(file, uploadFile)) return fileName;
+        return null;
+    }
+    public String saveTitleImg(MultipartFile titleImg) {
+        String millis = System.currentTimeMillis() + "";
+        File dir = new File(REAL_TITLE_IMG_PATH);
+        if(!dir.getParentFile().exists()) {
+            boolean mk = dir.getParentFile().mkdirs();
+            System.out.println("create: henghe_dir " + mk);
+        }
+        if(!dir.exists()) {
+            boolean mk = dir.mkdirs();
+            System.out.println("create title_img_path_dir:" + mk);
+        }
+        String originalFileName = titleImg.getOriginalFilename();
+        String fileName = millis + originalFileName.substring(originalFileName.lastIndexOf("."));
+        File uploadFile = new File(REAL_TITLE_IMG_PATH, fileName);
+//        System.out.println(fileName);
+        if(copyFile(titleImg, uploadFile)) return fileName;
+        return null;
+    }
+    private boolean copyFile(MultipartFile titleImg, File uploadFile) {//to save uploadFile
         try {
-            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
+            FileUtils.copyInputStreamToFile(titleImg.getInputStream(), uploadFile);
+        } catch(IOException e) {
+            e.printStackTrace();
+            System.err.println("filePath is not save");
+            return false;
+        }
+        return true;
+    }
+    private int deleteFileOrImg(String fileTmp,String path) {//to modify/delete message
+        if(fileTmp != null){
+            File dir = new File(path,fileTmp);
+            if (dir.exists()) {
+                boolean res = dir.delete();
+//                System.out.println(dir.getAbsolutePath()+res);
+                return res?1:0;
+            }
+//            System.out.println(dir.getAbsolutePath());
+        }
+        return 0;
+    }
+    public void deleteImgAndFile(List<String> messageId) {//to delete message
+        int size = messageId.size();
+        ResultSet result;
+        StringBuilder sql = new StringBuilder("select title_img,file from message where id in( ?");
+        for(int i = 1;i < size;i++){
+            sql.append(",?");
+        }
+        sql.append(")");
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql.toString());
+            for(int i = 1;i <= size;i++){
+                ps.setInt(i, Integer.valueOf(messageId.get(i-1)));
+            }
             result = ps.executeQuery();
             if(result != null) {
-                if(result.next()){
-                    return result.getInt("count");
+                while(result.next()){
+                    String titleImg = result.getString("title_img");
+                    String file = result.getString("file");
+                    deleteFileOrImg(titleImg,REAL_TITLE_IMG_PATH);
+                    deleteFileOrImg(file,REAL_FILE_PATH);
                 }
             }
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return 0;
     }
-
-    public int deleteOldFileOrImg(int messageId,String w) {
+    public int deleteOldFileOrImg(int messageId,String w) {//to modify message
         String file=null;
         String sql="select "+w+" as need from message where id = ?";
         ResultSet result;
@@ -370,7 +347,7 @@ public class AdminService{
         }
         return -1;//-1代表该id没有相应的title_img
     }
-    private int setPathNull(String path,Integer messageId){
+    private int setPathNull(String path,Integer messageId){//to modify message
         String sql="update message set "+path+"=? where id = ?";
         int result=0;
         try {
@@ -378,6 +355,56 @@ public class AdminService{
 //            ps.setString(1,w);
             ps.setString(1,null);
             ps.setInt(2,messageId);
+            result = ps.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    //操作Column
+    public int updateColumn(Column column){
+        String sql = "update menu set name=? where id=?";
+        int result=0;
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
+            ps.setString(1, column.getName());
+            ps.setInt(2, Integer.parseInt(column.getId()));
+            result = ps.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public int deleteColumn(List<String> columnIds){
+        return deleteByIds(columnIds,"column");
+    }
+
+    public int insertColumn(Column column){
+        int result = 0;
+        String sql = "insert into column(name) values(?)";
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql);
+            ps.setString(1, column.getName());
+            result = ps.executeUpdate();
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    private int deleteByIds(List<String> ids,String table) {
+        int result=0;
+        int size = ids.size();
+        StringBuilder sql = new StringBuilder("delete from "+table+" where id in( ?");
+        for(int i = 1;i < size;i++){
+            sql.append(",?");
+        }
+        sql.append(")");
+        try {
+            PreparedStatement ps = DbUtil.executePreparedStatement(sql.toString());
+            for(int i = 1;i <= size;i++){
+                ps.setInt(i, Integer.valueOf(ids.get(i-1)));
+            }
             result = ps.executeUpdate();
         } catch(SQLException e) {
             e.printStackTrace();
