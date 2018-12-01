@@ -79,6 +79,8 @@ public class MemberController{
             if(r > 0){
                 return new Result(200);
             }
+        }else if(r1 == -2){
+            return new Result(500,"该账号已存在，请重新注册");
         }
         return new Result(500,"账号信息出错");
     }

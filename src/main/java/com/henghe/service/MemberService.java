@@ -103,6 +103,8 @@ public class MemberService{
         String account = member.getAccount();
         if(account == null || account.length()>20 || account.length() < 1){
            return -1;
+        }else if( accountRepeat(account) == 1){
+            return -2;
         }
         String password = member.getPassword();
         if(password == null || password.length()>20 || password.length() < 1){
