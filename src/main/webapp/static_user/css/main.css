@@ -158,6 +158,13 @@ ul {
   width: 20px;
   height: 15px;
 }
+.center-ul li:before {
+  content: "";
+  display: inline-block;
+  background: url("/static_user/images/icon-list.jpg") no-repeat center center;
+  width: 20px;
+  height: 15px;
+}
 .swiper-container {
     width: 100%;
     height: 480px;

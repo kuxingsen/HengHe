@@ -28,13 +28,13 @@
                     if (res.code === 200) {
                         var list = res.datas;
                         for (var i = 0; i < list.length; i++) {
-                            if (list[i].name === '新闻中心') {
+                            if (list[i].id === '2') {
                                 $('#nav_column').append('<li class="nav_column_item"><a href="news2.html?id='+list[i].id+'">'+ list[i].name+'</a></li>');
-                            } else if (list[i].name === '公司简介') {
+                            } else if (list[i].id === '1') {
                                 $('#nav_column').append('<li class="nav_column_item"><a href="Homepage.html">'+ list[i].name +'</a></li>');
-                            } else if (list[i].name === '会员中心') {
+                            } else if (list[i].id === '6') {
                                 $('#nav_column').append('<li class="nav_column_item"><a href="member.html">'+ list[i].name +'</a></li>');
-							} else if (list[i].name === '联系我们') {
+							} else if (list[i].id === '7') {
                                 $('#nav_column').append('<li class="nav_column_item"><a href="Homepage2.html">'+ list[i].name + '</a></li>');
                             } else {
                                 $('#nav_column').append('<li class="nav_column_item"><a href="news.html?id=' + list[i].id + '">' + list[i].name + '</a></li>');

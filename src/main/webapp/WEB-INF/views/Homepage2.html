@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
   <head>
-    <title>Homepage.html</title>
+    <title>广东恒河体育公司</title>
+    <link rel="icon" href="/static_user/images/favicon.ico" >
 	
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="this is my page">
@@ -136,7 +137,7 @@
 		var hopgObj = {
 		    url: {
 		        article: function () {
-					return '/selectMessageByColumnId';
+					return '/selectMessageByMessageId';
                 }
 			},
 			init: function () {
@@ -149,7 +150,7 @@
                 $(".footerpage").load("foot.html");
 			},
 			getArticle: function () {
-				$.get(this.url.article(),{columnId: 7})
+				$.get(this.url.article(),{messageId: 2})
 					.success(function (res) {
 						if (res.code == 200) {
 							// 渲染文章

@@ -121,8 +121,7 @@ public class CommonService{
             result = ps.executeQuery();
             if(result != null) {
                 if(result.next()) {
-                    String file = result.getString("file");
-                    return file.substring(file.indexOf("_"));
+                    return result.getString("file");
                 }
             }
         } catch(SQLException e) {

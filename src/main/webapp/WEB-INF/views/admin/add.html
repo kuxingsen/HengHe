@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label">新闻内容</label>
+                                <label class="layui-form-label">信息内容</label>
                                 <div class="layui-input-inline">
                                     <script id="editor" name="content" type="text/plain"
                                             style="width:1024px;height:500px;"></script>
@@ -138,10 +138,10 @@
                                                         headers: {"ClientCallMode": "ajax"}, //添加请求头部
                                                         success: function (data) {
                                                             if (data.code == "200") {
-                                                                layer.msg("新闻添加成功");
+                                                                layer.msg("信息添加成功");
                                                                 setTimeout("location.href='control.html'", 500);
                                                             } else {
-                                                                layer.msg("新闻添加失败!");
+                                                                layer.msg("信息添加失败!");
                                                             }
                                                         }
                                                     };

@@ -5,7 +5,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>恒河体育</title>
+	<title>广东恒河体育公司</title>
+    <link rel="icon" href="/static_user/images/favicon.ico" >
 
 	<meta name="keywords" content="恒河">
 	<meta name="description" content="恒河">
@@ -108,12 +109,12 @@
                                 }
                             }
                         });
-					$.get("/columnName",{columnId: cid})
-						.success(function (res) {
+                    $.get("/columnName",{columnId: cid})
+                        .success(function (res) {
                             var column = $('.news-name').eq(cid-2);
                             if (res.code == 200) {
                                 column.text(res.datas[0]);
-							}
+                            }
                         })
                 }
 				$.ajaxSettings.async = true;

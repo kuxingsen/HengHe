@@ -29,7 +29,7 @@
                 <div class="layui-main">
                     <div id="LAY_preview">
                         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                            <legend>新闻编辑</legend>
+                            <legend>信息编辑</legend>
                         </fieldset>
                         <form id="tf" class="layui-form" action="" enctype="multipart/form-data"    >
                             <input type="hidden" name="id" id="id">
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label">新闻内容</label>
+                                <label class="layui-form-label">信息内容</label>
                                 <div class="layui-input-inline">
                                     <script id="editor" name="content" type="text/plain"
                                             style="width:1024px;height:500px;"></script>
@@ -149,10 +149,10 @@
                                                         headers: {"ClientCallMode": "ajax"}, //添加请求头部
                                                         success: function (data) {
                                                             if (data.code == "200") {
-                                                                layer.msg("新闻更新成功");
+                                                                layer.msg("信息更新成功");
                                                                 setTimeout("location.href='control'", 500);
                                                             } else {
-                                                                layer.msg("新闻更新失败!");
+                                                                layer.msg("信息更新失败!");
                                                             }
                                                         }
                                                     };
@@ -164,7 +164,7 @@
                                         }
                                     //实例化编辑器
                                     var ue = UE.getEditor('editor');
-                                    //记录新闻信息
+                                    //记录信息信息
                                     var messageData;
                                     //获取地址栏中的参数
                                     function GetQueryString(name) {
@@ -226,7 +226,7 @@
                                     };
 
                                     function getIdData() {
-                                        //获取要编辑的新闻的id
+                                        //获取要编辑的信息的id
                                         var id = GetQueryString("id");
                                         // alert(id);
                                         $.ajax({
@@ -286,7 +286,7 @@
                                         layer.confirm("确认要删除原附件吗(此操作将立即执行并无法找回)",
                                             {btn:['确认', '取消']},
                                             function() {
-                                                //获取新闻id
+                                                //获取信息id
                                                 var id = GetQueryString("id");
                                                 //请求删除id对应的附件
                                                 $.ajax({
@@ -313,7 +313,7 @@
                                         layer.confirm("确认要删除原标题图吗(此操作将立即执行并无法找回)",
                                             {btn:['确认', '取消']},
                                             function() {
-                                                //获取新闻id
+                                                //获取信息id
                                                 var id = GetQueryString("id");
                                                 //请求删除id对应的标题图
                                                 $.ajax({

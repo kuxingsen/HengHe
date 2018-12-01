@@ -6,7 +6,8 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>新闻中心</title>
+    <title>广东恒河体育公司</title>
+    <link rel="icon" href="/static_user/images/favicon.ico" >
 
     <meta name="keywords" content="恒河">
     <meta name="description" content="恒河">
@@ -98,7 +99,7 @@
                         $('.pagination').empty();
                         var list = res.datas;
                         for (var i = 0; i < list.length; i++) {
-                            $(".center-ul-img").append('<div class="item-wrapper"><a href="article.html?id='+ list[i].id +'"><img src="' + list[i].titleImgPath +'" class="item-img"></a>'+
+                            $(".center-ul-img").append('<div class="item-wrapper"><a href="article.html?id=${list[i].id}"><img src="' + list[i].titleImgPath +'" class="item-img"></a>'+
                                 '<div class="item-text"><a href="article.html?id='+list[i].id+'">' + list[i].title + '</a></div><div class="date">'+ list[i].date + '</div></div>'
                             );
                         }

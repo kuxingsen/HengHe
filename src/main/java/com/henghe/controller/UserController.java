@@ -106,7 +106,7 @@ public class UserController {
             HttpHeaders headers = new HttpHeaders();
 
             //下载显示的文件名，解决中文名称乱码问题
-            String downloadFielName = new String(fileName.getBytes(StandardCharsets.UTF_8),
+            String downloadFielName = new String(fileName.substring(fileName.indexOf("_")).getBytes(StandardCharsets.UTF_8),
                     StandardCharsets.ISO_8859_1);
             //通知浏览器以attachment（下载方式）
             headers.setContentDispositionFormData("attachment", downloadFielName);
