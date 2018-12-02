@@ -139,7 +139,7 @@
 		var hopgObj = {
 		    url: {
 		        article: function () {
-					return '/selectMessageByMessageId';
+					return '/selectMessageByColumnId';
                 }
 			},
 			init: function () {
@@ -152,15 +152,13 @@
                 $(".footerpage").load("foot.html");
 			},
 			getArticle: function () {
-				$.get(this.url.article(),{messageId: 1})
+				$.get(this.url.article(),{columnId: 1})
 					.success(function (res) {
 						if (res.code == 200) {
 							// 渲染文章
-							var title = $('.content-title');
-							var date = $('.content-date');
+							var title = $('.content-head');
 							title.text(res.datas[0].title);
-							date.text(res.datas[0].date);
-							$('.content').html(res.datas[0].content);
+							$('.content-div').html(res.datas[0].content);
 							$('.img_style').attr("src",res.datas[0].titleImgPath);
 						}
                     })
