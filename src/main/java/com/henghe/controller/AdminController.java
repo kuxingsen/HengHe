@@ -159,10 +159,10 @@ public class AdminController{
         int index = Integer.valueOf(limit)*(Integer.valueOf(page)-1);
         String sql;
         if(columnId == null || columnId.equals("") || !columnId.matches("[1-9]\\d*")){
-            sql = "select * from message mess,menu where 0=? and mess.menu_id=menu.id  order by mess.id limit "+index+","+limit;
+            sql = "select * from message mess,menu where 0=? and mess.menu_id=menu.id  order by mess.id desc limit "+index+","+limit;
             columnId = "0";
         }else {
-            sql = "select * from message mess,menu where mess.menu_id=? and mess.menu_id=menu.id order by mess.id limit "+index+","+limit;
+            sql = "select * from message mess,menu where mess.menu_id=? and mess.menu_id=menu.id order by mess.id desc limit "+index+","+limit;
         }
         List<Message> messageList = adminService.getMessageResult(columnId, sql);
         int count = commonService.getCount(columnId);

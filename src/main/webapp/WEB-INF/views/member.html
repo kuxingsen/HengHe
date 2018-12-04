@@ -208,7 +208,7 @@
                     <span class="mb_rg_switch_left switch_active">账号登录</span><span class="mb_rg_switch_right">会员注册</span>
                 </div>
                 <div class="mb_rg_form" id="regist_form">
-                    <div class="tips" style="display:none">这是提示消息</div>
+                    <div class="tips" style="display:none;">这是提示消息</div>
                     <input type="text" name="account" placeholder="账号" id="account" onkeyup="value=value.replace(/[^a-za-z0-9u4e00-u9fa5@.]/g,'')">
                     <input type="password" name="password" placeholder="密码" id="password">
                     <input type="password" placeholder="确认密码" id="confirmPassword">
@@ -229,7 +229,7 @@
                     <button class="form_submit" id="regist_button">点击注册</button>
                 </div>
                 <div class="mb_rg_form" id="login_form" >
-                    <div class="login_tips" style="display:none">这是提示消息</div>
+                    <div class="login_tips" style="display:none;color: red">这是提示消息</div>
                     <input type="text" id="login_account" placeholder="账号">
                     <input type="password" id="login_password" placeholder="密码">
                     <button class="form_submit" id="login_button">登录</button>
@@ -438,6 +438,8 @@
                                 setTimeout(function() {
                                     location.reload();
                                 }, 1500);
+                            }else {
+                                $('.login_tips').text(res.msg).show();
                             }
                         })
                     } else {
@@ -579,7 +581,7 @@
                                     location.reload();
                                 }, 1500);
                             } else {
-                                validate.showTips(res.Msg);
+                                validate.showTips(res.msg);
                             }
                         })
                     } else {
