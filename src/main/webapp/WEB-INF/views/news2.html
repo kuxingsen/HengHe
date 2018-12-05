@@ -99,7 +99,7 @@
                         $('.pagination').empty();
                         var list = res.datas;
                         for (var i = 0; i < list.length; i++) {
-                            $(".center-ul-img").append('<div class="item-wrapper"><a href="article.html?id=${list[i].id}"><img src="' + list[i].titleImgPath +'" class="item-img"></a>'+
+                            $(".center-ul-img").append('<div class="item-wrapper"><a href="article.html?id='+list[i].id+'"><img src="' + list[i].titleImgPath +'" class="item-img"></a>'+
                                 '<div class="item-text"><a href="article.html?id='+list[i].id+'">' + list[i].title + '</a></div><div class="date">'+ list[i].date + '</div></div>'
                             );
                         }
